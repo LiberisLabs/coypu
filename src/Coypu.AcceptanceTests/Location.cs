@@ -54,17 +54,5 @@ namespace Coypu.AcceptanceTests
             browser.GoForward();
             Assert.That(browser.Location, Is.EqualTo(new Uri(site.BaseUri, "/auto_login")));
         }
-
-        private void ReloadTestPage()
-        {
-            browser.Visit(Helper.GetProjectFile(@"html\InteractionTestsPage.htm"));
-        }
-
-        [Test, Ignore("Didn't work from original fork")]
-        public void It_exposes_the_location_of_an_iframe_scope()
-        {
-            ReloadTestPage();
-            Assert.That(browser.FindFrame("iframe1").Location.AbsolutePath, Is.StringContaining("iFrame1.htm"));
-        }
     }
 }
