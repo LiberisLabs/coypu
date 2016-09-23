@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using Coypu.Drivers.Tests.Sites;
 using Coypu.Finders;
@@ -44,13 +45,10 @@ namespace Coypu.Drivers.Tests
         private static readonly Browser browser = Browser.Chrome;
         private static readonly Type driverType = typeof (Selenium.SeleniumWebDriver);
 
-//        private static readonly Browser browser = Browser.InternetExplorer;
-//        private static readonly Type driverType = typeof (Watin.WatiNDriver);
-
         [SetUp]
         public virtual void SetUp()
         {
-            Driver.Visit(GetTestHTMLPathLocation(),Root);
+            Driver.Visit(GetTestHTMLPathLocation(), Root);
         }
 
         protected string GetTestHTMLPathLocation()
@@ -60,8 +58,11 @@ namespace Coypu.Drivers.Tests
 
         protected static string TestHtmlPathLocation(string testPage)
         {
-            var file = new FileInfo(Path.Combine(@"..\..\", testPage)).FullName;
-            return "file:///" + file.Replace('\\', '/');
+            var currentDir = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
+            var index = currentDir.LastIndexOf("\\bin\\");
+            var projectDir = currentDir.Remove(index);
+
+            return $"file:///{Path.Combine(projectDir, testPage)}";
         }
 
         protected virtual string TestPage

@@ -40,7 +40,6 @@ namespace Coypu.Drivers.Tests
             Section("sectionTwo").Id.should_be("sectionTwo");
         }
 
-
         [Test]
         public void Only_finds_div_and_section()
         {
