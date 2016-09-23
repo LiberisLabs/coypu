@@ -10,8 +10,8 @@ namespace Coypu.AcceptanceTests
     [TestFixture]
     public class ExternalExamples
     {
-        private SessionConfiguration SessionConfiguration;
         private BrowserSession browser;
+        private SessionConfiguration SessionConfiguration;
 
         [SetUp]
         public void SetUp()
@@ -19,15 +19,13 @@ namespace Coypu.AcceptanceTests
             SessionConfiguration = new SessionConfiguration();
             SessionConfiguration.AppHost = "www.google.com";
             SessionConfiguration.Driver = typeof(SeleniumWebDriver);
-
             SessionConfiguration.Timeout = TimeSpan.FromSeconds(10);
-
-            browser = new BrowserSession(SessionConfiguration);
         }
+
         [TearDown]
         public void TearDown()
         {
-            browser.Dispose();
+            browser?.Dispose();
         }
 
         [Test]
@@ -41,18 +39,20 @@ namespace Coypu.AcceptanceTests
 
             browser.Visit("/");
             Assert.That(browser.Location.ToString(), Is.EqualTo("https://www.google.co.uk/"));
-
         }
 
-        [Test, Explicit]
+        [Test]
+        [Explicit]
         public void Retries_Autotrader()
         {
+            browser = new BrowserSession(SessionConfiguration);
+
             browser.Visit("http://www.autotrader.co.uk/used-cars");
 
             browser.FillIn("postcode").With("N1 1AA");
-            
+
             browser.FindField("make").Click();
-            
+
             browser.Select("citroen").From("make");
             browser.Select("c4_grand_picasso").From("model");
 
@@ -60,24 +60,28 @@ namespace Coypu.AcceptanceTests
             browser.Select("diesel").From("fuel-type");
             browser.Select("up_to_7_years_old").From("maximum-age");
             browser.Select("up_to_60000_miles").From("maximum-mileage");
-            
+
             browser.FillIn("Add keyword").With("vtr");
         }
 
-
-        [Test, Explicit]
+        [Test]
+        [Explicit]
         public void Visibility_NewTwitterLogin()
         {
+            browser = new BrowserSession(SessionConfiguration);
+
             browser.Visit("http://www.twitter.com");
 
             browser.FillIn("session[username_or_email]").With("coyputester2");
             browser.FillIn("session[password]").With("Nappybara");
         }
 
-        [Test,
-         Ignore("Make checkboxes on carbuzz are jumping around after you click each one. Re-enable when that is fixed")]
+        [Test]
+        [Ignore("Make checkboxes on carbuzz are jumping around after you click each one. Re-enable when that is fixed")]
         public void FindingStuff_CarBuzz()
         {
+            browser = new BrowserSession(SessionConfiguration);
+
             browser.Visit("http://carbuzz.heroku.com/car_search");
 
             Console.WriteLine(browser.FindSection("Make").Exists());
@@ -99,19 +103,18 @@ namespace Coypu.AcceptanceTests
         public void HtmlUnitDriver()
         {
             SessionConfiguration.AppHost = "www.google.com";
-            SessionConfiguration.Browser = Drivers.Browser.HtmlUnit;
+            SessionConfiguration.Browser = Browser.HtmlUnit;
 
             try
             {
-                using (var htmlUnit = new BrowserSession(SessionConfiguration))
-                {
-                    htmlUnit.Visit("/");
-                }
+                browser = new BrowserSession(SessionConfiguration);
+                browser.Visit("/");
+
                 Assert.Fail("Expected an exception attempting to connect to HtmlUnit driver");
             }
             catch (WebDriverException e)
             {
-                Assert.That(e.Message, Is.StringContaining("No connection could be made because the target machine actively refused it 127.0.0.1:4444"));
+                Assert.That(e.Message, Does.Contain("No connection could be made because the target machine actively refused it 127.0.0.1:4444"));
             }
         }
     }
