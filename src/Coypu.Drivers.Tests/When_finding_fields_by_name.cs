@@ -1,5 +1,3 @@
-using Coypu.Finders;
-using NSpec;
 using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
@@ -9,25 +7,25 @@ namespace Coypu.Drivers.Tests
         [Test]
         public void Finds_text_input()
         {
-            Field("containerLabeledTextInputFieldName").Value.should_be("text input field two val");
+            Assert.That(Field("containerLabeledTextInputFieldName").Value, Is.EqualTo("text input field two val"));
         }
 
         [Test]
         public void Finds_textarea()
         {
-            Field("containerLabeledTextareaFieldName").Value.should_be("textarea field two val");
+            Assert.That(Field("containerLabeledTextareaFieldName").Value, Is.EqualTo("textarea field two val"));
         }
 
         [Test]
         public void Finds_select()
         {
-            Field("containerLabeledSelectFieldName").Id.should_be("containerLabeledSelectFieldId");
+            Assert.That(Field("containerLabeledSelectFieldName").Id, Is.EqualTo("containerLabeledSelectFieldId"));
         }
 
         [Test]
         public void Finds_checkbox()
         {
-            Field("containerLabeledCheckboxFieldName").Value.should_be("checkbox field two val");
+            Assert.That(Field("containerLabeledCheckboxFieldName").Value, Is.EqualTo("checkbox field two val"));
         }
 
         [Test]
@@ -39,13 +37,13 @@ namespace Coypu.Drivers.Tests
         [Test]
         public void Finds_password_input()
         {
-            Field("containerLabeledPasswordFieldName").Id.should_be("containerLabeledPasswordFieldId");
+            Assert.That(Field("containerLabeledPasswordFieldName").Id, Is.EqualTo("containerLabeledPasswordFieldId"));
         }
 
         [Test]
         public void Finds_file_input()
         {
-            Field("containerLabeledFileFieldName").Id.should_be("containerLabeledFileFieldId");
+            Assert.That(Field("containerLabeledFileFieldName").Id, Is.EqualTo("containerLabeledFileFieldId"));
         }
 
     }

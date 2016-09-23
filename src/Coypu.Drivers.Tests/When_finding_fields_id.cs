@@ -1,4 +1,3 @@
-using NSpec;
 using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
@@ -8,90 +7,90 @@ namespace Coypu.Drivers.Tests
         [Test]
         public void Finds_field()
         {
-            Field("containerLabeledTextInputFieldId").Value.should_be("text input field two val");
+            Assert.That(Field("containerLabeledTextInputFieldId").Value, Is.EqualTo("text input field two val"));
         }
 
         [Test]
         public void Finds_email_field()
         {
-            Field("containerLabeledEmailInputFieldId").Value.should_be("email input field two val");
+            Assert.That(Field("containerLabeledEmailInputFieldId").Value, Is.EqualTo("email input field two val"));
         }
 
         [Test]
         public void Finds_tel_field()
         {
-            Field("containerLabeledTelInputFieldId").Value.should_be("0123456789");
+            Assert.That(Field("containerLabeledTelInputFieldId").Value, Is.EqualTo("0123456789"));
         }
 
         [Test]
         public void Finds_number_field()
         {
-            Field("containerLabeledNumberInputFieldId").Value.should_be("42");
+            Assert.That(Field("containerLabeledNumberInputFieldId").Value, Is.EqualTo("42"));
         }
 
         [Test]
         public void Finds_datetime_field()
         {
-            Field("containerLabeledDatetimeInputFieldId").Value.should_be("2012-01-02T03:04:05Z");
+            Assert.That(Field("containerLabeledDatetimeInputFieldId").Value, Is.EqualTo("2012-01-02T03:04:05Z"));
         }
 
         [Test]
         public void Finds_datetime_local_field()
         {
-            Field("containerLabeledDatetimeLocalInputFieldId").Value.should_be("2012-01-02T03:04:05");
+            Assert.That(Field("containerLabeledDatetimeLocalInputFieldId").Value, Is.EqualTo("2012-01-02T03:04:05"));
         }
 
         [Test]
         public void Finds_date_field()
         {
-            Field("containerLabeledDateInputFieldId").Value.should_be("2012-01-02");
+            Assert.That(Field("containerLabeledDateInputFieldId").Value, Is.EqualTo("2012-01-02"));
         }
 
         [Test]
         public void Finds_url_field()
         {
-            Field("containerLabeledUrlInputFieldId").Value.should_be("http://www.example.com");
+            Assert.That(Field("containerLabeledUrlInputFieldId").Value, Is.EqualTo("http://www.example.com"));
         }
         [Test]
         public void Finds_color_field()
         {
-            Field("containerLabeledColorInputFieldId").Value.should_be("#ff0000");
+            Assert.That(Field("containerLabeledColorInputFieldId").Value, Is.EqualTo("#ff0000"));
         }
 
         [Test]
         public void Finds_textarea()
         {
-            Field("containerLabeledTextareaFieldId").Value.should_be("textarea field two val");
+            Assert.That(Field("containerLabeledTextareaFieldId").Value, Is.EqualTo("textarea field two val"));
         }
 
         [Test]
         public void Finds_select()
         {
-            Field("containerLabeledSelectFieldId").Name.should_be("containerLabeledSelectFieldName");
+            Assert.That(Field("containerLabeledSelectFieldId").Name, Is.EqualTo("containerLabeledSelectFieldName"));
         }
 
         [Test]
         public void Finds_checkbox()
         {
-            Field("containerLabeledCheckboxFieldId").Value.should_be("checkbox field two val");
+            Assert.That(Field("containerLabeledCheckboxFieldId").Value, Is.EqualTo("checkbox field two val"));
         }
 
         [Test]
         public void Finds_radio()
         {
-            Field("containerLabeledRadioFieldId").Value.should_be("radio field two val");
+            Assert.That(Field("containerLabeledRadioFieldId").Value, Is.EqualTo("radio field two val"));
         }
 
         [Test]
         public void Finds_password()
         {
-            Field("containerLabeledPasswordFieldId").Name.should_be("containerLabeledPasswordFieldName");
+            Assert.That(Field("containerLabeledPasswordFieldId").Name, Is.EqualTo("containerLabeledPasswordFieldName"));
         }
 
         [Test]
         public void Finds_file()
         {
-            Field("containerLabeledFileFieldId").Name.should_be("containerLabeledFileFieldName");
+            Assert.That(Field("containerLabeledFileFieldId").Name, Is.EqualTo("containerLabeledFileFieldName"));
         }
     }
 }

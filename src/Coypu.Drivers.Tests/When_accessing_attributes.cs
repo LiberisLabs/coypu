@@ -1,6 +1,4 @@
-﻿using Coypu.Finders;
-using NSpec;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
 {
@@ -10,10 +8,10 @@ namespace Coypu.Drivers.Tests
         public void Exposes_element_attributes()
         {
             var formWithAttributesToTest = Id("attributeTestForm", Root, DefaultOptions);
-            formWithAttributesToTest["id"].should_be("attributeTestForm");
-            formWithAttributesToTest["method"].should_be("post");
-            formWithAttributesToTest["action"].should_be("http://somesite.com/action.htm");
-            formWithAttributesToTest["target"].should_be("_parent");
+            Assert.That(formWithAttributesToTest["id"], Is.EqualTo("attributeTestForm"));
+            Assert.That(formWithAttributesToTest["method"], Is.EqualTo("post"));
+            Assert.That(formWithAttributesToTest["action"], Is.EqualTo("http://somesite.com/action.htm"));
+            Assert.That(formWithAttributesToTest["target"], Is.EqualTo("_parent"));
         }
     }
 }

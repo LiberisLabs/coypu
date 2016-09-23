@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Coypu.Finders;
-using NSpec;
 using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
@@ -10,43 +9,43 @@ namespace Coypu.Drivers.Tests
         [Test]
         public void Finds_text_input()
         {
-            Field("text input field linked by for", options: Options.Exact).Id.should_be("forLabeledTextInputFieldId");
+            Assert.That(Field("text input field linked by for", options: Options.Exact).Id, Is.EqualTo("forLabeledTextInputFieldId"));
         }
 
         [Test]
         public void Finds_password_field()
         {
-            Field("password field linked by for").Id.should_be("forLabeledPasswordFieldId");
+            Assert.That(Field("password field linked by for").Id, Is.EqualTo("forLabeledPasswordFieldId"));
         }
 
         [Test]
         public void Finds_select_field()
         {
-            Field("select field linked by for").Id.should_be("forLabeledSelectFieldId");
+            Assert.That(Field("select field linked by for").Id, Is.EqualTo("forLabeledSelectFieldId"));
         }
 
         [Test]
         public void Finds_checkbox()
         {
-            Field("checkbox field linked by for").Id.should_be("forLabeledCheckboxFieldId");
+            Assert.That(Field("checkbox field linked by for").Id, Is.EqualTo("forLabeledCheckboxFieldId"));
         }
 
         [Test]
         public void Finds_radio_button()
         {
-            Field("radio field linked by for").Id.should_be("forLabeledRadioFieldId");
+            Assert.That(Field("radio field linked by for").Id, Is.EqualTo("forLabeledRadioFieldId"));
         }
 
         [Test]
         public void Finds_textarea()
         {
-            Field("textarea field linked by for").Id.should_be("forLabeledTextareaFieldId");
+            Assert.That(Field("textarea field linked by for").Id, Is.EqualTo("forLabeledTextareaFieldId"));
         }
 
         [Test]
         public void Finds_file_input()
         {
-            Field("file field linked by for").Id.should_be("forLabeledFileFieldId");
+            Assert.That(Field("file field linked by for").Id, Is.EqualTo("forLabeledFileFieldId"));
         }
 
         [Test]

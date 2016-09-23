@@ -1,5 +1,4 @@
-﻿using NSpec;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
 {
@@ -8,8 +7,8 @@ namespace Coypu.Drivers.Tests
         [Test]
         public void Finds_link_by_text()
         {
-            Link("first link").Id.should_be("firstLinkId");
-            Link("second link").Id.should_be("secondLinkId");
+            Assert.That(Link("first link").Id, Is.EqualTo("firstLinkId"));
+            Assert.That(Link("second link").Id, Is.EqualTo("secondLinkId"));
         }
 
         [Test]

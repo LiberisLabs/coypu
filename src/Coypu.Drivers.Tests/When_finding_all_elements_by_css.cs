@@ -1,12 +1,10 @@
 ﻿using System.Linq;
-using NSpec;
 using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
 {
     internal class When_finding_all_elements_by_css : DriverSpecs
     {
-
         [Test]
         public void Returns_empty_if_no_matches()
         {
@@ -19,9 +17,9 @@ namespace Coypu.Drivers.Tests
         {
             const string shouldFind = "#inspectingContent ul#cssTest li";
             var all = Driver.FindAllCss(shouldFind, Root, DefaultOptions);
-            all.Count().should_be(3);
-            all.ElementAt(1).Text.should_be("two");
-            all.ElementAt(2).Text.should_be("Me! Pick me!");
+            Assert.That(all.Count(), Is.EqualTo(3));
+            Assert.That(all.ElementAt(1).Text, Is.EqualTo("two"));
+            Assert.That(all.ElementAt(2).Text, Is.EqualTo("Me! Pick me!"));
         }
     }
 }

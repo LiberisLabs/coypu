@@ -1,5 +1,5 @@
-using NSpec;
 using NUnit.Framework;
+
 namespace Coypu.Drivers.Tests
 {
     public class When_finding_buttons : DriverSpecs
@@ -7,71 +7,71 @@ namespace Coypu.Drivers.Tests
         [Test]
         public void Finds_a_particular_button_by_its_text()
         {
-            Button("first button").Id.should_be("firstButtonId");
-            Button("second button").Id.should_be("secondButtonId");
+            Assert.That(Button("first button").Id, Is.EqualTo("firstButtonId"));
+            Assert.That(Button("second button").Id, Is.EqualTo("secondButtonId"));
         }
 
         [Test]
         public void Finds_a_particular_button_by_its_id()
         {
-            Button("firstButtonId").Text.should_be("first button");
-            Button("thirdButtonId").Text.should_be("third button");
+            Assert.That(Button("firstButtonId").Text, Is.EqualTo("first button"));
+            Assert.That(Button("thirdButtonId").Text, Is.EqualTo("third button"));
         }
 
         [Test]
         public void Finds_a_particular_button_by_its_name()
         {
-            Button("secondButtonName").Text.should_be("second button");
-            Button("thirdButtonName").Text.should_be("third button");
+            Assert.That(Button("secondButtonName").Text, Is.EqualTo("second button"));
+            Assert.That(Button("thirdButtonName").Text, Is.EqualTo("third button"));
         }
 
         [Test]
         public void Finds_a_particular_input_button_by_its_value()
         {
-            Button("first input button").Id.should_be("firstInputButtonId");
-            Button("second input button").Id.should_be("secondInputButtonId");
+            Assert.That(Button("first input button").Id, Is.EqualTo("firstInputButtonId"));
+            Assert.That(Button("second input button").Id, Is.EqualTo("secondInputButtonId"));
         }
 
         [Test]
         public void Finds_a_particular_input_button_by_its_id()
         {
-            Button("firstInputButtonId").Value.should_be("first input button");
-            Button("thirdInputButtonId").Value.should_be("third input button");
+            Assert.That(Button("firstInputButtonId").Value, Is.EqualTo("first input button"));
+            Assert.That(Button("thirdInputButtonId").Value, Is.EqualTo("third input button"));
         }
 
         [Test]
         public void Finds_a_particular_input_button_by_its_name()
         {
-            Button("secondInputButtonId").Value.should_be("second input button");
-            Button("thirdInputButtonName").Value.should_be("third input button");
+            Assert.That(Button("secondInputButtonId").Value, Is.EqualTo("second input button"));
+            Assert.That(Button("thirdInputButtonName").Value, Is.EqualTo("third input button"));
         }
 
         [Test]
         public void Finds_a_particular_submit_button_by_its_value()
         {
-            Button("first submit button").Id.should_be("firstSubmitButtonId");
-            Button("second submit button").Id.should_be("secondSubmitButtonId");
+            Assert.That(Button("first submit button").Id, Is.EqualTo("firstSubmitButtonId"));
+            Assert.That(Button("second submit button").Id, Is.EqualTo("secondSubmitButtonId"));
         }
 
         [Test]
         public void Finds_a_particular_submit_button_by_its_id()
         {
-            Button("firstSubmitButtonId").Value.should_be("first submit button");
-            Button("thirdSubmitButtonId").Value.should_be("third submit button");
+            Assert.That(Button("firstSubmitButtonId").Value, Is.EqualTo("first submit button"));
+            Assert.That(Button("thirdSubmitButtonId").Value, Is.EqualTo("third submit button"));
         }
 
         [Test]
         public void Finds_a_particular_submit_button_by_its_name()
         {
-            Button("secondSubmitButtonName").Value.should_be("second submit button");
-            Button("thirdSubmitButtonName").Value.should_be("third submit button");
+            Assert.That(Button("secondSubmitButtonName").Value, Is.EqualTo("second submit button"));
+            Assert.That(Button("thirdSubmitButtonName").Value, Is.EqualTo("third submit button"));
         }
 
         [Test]
         public void Finds_image_buttons()
         {
-            Button("firstImageButtonId").Value.should_be("first image button");
-            Button("secondImageButtonId").Value.should_be("second image button");
+            Assert.That(Button("firstImageButtonId").Value, Is.EqualTo("first image button"));
+            Assert.That(Button("secondImageButtonId").Value, Is.EqualTo("second image button"));
         }
 
         [Test]

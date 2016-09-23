@@ -1,5 +1,4 @@
-﻿using NSpec;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
 {
@@ -8,7 +7,7 @@ namespace Coypu.Drivers.Tests
         [Test]
         public void Gets_the_current_page_title()
         {
-            Driver.Title(Root).should_be("Coypu interaction tests page");
+            Assert.That(Driver.Title(Root), Is.EqualTo("Coypu interaction tests page"));
         }
     }
 }

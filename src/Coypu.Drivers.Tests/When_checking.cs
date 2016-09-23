@@ -1,5 +1,4 @@
-﻿using NSpec;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
 {
@@ -9,12 +8,12 @@ namespace Coypu.Drivers.Tests
         public void Checks_an_unchecked_checkbox()
         {
             var checkbox = Field("uncheckedBox"); 
-            checkbox.Selected.should_be_false();
+            Assert.That(checkbox.Selected, Is.False);
 
             Driver.Check(checkbox);
 
             var findAgain = Field("uncheckedBox");
-            findAgain.Selected.should_be_true();
+            Assert.That(findAgain.Selected, Is.True);
         }
 
 
@@ -22,12 +21,12 @@ namespace Coypu.Drivers.Tests
         public void Leaves_a_checked_checkbox_checked()
         {
             var checkbox = Field("checkedBox");
-            checkbox.Selected.should_be_true();
+            Assert.That(checkbox.Selected, Is.True);
 
             Driver.Check(checkbox);
 
             var findAgain = Field("checkedBox");
-            findAgain.Selected.should_be_true();
+            Assert.That(findAgain.Selected, Is.True);
         }
 
 
@@ -35,12 +34,12 @@ namespace Coypu.Drivers.Tests
         public void Unchecks_a_checked_checkbox()
         {
             var checkbox = Field("checkedBox");
-            checkbox.Selected.should_be_true();
+            Assert.That(checkbox.Selected, Is.True);
 
             Driver.Uncheck(checkbox);
 
             var findAgain = Field("checkedBox");
-            findAgain.Selected.should_be_false();
+            Assert.That(findAgain.Selected, Is.False);
         }
 
 
@@ -48,12 +47,12 @@ namespace Coypu.Drivers.Tests
         public void Leaves_an_unchecked_checkbox_unchecked()
         {
             var checkbox = Field("uncheckedBox");
-            checkbox.Selected.should_be_false();
+            Assert.That(checkbox.Selected, Is.False);
 
             Driver.Uncheck(checkbox);
 
             var findAgain = Field("uncheckedBox");
-            findAgain.Selected.should_be_false();
+            Assert.That(findAgain.Selected, Is.False);
         }
 
 
@@ -61,23 +60,22 @@ namespace Coypu.Drivers.Tests
         public void Fires_onclick_event_on_check()
         {
             var checkbox = Field("uncheckedBox");
-            checkbox.Value.should_be("unchecked");
+            Assert.That(checkbox.Value, Is.EqualTo("unchecked"));
 
             Driver.Check(checkbox);
 
-            Field("uncheckedBox", Root).Value.should_be("unchecked - clicked");
+            Assert.That(Field("uncheckedBox", Root).Value, Is.EqualTo("unchecked - clicked"));
         }
-
 
         [Test]
         public void Fires_onclick_event_on_uncheck()
         {
             var checkbox = Field("checkedBox");
-            checkbox.Value.should_be("checked");
+            Assert.That(checkbox.Value, Is.EqualTo("checked"));
 
             Driver.Uncheck(checkbox);
 
-            Field("checkedBox", Root).Value.should_be("checked - clicked");
+            Assert.That(Field("checkedBox", Root).Value, Is.EqualTo("checked - clicked"));
         }
     }
 }

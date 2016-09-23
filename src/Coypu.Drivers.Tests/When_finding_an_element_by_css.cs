@@ -1,5 +1,4 @@
 ﻿using System.Text.RegularExpressions;
-using NSpec;
 using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
@@ -10,20 +9,20 @@ namespace Coypu.Drivers.Tests
             public void Finds_present_examples()
             {
                 var shouldFind = "#inspectingContent p.css-test span";
-                Css(shouldFind).Text.should_be("This");
+                Assert.That(Css(shouldFind).Text, Is.EqualTo("This"));
 
                 shouldFind = "ul#cssTest li:nth-child(3)";
-                Css(shouldFind).Text.should_be("Me! Pick me!");
+                Assert.That(Css(shouldFind).Text, Is.EqualTo("Me! Pick me!"));
             }
 
             [Test]
             public void Finds_present_examples_by_text()
             {
                 var shouldFind = "#inspectingContent p.css-test span";
-                Css(shouldFind, new Regex("^This$")).Text.should_be("This");
+                Assert.That(Css(shouldFind, new Regex("^This$")).Text, Is.EqualTo("This"));
 
                 shouldFind = "ul#cssTest li:nth-child(3)";
-                Css(shouldFind, new Regex("Pick me")).Text.should_be("Me! Pick me!");
+                Assert.That(Css(shouldFind, new Regex("Pick me")).Text, Is.EqualTo("Me! Pick me!"));
             }
 
             [Test]

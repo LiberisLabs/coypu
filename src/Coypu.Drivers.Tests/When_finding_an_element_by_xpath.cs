@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using NSpec;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
 {
@@ -10,10 +8,10 @@ namespace Coypu.Drivers.Tests
         public void Finds_present_examples()
         {
             var shouldFind = "//*[@id = 'inspectingContent']//p[@class='css-test']/span";
-            XPath(shouldFind).Text.should_be("This");
+            Assert.That(XPath(shouldFind).Text, Is.EqualTo("This"));
 
             shouldFind = "//ul[@id='cssTest']/li[3]";
-            XPath(shouldFind).Text.should_be("Me! Pick me!");
+            Assert.That(XPath(shouldFind).Text, Is.EqualTo("Me! Pick me!"));
         }
 
         [Test]

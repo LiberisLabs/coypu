@@ -1,4 +1,3 @@
-using NSpec;
 using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
@@ -8,8 +7,8 @@ namespace Coypu.Drivers.Tests
         [Test]
         public void Finds_text_field_by_placeholder()
         {
-            Field("text input field with a placeholder").Id.should_be("textInputFieldWithPlaceholder");
-            Field("textarea field with a placeholder").Id.should_be("textareaFieldWithPlaceholder");
+            Assert.That(Field("text input field with a placeholder").Id, Is.EqualTo("textInputFieldWithPlaceholder"));
+            Assert.That(Field("textarea field with a placeholder").Id, Is.EqualTo("textareaFieldWithPlaceholder"));
         }
     }
 }

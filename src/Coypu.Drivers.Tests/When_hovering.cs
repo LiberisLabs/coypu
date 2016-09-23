@@ -1,5 +1,4 @@
-﻿using NSpec;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
 {
@@ -10,10 +9,10 @@ namespace Coypu.Drivers.Tests
 
         {
             var element = Id("hoverOnMeTest");
-            element.Text.should_be("Hover on me");
+            Assert.That(element.Text, Is.EqualTo("Hover on me"));
             Driver.Hover(element);
 
-            Id("hoverOnMeTest").Text.should_be("Hover on me - hovered");
+            Assert.That(Id("hoverOnMeTest").Text, Is.EqualTo("Hover on me - hovered"));
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using NSpec;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
 {
@@ -8,15 +7,15 @@ namespace Coypu.Drivers.Tests
         [Test]
         public void Finds_by_legend_text()
         {
-            Fieldset("Scope 1").Id.should_be("fieldsetScope1");
-            Fieldset("Scope 2").Id.should_be("fieldsetScope2");
+            Assert.That(Fieldset("Scope 1").Id, Is.EqualTo("fieldsetScope1"));
+            Assert.That(Fieldset("Scope 2").Id, Is.EqualTo("fieldsetScope2"));
         }
 
         [Test]
         public void Finds_by_id()
         {
-            Fieldset("fieldsetScope1").Native.should_be(Fieldset("Scope 1").Native);
-            Fieldset("fieldsetScope2").Native.should_be(Fieldset("Scope 2").Native);
+            Assert.That(Fieldset("fieldsetScope1").Native, Is.EqualTo(Fieldset("Scope 1").Native));
+            Assert.That(Fieldset("fieldsetScope2").Native, Is.EqualTo(Fieldset("Scope 2").Native));
         }
 
         [Test]

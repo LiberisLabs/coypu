@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Coypu.Finders;
-using NSpec;
 using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
@@ -10,43 +9,43 @@ namespace Coypu.Drivers.Tests
         [Test]
         public void Finds_text_input()
         {
-            Field("text input field in a label container", options: Options.Exact).Id.should_be("containerLabeledTextInputFieldId");
+            Assert.That(Field("text input field in a label container", options: Options.Exact).Id, Is.EqualTo("containerLabeledTextInputFieldId"));
         }
 
         [Test]
         public void Finds_password()
         {
-            Field("password field in a label container").Id.should_be("containerLabeledPasswordFieldId");
+            Assert.That(Field("password field in a label container").Id, Is.EqualTo("containerLabeledPasswordFieldId"));
         }
 
         [Test]
         public void Finds_checkbox()
         {
-            Field("checkbox field in a label container").Id.should_be("containerLabeledCheckboxFieldId");
+            Assert.That(Field("checkbox field in a label container").Id, Is.EqualTo("containerLabeledCheckboxFieldId"));
         }
 
         [Test]
         public void Finds_radio()
         {
-            Field("radio field in a label container").Id.should_be("containerLabeledRadioFieldId");
+            Assert.That(Field("radio field in a label container").Id, Is.EqualTo("containerLabeledRadioFieldId"));
         }
 
         [Test]
         public void Finds_select()
         {
-            Field("select field in a label container").Id.should_be("containerLabeledSelectFieldId");
+            Assert.That(Field("select field in a label container").Id, Is.EqualTo("containerLabeledSelectFieldId"));
         }
 
         [Test]
         public void Finds_textarea()
         {
-            Field("textarea field in a label container").Id.should_be("containerLabeledTextareaFieldId");
+            Assert.That(Field("textarea field in a label container").Id, Is.EqualTo("containerLabeledTextareaFieldId"));
         }
 
         [Test]
         public void Finds_file_field()
         {
-            Field("file field in a label container", options: Options.Exact).Id.should_be("containerLabeledFileFieldId");
+            Assert.That(Field("file field in a label container", options: Options.Exact).Id, Is.EqualTo("containerLabeledFileFieldId"));
         }
 
         [Test]
