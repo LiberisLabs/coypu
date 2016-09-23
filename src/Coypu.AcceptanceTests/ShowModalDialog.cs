@@ -7,6 +7,7 @@ namespace Coypu.AcceptanceTests
     public class ShowModalDialog
     {
         [Test]
+        [Explicit("showModalDialog has been deprecated and the test does not dispose properly when run")]
         public void Modal_dialog()
         {
             using (var session = new BrowserSession(new SessionConfiguration{Browser = Browser.InternetExplorer}))
