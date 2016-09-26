@@ -9,13 +9,7 @@ namespace Coypu.Tests.When_interacting_with_the_browser
     [TestFixture]
     public class When_finding_all_matching_elements : BrowserInteractionTests
     {
-        [Test, Ignore("Didn't work from original fork")]
-        public void FindAllCss_should_make_direct_call_to_underlying_driver()
-        {
-            Should_make_direct_call_when_no_predicate_supplied(browserSession.FindAllCss, driver.StubAllCss);
-        }
-
-        [Test, Ignore("Didn't work from original fork")]
+        [Test]
         public void FindAllCss_wrap_each_element_found_in_a_snapshot_scope_with()
         {
             Should_wrap_elements_in_snapshot_scope(browserSession.FindAllCss, driver.StubAllCss);
@@ -28,13 +22,13 @@ namespace Coypu.Tests.When_interacting_with_the_browser
                                                                              driver.StubAllCss);
         }
 
-        [Test, Ignore("Didn't work from original fork")]
+        [Test]
         public void FindAllXPath_should_make_direct_call_to_underlying_driver()
         {
             Should_make_direct_call_when_no_predicate_supplied(browserSession.FindAllXPath, driver.StubAllXPath);
         }
 
-        [Test, Ignore("Didn't work from original fork")]
+        [Test]
         public void FindAllXPath_wrap_each_element_found_in_a_snapshot_scope_with()
         {
             Should_wrap_elements_in_snapshot_scope(browserSession.FindAllXPath, driver.StubAllXPath);
