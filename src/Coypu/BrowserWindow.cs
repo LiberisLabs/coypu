@@ -1,4 +1,3 @@
-using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using Coypu.Actions;
@@ -13,7 +12,8 @@ namespace Coypu
     /// </summary>
     public class BrowserWindow : DriverScope
     {
-        internal BrowserWindow(SessionConfiguration SessionConfiguration, ElementFinder elementFinder, Driver driver, TimingStrategy timingStrategy, Waiter waiter, UrlBuilder urlBuilder, DisambiguationStrategy disambiguationStrategy) 
+        internal BrowserWindow(SessionConfiguration SessionConfiguration, ElementFinder elementFinder, Driver driver, TimingStrategy timingStrategy, Waiter waiter, UrlBuilder urlBuilder,
+                               DisambiguationStrategy disambiguationStrategy)
             : base(SessionConfiguration, elementFinder, driver, timingStrategy, waiter, urlBuilder, disambiguationStrategy)
         {
         }
@@ -66,7 +66,7 @@ namespace Coypu
         /// <param name="virtualPath">Virtual paths will use the SessionConfiguration.AppHost,Port,SSL settings. Otherwise supply a fully qualified URL.</param>
         public void Visit(string virtualPath)
         {
-            driver.Visit(urlBuilder.GetFullyQualifiedUrl(virtualPath,SessionConfiguration),this);
+            driver.Visit(urlBuilder.GetFullyQualifiedUrl(virtualPath, SessionConfiguration), this);
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Coypu
         /// <param name="javascript">JavaScript to execute</param>
         /// <param name="args">Script arguments to be passed down to the browser</param>
         /// <returns>Anything returned from the script</returns>
-        public object ExecuteScript(string javascript, params object[] args) 
+        public object ExecuteScript(string javascript, params object[] args)
         {
             return driver.ExecuteScript(javascript, this, args);
         }

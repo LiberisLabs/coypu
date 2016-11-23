@@ -31,6 +31,5 @@ namespace Coypu
         {
             timingStrategy.Synchronise(new Select(driver, scope, locator, option, disambiguationStrategy, options));
         }
-
     }
 }

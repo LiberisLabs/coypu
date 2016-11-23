@@ -23,7 +23,8 @@ namespace Coypu
         private readonly DriverScope outerScope;
         protected readonly DisambiguationStrategy DisambiguationStrategy = new FinderOptionsDisambiguationStrategy();
 
-        internal DriverScope(SessionConfiguration sessionConfiguration, ElementFinder elementFinder, Driver driver, TimingStrategy timingStrategy, Waiter waiter, UrlBuilder urlBuilder, DisambiguationStrategy disambiguationStrategy)
+        internal DriverScope(SessionConfiguration sessionConfiguration, ElementFinder elementFinder, Driver driver, TimingStrategy timingStrategy, Waiter waiter, UrlBuilder urlBuilder,
+                             DisambiguationStrategy disambiguationStrategy)
         {
             this.elementFinder = elementFinder ?? new DocumentElementFinder(driver, sessionConfiguration);
             this.SessionConfiguration = sessionConfiguration;
@@ -128,7 +129,7 @@ namespace Coypu
             return new FieldFinder(driver, locator, this, Merge(options)).AsScope();
         }
 
-        public FillInWith FillIn(string locator, Options options = null) 
+        public FillInWith FillIn(string locator, Options options = null)
         {
             return new FillInWith(FindField(locator, options), driver, timingStrategy, Merge(options));
         }
@@ -200,25 +201,29 @@ namespace Coypu
             return FindCss(cssSelector, text, options).Exists();
         }
 
-        [Obsolete("For assertions please use Assert.That(scope, Shows.Css(\".your-selector\",etc); instead for decent feedback. For the old behaviour of HasXPath you can use FindXPath(...).Exists();")]
+        [Obsolete("For assertions please use Assert.That(scope, Shows.Css(\".your-selector\",etc); instead for decent feedback. For the old behaviour of HasXPath you can use FindXPath(...).Exists();")
+        ]
         public bool HasXPath(string xpath, Options options = null)
         {
-            return FindXPath(xpath,options).Exists();
+            return FindXPath(xpath, options).Exists();
         }
 
-        [Obsolete("For assertions please use Assert.That(scope, Shows.No.Css(\".your-selector\",etc); instead for decent feedback. For the old behaviour of HasNoCss you can use FindCss(...).Missing();")]
+        [Obsolete(
+            "For assertions please use Assert.That(scope, Shows.No.Css(\".your-selector\",etc); instead for decent feedback. For the old behaviour of HasNoCss you can use FindCss(...).Missing();")]
         public bool HasNoCss(string cssSelector, string text, Options options = null)
         {
             return FindCss(cssSelector, text, options).Missing();
         }
 
-        [Obsolete("For assertions please use Assert.That(scope, Shows.No.Css(\".your-selector\",etc); instead for decent feedback. For the old behaviour of HasNOCss you can use FindCss(...).Missing();")]
+        [Obsolete(
+            "For assertions please use Assert.That(scope, Shows.No.Css(\".your-selector\",etc); instead for decent feedback. For the old behaviour of HasNOCss you can use FindCss(...).Missing();")]
         public bool HasNoCss(string cssSelector, Regex text, Options options = null)
         {
             return FindCss(cssSelector, text, options).Missing();
         }
 
-        [Obsolete("For assertions please use Assert.That(scope, Shows.No.XPath(\"/your/xpath\",etc); instead for decent feedback. For the old behaviour of HasNoXPath you can use FindXPath(...).Missing();")]
+        [Obsolete(
+            "For assertions please use Assert.That(scope, Shows.No.XPath(\"/your/xpath\",etc); instead for decent feedback. For the old behaviour of HasNoXPath you can use FindXPath(...).Missing();")]
         public bool HasNoXPath(string xpath, Options options = null)
         {
             return FindXPath(xpath, options).Missing();
@@ -321,18 +326,18 @@ namespace Coypu
         private Func<bool> WithZeroTimeout(Func<bool> query)
         {
             var zeroTimeoutUntil = new Func<bool>(() =>
+            {
+                var was = timingStrategy.ZeroTimeout;
+                timingStrategy.ZeroTimeout = true;
+                try
                 {
-                    var was = timingStrategy.ZeroTimeout;
-                    timingStrategy.ZeroTimeout = true;
-                    try
-                    {
-                        return query();
-                    }
-                    finally
-                    {
-                        timingStrategy.ZeroTimeout = was;
-                    }
-                });
+                    return query();
+                }
+                finally
+                {
+                    timingStrategy.ZeroTimeout = was;
+                }
+            });
             return zeroTimeoutUntil;
         }
 

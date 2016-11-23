@@ -11,7 +11,7 @@ namespace Coypu
         {
             try
             {
-                var driver = (Driver)Activator.CreateInstance(driverType, browser);
+                var driver = (Driver) Activator.CreateInstance(driverType, browser);
                 OpenDrivers++;
                 return driver;
             }

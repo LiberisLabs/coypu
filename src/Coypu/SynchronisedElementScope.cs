@@ -5,7 +5,7 @@ using Coypu.Queries;
 
 namespace Coypu
 {
-    public class SynchronisedElementScope : ElementScope 
+    public class SynchronisedElementScope : ElementScope
     {
         private readonly Options options;
 
@@ -64,5 +64,4 @@ namespace Coypu
             return Query(new LambdaQuery<T>(getAttribute, null, this, options));
         }
     }
-
 }

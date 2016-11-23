@@ -7,16 +7,15 @@ namespace Coypu.Queries
     internal class FindAllCssWithPredicateQuery : DriverScopeQuery<IEnumerable<SnapshotElementScope>>
     {
         private readonly string locator;
-        private readonly Func<IEnumerable<SnapshotElementScope>,bool> predicate;
+        private readonly Func<IEnumerable<SnapshotElementScope>, bool> predicate;
 
-        public FindAllCssWithPredicateQuery(string locator, Func<IEnumerable<SnapshotElementScope>,bool> predicate, DriverScope driverScope, Options options) : base(driverScope, options)
+        public FindAllCssWithPredicateQuery(string locator, Func<IEnumerable<SnapshotElementScope>, bool> predicate, DriverScope driverScope, Options options) : base(driverScope, options)
         {
             if (predicate == null)
                 predicate = e => true;
 
             this.predicate = predicate;
             this.locator = locator;
-
         }
 
         public override IEnumerable<SnapshotElementScope> Run()

@@ -16,7 +16,7 @@ namespace Coypu.Drivers.Selenium
 
         public string LastKnownWindowHandle
         {
-           get { return lastKnownWindowHandle; } 
+            get { return lastKnownWindowHandle; }
         }
 
         public SeleniumWindowManager(IWebDriver webDriver)

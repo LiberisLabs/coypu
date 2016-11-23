@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Coypu.Finders
 {
@@ -26,7 +25,10 @@ namespace Coypu.Finders
 
         public abstract bool SupportsSubstringTextMatching { get; }
 
-        internal string Locator { get { return locator; } }
+        internal string Locator
+        {
+            get { return locator; }
+        }
 
         internal abstract IEnumerable<Element> Find(Options options);
 
@@ -42,5 +44,4 @@ namespace Coypu.Finders
             return new SynchronisedElementScope(this, Scope, options);
         }
     }
-
 }

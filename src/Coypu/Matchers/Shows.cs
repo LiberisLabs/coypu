@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace Coypu.Matchers
 {
@@ -11,10 +9,11 @@ namespace Coypu.Matchers
     }
 
     [Obsolete(Obsoletion.ObsoleteMessage)]
-    public static class Shows {
+    public static class Shows
+    {
     }
 
-    
+
     [Obsolete(Obsoletion.ObsoleteMessage)]
     public class ShowsNo
     {

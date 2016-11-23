@@ -3,7 +3,7 @@ namespace Coypu.Queries
     internal class WindowExistsQuery : DriverScopeQuery<bool>
     {
         protected internal WindowExistsQuery(DriverScope driverScope, Options options)
-            : base(driverScope,options)
+            : base(driverScope, options)
         {
         }
 

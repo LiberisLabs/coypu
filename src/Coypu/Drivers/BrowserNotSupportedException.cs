@@ -8,7 +8,7 @@ namespace Coypu.Drivers
     public class BrowserNotSupportedException : Exception
     {
         public BrowserNotSupportedException(Browser browser, Type driverType)
-            : this( browser,driverType, null)
+            : this(browser, driverType, null)
         {
         }
 

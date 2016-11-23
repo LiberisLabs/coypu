@@ -35,7 +35,6 @@ namespace Coypu.Timing
             var stopWatch = Stopwatch.StartNew();
             while (true)
             {
-
                 try
                 {
                     var result = query.Run();
@@ -60,7 +59,7 @@ namespace Coypu.Timing
                 {
                     if (TimeoutReached(stopWatch, Timeout(query), interval))
                         throw ex;
-            
+
                     WaitForInterval(interval);
                 }
                 catch (Exception ex)
@@ -68,7 +67,7 @@ namespace Coypu.Timing
                     MarkAsStale(query);
                     if (TimeoutReached(stopWatch, Timeout(query), interval))
                         throw ex;
-            
+
                     WaitForInterval(interval);
                 }
             }

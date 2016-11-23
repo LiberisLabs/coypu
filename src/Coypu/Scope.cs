@@ -6,8 +6,7 @@ using Coypu.Drivers;
 using Coypu.Queries;
 
 namespace Coypu
-{   
-
+{
     /// <summary>
     /// The scope for any browser interaction: a browser window, frame or element.
     /// </summary>
@@ -235,7 +234,7 @@ namespace Coypu
         ///   <code>new Options{Timeout = TimeSpan.FromSeconds(60)}</code></param>
         /// <returns>All matching elements as snapshot scopes which will not respect future changes in the document</returns>
         IEnumerable<SnapshotElementScope> FindAllCss(string cssSelector, Func<IEnumerable<SnapshotElementScope>, bool> predicate = null,
-                                             Options options = null);
+                                                     Options options = null);
 
         /// <summary>
         /// Find all elements matching an XPath query. If a predicate is supplied this will wait until the predicate matches, otherwise this will return immediately.

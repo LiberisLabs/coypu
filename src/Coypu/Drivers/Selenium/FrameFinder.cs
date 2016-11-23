@@ -22,7 +22,7 @@ namespace Coypu.Drivers.Selenium
         public IEnumerable<IWebElement> FindFrame(string locator, Scope scope, Options options)
         {
             var frames = AllElementsByTag(scope, "iframe", options)
-                        .Union(AllElementsByTag(scope, "frame", options));
+                .Union(AllElementsByTag(scope, "frame", options));
 
             return WebElement(locator, frames, options);
         }
@@ -35,9 +35,9 @@ namespace Coypu.Drivers.Selenium
         private IEnumerable<IWebElement> WebElement(string locator, IEnumerable<IWebElement> webElements, Options options)
         {
             return webElements.Where(e => e.GetAttribute("id") == locator ||
-                                            e.GetAttribute("name") == locator ||
-                                            (options.TextPrecisionExact ? e.GetAttribute("title") == locator : e.GetAttribute("title").Contains(locator)) ||
-                                            FrameContentsMatch(e, locator, options));
+                                          e.GetAttribute("name") == locator ||
+                                          (options.TextPrecisionExact ? e.GetAttribute("title") == locator : e.GetAttribute("title").Contains(locator)) ||
+                                          FrameContentsMatch(e, locator, options));
         }
 
         private bool FrameContentsMatch(IWebElement e, string locator, Options options)
@@ -45,11 +45,10 @@ namespace Coypu.Drivers.Selenium
             var currentHandle = selenium.CurrentWindowHandle;
             try
             {
-
                 var frame = seleniumWindowManager.SwitchToFrame(e);
                 return
-                   frame.Title == locator ||
-                   frame.FindElements(By.XPath(".//h1[" + xPath.IsText(locator, options) + "]")).Any();
+                    frame.Title == locator ||
+                    frame.FindElements(By.XPath(".//h1[" + xPath.IsText(locator, options) + "]")).Any();
             }
             finally
             {

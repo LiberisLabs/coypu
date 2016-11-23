@@ -77,7 +77,7 @@ namespace Coypu.Drivers
         private string TrimEmptyParts(string concatArguments)
         {
             return concatArguments.Replace(", \"\"", "")
-                                           .Replace("\"\", ", "");
+                                  .Replace("\"\", ", "");
         }
 
         private bool HasNoSingleQuotes(string value)
@@ -110,7 +110,7 @@ namespace Coypu.Drivers
 
         public string AttributeIsOneOf(string attributeName, string[] values)
         {
-            return Group(String.Join(" or ", values.Select(t => Format("@" + attributeName + " = {0}",t)).ToArray()));
+            return Group(String.Join(" or ", values.Select(t => Format("@" + attributeName + " = {0}", t)).ToArray()));
         }
 
         public string Attr(string name, string value, Options options)
@@ -125,7 +125,8 @@ namespace Coypu.Drivers
 
         public string CasedTagName(string tagName)
         {
-            return uppercaseTagNames ? tagName.ToUpper() : tagName; ;
+            return uppercaseTagNames ? tagName.ToUpper() : tagName;
+            ;
         }
 
         public string AttributesMatchLocator(string locator, Options options, params string[] attributes)
@@ -152,7 +153,7 @@ namespace Coypu.Drivers
 
         public string IsText(string locator, Options options)
         {
-            return Is("normalize-space()", locator,options);
+            return Is("normalize-space()", locator, options);
         }
 
         public string IsTextShallow(string locator, Options options)

@@ -10,22 +10,24 @@ namespace Coypu.Drivers
     /// </summary>
     public class Browser
     {
-        private Browser(){}
+        private Browser()
+        {
+        }
 
         public bool Javascript { get; private set; }
         public bool UppercaseTagNames { get; private set; }
 
-        public static Browser Firefox                = new Browser { Javascript = true, UppercaseTagNames = true };
-        public static Browser InternetExplorer       = new Browser { Javascript = true };
-        public static Browser Chrome                 = new Browser { Javascript = true };
-        public static Browser Safari                 = new Browser { Javascript = true };
-        public static Browser HtmlUnit               = new Browser { Javascript = false };
-        public static Browser HtmlUnitWithJavaScript = new Browser { Javascript = true };
-        public static Browser PhantomJS              = new Browser { Javascript = true };
+        public static Browser Firefox = new Browser {Javascript = true, UppercaseTagNames = true};
+        public static Browser InternetExplorer = new Browser {Javascript = true};
+        public static Browser Chrome = new Browser {Javascript = true};
+        public static Browser Safari = new Browser {Javascript = true};
+        public static Browser HtmlUnit = new Browser {Javascript = false};
+        public static Browser HtmlUnitWithJavaScript = new Browser {Javascript = true};
+        public static Browser PhantomJS = new Browser {Javascript = true};
 
         public static Browser Parse(string browserName)
         {
-            var fieldInfo = BrowserFields().FirstOrDefault(f => f.Name.Equals(browserName.Replace(" ",""), StringComparison.InvariantCultureIgnoreCase));
+            var fieldInfo = BrowserFields().FirstOrDefault(f => f.Name.Equals(browserName.Replace(" ", ""), StringComparison.InvariantCultureIgnoreCase));
             if (fieldInfo == null)
                 throw new NoSuchBrowserException(browserName);
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 using Coypu.Finders;
 using Coypu.Timing;
 using Coypu.WebRequests;
@@ -38,7 +37,7 @@ namespace Coypu
                 new FullyQualifiedUrlBuilder(),
                 new FinderOptionsDisambiguationStrategy(),
                 new WebClientWithCookies()
-            )
+                )
         {
         }
 
@@ -89,13 +88,13 @@ namespace Coypu
             RestrictedResourceDownloader restrictedResourceDownloader
             )
             : base(
-               sessionConfiguration,
-               null,
-               driverFactory.NewWebDriver(sessionConfiguration.Driver, sessionConfiguration.Browser),
-               timingStrategy,
-               waiter,
-               urlBuilder,
-               disambiguationStrategy
+                sessionConfiguration,
+                null,
+                driverFactory.NewWebDriver(sessionConfiguration.Driver, sessionConfiguration.Browser),
+                timingStrategy,
+                waiter,
+                urlBuilder,
+                disambiguationStrategy
                 )
         {
             this.restrictedResourceDownloader = restrictedResourceDownloader;
@@ -111,13 +110,13 @@ namespace Coypu
             RestrictedResourceDownloader restrictedResourceDownloader
             )
             : base(
-              sessionConfiguration,
-              null,
-              driver,
-              timingStrategy,
-              waiter,
-              urlBuilder,
-              disambiguationStrategy
+                sessionConfiguration,
+                null,
+                driver,
+                timingStrategy,
+                waiter,
+                urlBuilder,
+                disambiguationStrategy
                 )
         {
             this.restrictedResourceDownloader = restrictedResourceDownloader;

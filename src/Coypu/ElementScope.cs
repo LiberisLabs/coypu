@@ -3,7 +3,8 @@ using Coypu.Actions;
 using Coypu.Finders;
 using Coypu.Queries;
 
-namespace Coypu {
+namespace Coypu
+{
     public abstract class ElementScope : DriverScope, Element
     {
         internal ElementScope(ElementFinder elementFinder, DriverScope outerScope)
@@ -17,7 +18,7 @@ namespace Coypu {
 
         public string Id
         {
-            get { return  Try(() => Now().Id); }
+            get { return Try(() => Now().Id); }
         }
 
         public string Text
@@ -67,10 +68,7 @@ namespace Coypu {
 
         public bool Disabled
         {
-            get
-            {
-                return Try(() => Now().Disabled);
-            }
+            get { return Try(() => Now().Disabled); }
         }
 
         public string this[string attributeName]
@@ -78,7 +76,7 @@ namespace Coypu {
             get { return Try(() => Now()[attributeName]); }
         }
 
-        public ElementScope Click(Options options = null) 
+        public ElementScope Click(Options options = null)
         {
             Try(new ClickAction(this, driver, Merge(options)));
             return this;
@@ -92,7 +90,7 @@ namespace Coypu {
         /// <para>Override the way Coypu is configured to find elements for this call only.</para>
         /// <para>E.g. A longer wait:</para>
         /// <returns>The current scope</returns>
-        public ElementScope FillInWith(string value, Options options = null) 
+        public ElementScope FillInWith(string value, Options options = null)
         {
             Try(new FillIn(driver, this, value, Merge(options)));
             return this;
@@ -130,7 +128,8 @@ namespace Coypu {
             return this;
         }
 
-        public ElementScope Uncheck(Options options = null) {
+        public ElementScope Uncheck(Options options = null)
+        {
             Try(new Uncheck(driver, this, Merge(options)));
             return this;
         }

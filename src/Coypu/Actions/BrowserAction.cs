@@ -1,4 +1,3 @@
-using System;
 using Coypu.Queries;
 
 namespace Coypu.Actions

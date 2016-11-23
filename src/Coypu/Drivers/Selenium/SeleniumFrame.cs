@@ -14,31 +14,22 @@ namespace Coypu.Drivers.Selenium
 
         private IWebElement FindBody()
         {
-            return ((IWebDriver)Native).FindElement(By.CssSelector("body"));
+            return ((IWebDriver) Native).FindElement(By.CssSelector("body"));
         }
 
         public override string Text
         {
-            get
-            {
-                return FindBody().Text;
-            }
+            get { return FindBody().Text; }
         }
 
         public override string OuterHTML
         {
-            get
-            {
-                return FindBody().GetAttribute("outerHTML");
-            }
+            get { return FindBody().GetAttribute("outerHTML"); }
         }
 
         public override string InnerHTML
         {
-            get
-            {
-                return FindBody().GetAttribute("innerHTML");
-            }
+            get { return FindBody().GetAttribute("innerHTML"); }
         }
 
         public override object Native

@@ -9,7 +9,8 @@ namespace Coypu
     /// </summary>
     public class StaleElementException : Exception
     {
-        private new const string Message = "This element has been removed from the DOM. Coypu will normally re-find elements using the original locators in this situation, except if you have captured a snapshot list of all matching elements using FindAllCss() or FindAllXPath()";
+        private new const string Message =
+            "This element has been removed from the DOM. Coypu will normally re-find elements using the original locators in this situation, except if you have captured a snapshot list of all matching elements using FindAllCss() or FindAllXPath()";
 
         public StaleElementException()
             : base(Message)

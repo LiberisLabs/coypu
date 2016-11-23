@@ -1,5 +1,3 @@
-using System;
-
 namespace Coypu.Queries
 {
     public abstract class PredicateQuery : Query<bool>

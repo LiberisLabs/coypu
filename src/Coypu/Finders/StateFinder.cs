@@ -22,7 +22,7 @@ namespace Coypu.Finders
                 timingStrategy.ZeroTimeout = true;
                 try
                 {
-                    return ((Func<bool>)(() => states.Any(s => s.CheckCondition())))();
+                    return ((Func<bool>) (() => states.Any(s => s.CheckCondition())))();
                 }
                 finally
                 {

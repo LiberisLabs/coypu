@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using OpenQA.Selenium;
 
 namespace Coypu.Drivers.Selenium
@@ -22,10 +21,7 @@ namespace Coypu.Drivers.Selenium
 
         public virtual string Text
         {
-            get
-            {
-                return native.Text;
-            }
+            get { return native.Text; }
         }
 
         public string Value
@@ -40,18 +36,12 @@ namespace Coypu.Drivers.Selenium
 
         public virtual string OuterHTML
         {
-            get
-            {
-                return native.GetAttribute("outerHTML");
-            }
+            get { return native.GetAttribute("outerHTML"); }
         }
 
         public virtual string InnerHTML
         {
-            get
-            {
-                return native.GetAttribute("innerHTML");
-            }
+            get { return native.GetAttribute("innerHTML"); }
         }
 
         public string Title
@@ -61,10 +51,7 @@ namespace Coypu.Drivers.Selenium
 
         public bool Disabled
         {
-            get
-            {
-                return !native.Enabled;
-            }
+            get { return !native.Enabled; }
         }
 
         public string SelectedOption
@@ -72,9 +59,9 @@ namespace Coypu.Drivers.Selenium
             get
             {
                 return native.FindElements(By.TagName("option"))
-                    .Where(e => e.Selected)
-                    .Select(e => e.Text)
-                    .FirstOrDefault();
+                             .Where(e => e.Selected)
+                             .Select(e => e.Text)
+                             .FirstOrDefault();
             }
         }
 
@@ -85,10 +72,7 @@ namespace Coypu.Drivers.Selenium
 
         public virtual object Native
         {
-            get
-            {
-                return native;
-            }
+            get { return native; }
         }
 
         public string this[string attributeName]

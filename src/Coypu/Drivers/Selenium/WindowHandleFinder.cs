@@ -16,7 +16,7 @@ namespace Coypu.Drivers.Selenium
         }
 
         public IEnumerable<string> FindWindowHandles(string titleOrName, Options options)
-        {   
+        {
             var currentHandle = GetCurrentWindowHandle();
             IList<string> matchingWindowHandles = new List<string>();
 
@@ -70,8 +70,12 @@ namespace Coypu.Drivers.Selenium
             {
                 return webDriver.CurrentWindowHandle;
             }
-            catch (NoSuchWindowException) {}
-            catch (InvalidOperationException) {}
+            catch (NoSuchWindowException)
+            {
+            }
+            catch (InvalidOperationException)
+            {
+            }
             return null;
         }
     }

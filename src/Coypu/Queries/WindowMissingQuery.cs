@@ -11,7 +11,7 @@ namespace Coypu.Queries
         {
             get { return true; }
         }
-        
+
         public override bool Run()
         {
             try

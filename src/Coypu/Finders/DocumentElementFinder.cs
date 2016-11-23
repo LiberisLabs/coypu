@@ -17,7 +17,7 @@ namespace Coypu.Finders
 
         internal override IEnumerable<Element> Find(Options options)
         {
-            return new[] { window = (window ?? Driver.Window) };
+            return new[] {window = (window ?? Driver.Window)};
         }
 
         internal override string QueryDescription

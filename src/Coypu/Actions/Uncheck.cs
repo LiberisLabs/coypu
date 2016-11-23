@@ -14,6 +14,5 @@ namespace Coypu.Actions
         {
             Driver.Uncheck(element);
         }
-
     }
 }

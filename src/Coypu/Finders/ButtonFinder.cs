@@ -5,7 +5,9 @@ namespace Coypu.Finders
 {
     internal class ButtonFinder : XPathQueryFinder
     {
-        internal ButtonFinder(Driver driver, string locator, DriverScope scope, Options options) : base(driver, locator, scope, options) { }
+        internal ButtonFinder(Driver driver, string locator, DriverScope scope, Options options) : base(driver, locator, scope, options)
+        {
+        }
 
         public override bool SupportsSubstringTextMatching
         {
@@ -21,7 +23,5 @@ namespace Coypu.Finders
         {
             get { return "button: " + Locator; }
         }
-
-        
     }
 }

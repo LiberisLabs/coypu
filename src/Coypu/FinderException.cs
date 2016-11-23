@@ -10,7 +10,7 @@ namespace Coypu
         }
 
         public FinderException(string message, Exception innerException) : base(message, innerException)
-        {                         
+        {
         }
 
         public FinderException(SerializationInfo info, StreamingContext context)

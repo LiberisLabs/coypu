@@ -4,7 +4,9 @@ namespace Coypu.Finders
 {
     internal class FrameFinder : ElementFinder
     {
-        internal FrameFinder(Driver driver, string locator, DriverScope scope, Options options) : base(driver, locator, scope, options) { }
+        internal FrameFinder(Driver driver, string locator, DriverScope scope, Options options) : base(driver, locator, scope, options)
+        {
+        }
 
         public override bool SupportsSubstringTextMatching
         {
@@ -20,6 +22,5 @@ namespace Coypu.Finders
         {
             get { return "frame: " + Locator; }
         }
-
     }
 }

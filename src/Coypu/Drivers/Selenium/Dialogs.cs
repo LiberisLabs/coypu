@@ -27,7 +27,6 @@ namespace Coypu.Drivers.Selenium
             {
                 return false;
             }
-            
         }
 
         public void AcceptModalDialog()

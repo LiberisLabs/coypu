@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Coypu.Drivers;
 
@@ -54,16 +53,16 @@ namespace Coypu.Finders
         protected override Func<string, Options, string> GetQuery(Html html)
         {
             return ((locator, options) =>
+            {
+                if (string.IsNullOrEmpty(text))
                 {
-                    if (string.IsNullOrEmpty(text))
-                    {
-                        return Locator;
-                    }
-                    else
-                    {
-                        return Locator + XPath.Where(html.IsText(text, options));
-                    }
-                }); 
+                    return Locator;
+                }
+                else
+                {
+                    return Locator + XPath.Where(html.IsText(text, options));
+                }
+            });
         }
     }
 }

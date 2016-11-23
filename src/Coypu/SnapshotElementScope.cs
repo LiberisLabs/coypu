@@ -25,7 +25,7 @@ namespace Coypu
         internal override bool Stale
         {
             get { return true; }
-            set {}
+            set { }
         }
 
         protected internal override Element FindElement()

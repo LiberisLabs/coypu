@@ -34,6 +34,5 @@ namespace Coypu.Queries
         {
             return query();
         }
-
     }
 }

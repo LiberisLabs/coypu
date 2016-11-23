@@ -10,7 +10,7 @@ namespace Coypu
     {
         const string DEFAULT_APP_HOST = "localhost";
         const int DEFAULT_PORT = 80;
-        
+
         private string appHost;
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace Coypu
             Port = DEFAULT_PORT;
             SSL = false;
             Browser = Drivers.Browser.Firefox;
-            Driver = typeof (SeleniumWebDriver);
+            Driver = typeof(SeleniumWebDriver);
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Coypu
         /// </summary>
         public string AppHost
         {
-            get { return appHost;}
+            get { return appHost; }
             set
             {
                 if (Uri.IsWellFormedUriString(value, UriKind.Absolute))

@@ -15,7 +15,7 @@ namespace Coypu.Actions
         public override void Act()
         {
             var element = driverScope.Now();
-            Driver.SendKeys(element,keys);
+            Driver.SendKeys(element, keys);
         }
     }
 }

@@ -23,18 +23,12 @@ namespace Coypu.Drivers.Selenium
 
         public string Text
         {
-            get
-            {
-                return ((ISearchContext)Native).FindElement(By.CssSelector("body")).Text;
-            }
+            get { return ((ISearchContext) Native).FindElement(By.CssSelector("body")).Text; }
         }
 
         public string InnerHTML
         {
-            get
-            {
-                return ((ISearchContext)Native).FindElement(By.XPath("./*")).GetAttribute("innerHTML");
-            }
+            get { return ((ISearchContext) Native).FindElement(By.XPath("./*")).GetAttribute("innerHTML"); }
         }
 
         public string Title
@@ -49,10 +43,7 @@ namespace Coypu.Drivers.Selenium
 
         public string OuterHTML
         {
-            get
-            {
-                return ((ISearchContext)Native).FindElement(By.XPath("./*")).GetAttribute("outerHTML");
-            }
+            get { return ((ISearchContext) Native).FindElement(By.XPath("./*")).GetAttribute("outerHTML"); }
         }
 
         public string Value

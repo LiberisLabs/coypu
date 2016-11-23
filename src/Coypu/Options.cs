@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Reflection;
 
 namespace Coypu
 {
@@ -61,7 +60,7 @@ namespace Coypu
         /// </summary>
         public static Options Single
         {
-            get { return new Options { Match = Match.Single }; }
+            get { return new Options {Match = Match.Single}; }
         }
 
 
@@ -70,7 +69,7 @@ namespace Coypu
         /// </summary>
         public static Options Exact
         {
-            get { return new Options { TextPrecision = TextPrecision.Exact }; }
+            get { return new Options {TextPrecision = TextPrecision.Exact}; }
         }
 
         /// <summary>
@@ -78,7 +77,7 @@ namespace Coypu
         /// </summary>
         public static Options Substring
         {
-            get { return new Options { TextPrecision = TextPrecision.Substring }; }
+            get { return new Options {TextPrecision = TextPrecision.Substring}; }
         }
 
         /// <summary>
@@ -86,7 +85,7 @@ namespace Coypu
         /// </summary>
         public static Options PreferExact
         {
-            get { return new Options { TextPrecision = TextPrecision.PreferExact }; }
+            get { return new Options {TextPrecision = TextPrecision.PreferExact}; }
         }
 
         /// <summary>
@@ -189,7 +188,7 @@ namespace Coypu
 Coypu does this by default from v2.0. Your options:
 
  * Look for something more specific",
-                    count, queryDescription);
+                                        count, queryDescription);
 
 
             if (TextPrecision != TextPrecision.Exact)
@@ -213,33 +212,34 @@ Coypu does this by default from v2.0. Your options:
             defaultOptions = defaultOptions ?? new Options();
 
             return new Options
-                {
-                    considerInvisibleElements = Default(preferredOptions.considerInvisibleElements, defaultOptions.considerInvisibleElements),
-                    textPrecision = Default(preferredOptions.textPrecision, defaultOptions.textPrecision),
-                    match = Default(preferredOptions.match, defaultOptions.match),
-                    retryInterval = Default(preferredOptions.retryInterval, defaultOptions.retryInterval),
-                    timeout = Default(preferredOptions.timeout, defaultOptions.timeout),
-                    waitBeforeClick = Default(preferredOptions.waitBeforeClick, defaultOptions.waitBeforeClick)
-                };
+            {
+                considerInvisibleElements = Default(preferredOptions.considerInvisibleElements, defaultOptions.considerInvisibleElements),
+                textPrecision = Default(preferredOptions.textPrecision, defaultOptions.textPrecision),
+                match = Default(preferredOptions.match, defaultOptions.match),
+                retryInterval = Default(preferredOptions.retryInterval, defaultOptions.retryInterval),
+                timeout = Default(preferredOptions.timeout, defaultOptions.timeout),
+                waitBeforeClick = Default(preferredOptions.waitBeforeClick, defaultOptions.waitBeforeClick)
+            };
         }
 
-     
 
         protected static T? Default<T>(T? value, T? defaultValue) where T : struct
         {
-            return value.HasValue 
-                       ? value
-                       : defaultValue;
+            return value.HasValue
+                ? value
+                : defaultValue;
         }
 
         public override string ToString()
         {
-			return string.Join(Environment.NewLine, GetType().GetProperties(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public).Select(p => p.Name + ": " + p.GetValue(this, null)).ToArray());
+            return string.Join(Environment.NewLine,
+                               GetType().GetProperties(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public).Select(p => p.Name + ": " + p.GetValue(this, null)).ToArray());
         }
 
         protected bool Equals(Options other)
         {
-            return considerInvisibleElements.Equals(other.considerInvisibleElements) && textPrecision.Equals(other.textPrecision) && match == other.match && retryInterval.Equals(other.retryInterval) && timeout.Equals(other.timeout) && waitBeforeClick.Equals(other.waitBeforeClick);
+            return considerInvisibleElements.Equals(other.considerInvisibleElements) && textPrecision.Equals(other.textPrecision) && match == other.match && retryInterval.Equals(other.retryInterval) &&
+                   timeout.Equals(other.timeout) && waitBeforeClick.Equals(other.waitBeforeClick);
         }
 
         public override int GetHashCode()
@@ -247,11 +247,11 @@ Coypu does this by default from v2.0. Your options:
             unchecked
             {
                 var hashCode = considerInvisibleElements.GetHashCode();
-                hashCode = (hashCode * 397) ^ textPrecision.GetHashCode();
-                hashCode = (hashCode * 397) ^ match.GetHashCode();
-                hashCode = (hashCode * 397) ^ retryInterval.GetHashCode();
-                hashCode = (hashCode * 397) ^ timeout.GetHashCode();
-                hashCode = (hashCode * 397) ^ waitBeforeClick.GetHashCode();
+                hashCode = (hashCode*397) ^ textPrecision.GetHashCode();
+                hashCode = (hashCode*397) ^ match.GetHashCode();
+                hashCode = (hashCode*397) ^ retryInterval.GetHashCode();
+                hashCode = (hashCode*397) ^ timeout.GetHashCode();
+                hashCode = (hashCode*397) ^ waitBeforeClick.GetHashCode();
                 return hashCode;
             }
         }

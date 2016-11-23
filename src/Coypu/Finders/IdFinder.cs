@@ -1,13 +1,13 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using Coypu.Drivers;
 
 namespace Coypu.Finders
 {
     internal class IdFinder : XPathQueryFinder
     {
-        internal IdFinder(Driver driver, string locator, DriverScope scope, Options options) : base(driver, locator, scope, options) { }
+        internal IdFinder(Driver driver, string locator, DriverScope scope, Options options) : base(driver, locator, scope, options)
+        {
+        }
 
         public override bool SupportsSubstringTextMatching
         {

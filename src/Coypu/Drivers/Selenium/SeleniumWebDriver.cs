@@ -24,7 +24,7 @@ namespace Coypu.Drivers.Selenium
         private SeleniumWindowManager seleniumWindowManager;
 
         public SeleniumWebDriver(Browser browser)
-            : this(new DriverFactory().NewWebDriver(browser),  browser)
+            : this(new DriverFactory().NewWebDriver(browser), browser)
         {
         }
 
@@ -56,10 +56,7 @@ namespace Coypu.Drivers.Selenium
 
         public Element Window
         {
-            get
-            {
-                return new SeleniumWindow(webDriver, webDriver.CurrentWindowHandle, seleniumWindowManager);
-            }
+            get { return new SeleniumWindow(webDriver, webDriver.CurrentWindowHandle, seleniumWindowManager); }
         }
 
         protected bool NoJavascript
@@ -85,8 +82,8 @@ namespace Coypu.Drivers.Selenium
         private Func<IWebElement, bool> ValidateTextPattern(Options options, Regex textPattern)
         {
             var textMatches = (textPattern == null)
-                                  ? (Func<IWebElement, bool>) null
-                                  : e => textMatcher.TextMatches(e, textPattern);
+                ? (Func<IWebElement, bool>) null
+                : e => textMatcher.TextMatches(e, textPattern);
 
             if (textPattern != null && options.ConsiderInvisibleElements)
                 throw new NotSupportedException("Cannot inspect the text of invisible elements.");
@@ -110,8 +107,8 @@ namespace Coypu.Drivers.Selenium
 
         private Element BuildElement(IWebElement element)
         {
-            return new[] {"iframe", "frame"}.Contains(element.TagName.ToLower()) 
-                ? new SeleniumFrame(element, webDriver, seleniumWindowManager) 
+            return new[] {"iframe", "frame"}.Contains(element.TagName.ToLower())
+                ? new SeleniumFrame(element, webDriver, seleniumWindowManager)
                 : new SeleniumElement(element, webDriver);
         }
 
@@ -121,13 +118,13 @@ namespace Coypu.Drivers.Selenium
             return dialogs.HasDialog(withText);
         }
 
-        public void Visit(string url, Scope scope) 
+        public void Visit(string url, Scope scope)
         {
             elementFinder.SeleniumScope(scope);
             webDriver.Navigate().GoToUrl(url);
         }
 
-        public void Click(Element element) 
+        public void Click(Element element)
         {
             SeleniumElement(element).Click();
         }
@@ -194,14 +191,18 @@ namespace Coypu.Drivers.Selenium
                                      .Cast<Element>();
         }
 
-        public void Set(Element element, string value) 
+        public void Set(Element element, string value)
         {
             try
             {
                 SeleniumElement(element).Clear();
             }
-            catch (InvalidElementStateException) { }// Non user-editable elements (file inputs) - chrome/IE
-            catch (InvalidOperationException) {} // Non user-editable elements (file inputs) - firefox
+            catch (InvalidElementStateException)
+            {
+            } // Non user-editable elements (file inputs) - chrome/IE
+            catch (InvalidOperationException)
+            {
+            } // Non user-editable elements (file inputs) - firefox
             SendKeys(element, value);
         }
 
@@ -247,9 +248,9 @@ namespace Coypu.Drivers.Selenium
             return JavaScriptExecutor.ExecuteScript(javascript, ConvertScriptArgs(args));
         }
 
-        private object[] ConvertScriptArgs (object[] args)
+        private object[] ConvertScriptArgs(object[] args)
         {
-            for(var i = 0; i < args.Length; ++i)
+            for (var i = 0; i < args.Length; ++i)
             {
                 var argAsElement = args[i] as Element;
                 if (argAsElement != null)
@@ -297,12 +298,18 @@ namespace Coypu.Drivers.Selenium
                 if (dialogs.HasAnyDialog())
                     webDriver.SwitchTo().Alert().Accept();
             }
-            catch (WebDriverException){}
-            catch (KeyNotFoundException){} // Chrome
-            catch (InvalidOperationException){}
-            catch (IndexOutOfRangeException){} // No window handles
+            catch (WebDriverException)
+            {
+            }
+            catch (KeyNotFoundException)
+            {
+            } // Chrome
+            catch (InvalidOperationException)
+            {
+            }
+            catch (IndexOutOfRangeException)
+            {
+            } // No window handles
         }
-
-
     }
 }

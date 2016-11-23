@@ -5,9 +5,13 @@ namespace Coypu.Queries
     internal class HasContentMatchQuery : DriverScopeQuery<bool>
     {
         private readonly Regex text;
-        public override object ExpectedResult { get { return true; } }
 
-        protected internal HasContentMatchQuery(DriverScope scope, Regex text, Options options) : base(scope,options)
+        public override object ExpectedResult
+        {
+            get { return true; }
+        }
+
+        protected internal HasContentMatchQuery(DriverScope scope, Regex text, Options options) : base(scope, options)
         {
             this.text = text;
         }

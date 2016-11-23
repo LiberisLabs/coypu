@@ -24,6 +24,4 @@
         Substring,
         PreferExact
     }
-
-
 }
