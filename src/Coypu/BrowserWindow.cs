@@ -18,7 +18,7 @@ namespace Coypu
                                TimingStrategy timingStrategy,
                                Waiter waiter,
                                UrlBuilder urlBuilder,
-                               DisambiguationStrategy disambiguationStrategy)
+                               IDisambiguationStrategy disambiguationStrategy)
             : base(sessionConfiguration, elementFinder, driver, timingStrategy, waiter, urlBuilder, disambiguationStrategy)
         {
         }
@@ -28,9 +28,10 @@ namespace Coypu
         }
 
         /// <summary>
-        /// Check that a dialog with the specified text appears within the <see cref="SessionConfiguration.Timeout"/>
+        /// Check that a dialog with the specified text appears within the <see cref="Options.Timeout"/>
         /// </summary>
         /// <param name="withText">Dialog text</param>
+        /// <param name="options"></param>
         /// <returns>Whether an element appears</returns>
         public bool HasDialog(string withText, Options options = null)
         {
@@ -38,9 +39,10 @@ namespace Coypu
         }
 
         /// <summary>
-        /// Check that a dialog with the specified is not present. Returns as soon as the dialog is not present, or when the <see cref="SessionConfiguration.Timeout"/> is reached.
+        /// Check that a dialog with the specified is not present. Returns as soon as the dialog is not present, or when the <see cref="Options.Timeout"/> is reached.
         /// </summary>
         /// <param name="withText">Dialog text</param>
+        /// <param name="options"></param>
         /// <returns>Whether an element does not appears</returns>
         public bool HasNoDialog(string withText, Options options = null)
         {
@@ -48,7 +50,7 @@ namespace Coypu
         }
 
         /// <summary>
-        /// Accept the first modal dialog to appear within the <see cref="SessionConfiguration.Timeout"/>
+        /// Accept the first modal dialog to appear within the <see cref="Options.Timeout"/>
         /// </summary>
         /// <exception cref="T:Coypu.MissingHtmlException">Thrown if the dialog cannot be found</exception>
         public void AcceptModalDialog(Options options = null)
@@ -57,7 +59,7 @@ namespace Coypu
         }
 
         /// <summary>
-        /// Cancel the first modal dialog to appear within the <see cref="SessionConfiguration.Timeout"/>
+        /// Cancel the first modal dialog to appear within the <see cref="Options.Timeout"/>
         /// </summary>
         /// <exception cref="T:Coypu.MissingHtmlException">Thrown if the dialog cannot be found</exception>
         public void CancelModalDialog(Options options = null)
@@ -132,6 +134,11 @@ namespace Coypu
             driver.Refresh(this);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="saveAs"></param>
+        /// <param name="imageFormat"></param>
         public void SaveScreenshot(string saveAs, ImageFormat imageFormat)
         {
             driver.SaveScreenshot(saveAs, this);
@@ -140,7 +147,7 @@ namespace Coypu
         internal override bool Stale { get; set; }
 
         /// <summary>
-        /// <para>Check if this window exists within the <see cref="SessionConfiguration.Timeout"/></para>
+        /// <para>Check if this window exists within the <see cref="Options.Timeout"/></para>
         /// </summary>
         /// <param name="options">
         /// <para>Override the way Coypu is configured to find elements for this call only.</para>
@@ -153,7 +160,7 @@ namespace Coypu
         }
 
         /// <summary>
-        /// <para>Check if this window becomes missing within the <see cref="SessionConfiguration.Timeout"/></para>
+        /// <para>Check if this window becomes missing within the <see cref="Options.Timeout"/></para>
         /// </summary>
         /// <param name="options">
         /// <para>Override the way Coypu is configured to find elements for this call only.</para>

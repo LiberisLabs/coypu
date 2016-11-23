@@ -1,4 +1,5 @@
 ﻿using Coypu.Actions;
+using Coypu.Finders;
 using Coypu.Timing;
 
 namespace Coypu
@@ -10,9 +11,9 @@ namespace Coypu
         private readonly TimingStrategy timingStrategy;
         private readonly DriverScope scope;
         private readonly Options options;
-        private readonly DisambiguationStrategy disambiguationStrategy;
+        private readonly IDisambiguationStrategy disambiguationStrategy;
 
-        internal SelectFrom(string option, Driver driver, TimingStrategy timingStrategy, DriverScope scope, Options options, DisambiguationStrategy disambiguationStrategy)
+        internal SelectFrom(string option, Driver driver, TimingStrategy timingStrategy, DriverScope scope, Options options, IDisambiguationStrategy disambiguationStrategy)
         {
             this.option = option;
             this.driver = driver;

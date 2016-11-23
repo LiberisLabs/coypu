@@ -3,7 +3,7 @@ using Coypu.Finders;
 
 namespace Coypu.Tests.TestBuilders
 {
-    public class FirstOrDefaultNoDisambiguationStrategy : DisambiguationStrategy
+    public class FirstOrDefaultNoDisambiguationStrategy : IDisambiguationStrategy
     {
         public Element ResolveQuery(ElementFinder elementFinder)
         {
@@ -11,7 +11,7 @@ namespace Coypu.Tests.TestBuilders
         }
     }
 
-    public class ThrowsWhenMissingButNoDisambiguationStrategy : DisambiguationStrategy
+    public class ThrowsWhenMissingButNoDisambiguationStrategy : IDisambiguationStrategy
     {
         public Element ResolveQuery(ElementFinder elementFinder)
         {

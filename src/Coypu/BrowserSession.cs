@@ -84,7 +84,7 @@ namespace Coypu
             TimingStrategy timingStrategy,
             Waiter waiter,
             UrlBuilder urlBuilder,
-            DisambiguationStrategy disambiguationStrategy,
+            IDisambiguationStrategy disambiguationStrategy,
             RestrictedResourceDownloader restrictedResourceDownloader
             )
             : base(
@@ -106,7 +106,7 @@ namespace Coypu
             TimingStrategy timingStrategy,
             Waiter waiter,
             UrlBuilder urlBuilder,
-            DisambiguationStrategy disambiguationStrategy,
+            IDisambiguationStrategy disambiguationStrategy,
             RestrictedResourceDownloader restrictedResourceDownloader
             )
             : base(

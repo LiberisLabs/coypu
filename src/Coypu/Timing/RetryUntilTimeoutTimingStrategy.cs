@@ -7,6 +7,9 @@ using OpenQA.Selenium;
 
 namespace Coypu.Timing
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class RetryUntilTimeoutTimingStrategy : TimingStrategy
     {
         public void TryUntil(BrowserAction tryThis, PredicateQuery until, Options options)

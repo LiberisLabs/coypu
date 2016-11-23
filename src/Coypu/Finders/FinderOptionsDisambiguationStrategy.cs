@@ -2,7 +2,7 @@ using System.Linq;
 
 namespace Coypu.Finders
 {
-    internal class FinderOptionsDisambiguationStrategy : DisambiguationStrategy
+    internal class FinderOptionsDisambiguationStrategy : IDisambiguationStrategy
     {
         public Element ResolveQuery(ElementFinder elementFinder)
         {

@@ -1,4 +1,5 @@
-﻿using Coypu.Tests.WhenInteractingWithTheBrowser;
+﻿using Coypu.Finders;
+using Coypu.Tests.WhenInteractingWithTheBrowser;
 using Coypu.Timing;
 using Coypu.WebRequests;
 
@@ -12,7 +13,7 @@ namespace Coypu.Tests.TestBuilders
                                              Waiter waiter,
                                              RestrictedResourceDownloader restrictedResourceDownloader,
                                              UrlBuilder urlBuilder,
-                                             DisambiguationStrategy disambiguationStrategy = null)
+                                             IDisambiguationStrategy disambiguationStrategy = null)
         {
             disambiguationStrategy = disambiguationStrategy ?? new FirstOrDefaultNoDisambiguationStrategy();
 

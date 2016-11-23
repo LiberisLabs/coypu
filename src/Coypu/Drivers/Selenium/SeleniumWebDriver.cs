@@ -4,97 +4,106 @@ using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using Cookie = System.Net.Cookie;
 
 namespace Coypu.Drivers.Selenium
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class SeleniumWebDriver : Driver
     {
+        /// <inheritdoc />
         public bool Disposed { get; private set; }
-        private IWebDriver webDriver;
-        private readonly ElementFinder elementFinder;
-        private readonly FrameFinder frameFinder;
-        private readonly TextMatcher textMatcher;
-        private readonly Dialogs dialogs;
-        private readonly MouseControl mouseControl;
-        private readonly XPath xPath;
-        private readonly Browser browser;
-        private readonly WindowHandleFinder windowHandleFinder;
-        private SeleniumWindowManager seleniumWindowManager;
+        private IWebDriver _webDriver;
+        private readonly ElementFinder _elementFinder;
+        private readonly FrameFinder _frameFinder;
+        private readonly TextMatcher _textMatcher;
+        private readonly Dialogs _dialogs;
+        private readonly MouseControl _mouseControl;
+        private readonly Browser _browser;
+        private readonly WindowHandleFinder _windowHandleFinder;
+        private readonly SeleniumWindowManager _seleniumWindowManager;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="browser"></param>
         public SeleniumWebDriver(Browser browser)
             : this(new DriverFactory().NewWebDriver(browser), browser)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="webDriver"></param>
+        /// <param name="browser"></param>
         protected SeleniumWebDriver(IWebDriver webDriver, Browser browser)
         {
-            this.webDriver = webDriver;
-            this.browser = browser;
-            xPath = new XPath(browser.UppercaseTagNames);
-            elementFinder = new ElementFinder();
-            textMatcher = new TextMatcher();
-            dialogs = new Dialogs(this.webDriver);
-            mouseControl = new MouseControl(this.webDriver);
-            seleniumWindowManager = new SeleniumWindowManager(this.webDriver);
-            frameFinder = new FrameFinder(this.webDriver, elementFinder, xPath, seleniumWindowManager);
-            windowHandleFinder = new WindowHandleFinder(this.webDriver, seleniumWindowManager);
+            _webDriver = webDriver;
+            _browser = browser;
+            var xPath = new XPath(browser.UppercaseTagNames);
+            _elementFinder = new ElementFinder();
+            _textMatcher = new TextMatcher();
+            _dialogs = new Dialogs(_webDriver);
+            _mouseControl = new MouseControl(_webDriver);
+            _seleniumWindowManager = new SeleniumWindowManager(_webDriver);
+            _frameFinder = new FrameFinder(_webDriver, _elementFinder, xPath, _seleniumWindowManager);
+            _windowHandleFinder = new WindowHandleFinder(_webDriver, _seleniumWindowManager);
         }
 
+        /// <inheritdoc />
         public Uri Location(Scope scope)
         {
-            elementFinder.SeleniumScope(scope);
-            return new Uri(webDriver.Url);
+            _elementFinder.SeleniumScope(scope);
+            return new Uri(_webDriver.Url);
         }
 
-        public String Title(Scope scope)
+        /// <inheritdoc />
+        public string Title(Scope scope)
         {
-            elementFinder.SeleniumScope(scope);
-            return webDriver.Title;
+            _elementFinder.SeleniumScope(scope);
+            return _webDriver.Title;
         }
 
-        public Element Window
-        {
-            get { return new SeleniumWindow(webDriver, webDriver.CurrentWindowHandle, seleniumWindowManager); }
-        }
+        /// <inheritdoc />
+        public Element Window => new SeleniumWindow(_webDriver, _webDriver.CurrentWindowHandle, _seleniumWindowManager);
 
-        protected bool NoJavascript
-        {
-            get { return !browser.Javascript; }
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        protected bool NoJavascript => !_browser.Javascript;
 
-        private IJavaScriptExecutor JavaScriptExecutor
-        {
-            get { return webDriver as IJavaScriptExecutor; }
-        }
+        private IJavaScriptExecutor JavaScriptExecutor => _webDriver as IJavaScriptExecutor;
 
-        public object Native
-        {
-            get { return webDriver; }
-        }
+        /// <inheritdoc />
+        public object Native => _webDriver;
 
+        /// <inheritdoc />
         public IEnumerable<Element> FindFrames(string locator, Scope scope, Options options)
         {
-            return frameFinder.FindFrame(locator, scope, options).Select(BuildElement);
+            return _frameFinder.FindFrame(locator, scope, options).Select(BuildElement);
         }
 
         private Func<IWebElement, bool> ValidateTextPattern(Options options, Regex textPattern)
         {
             var textMatches = (textPattern == null)
                 ? (Func<IWebElement, bool>) null
-                : e => textMatcher.TextMatches(e, textPattern);
+                : e => _textMatcher.TextMatches(e, textPattern);
 
             if (textPattern != null && options.ConsiderInvisibleElements)
                 throw new NotSupportedException("Cannot inspect the text of invisible elements.");
             return textMatches;
         }
 
+        /// <inheritdoc />
         public IEnumerable<Element> FindAllCss(string cssSelector, Scope scope, Options options, Regex textPattern = null)
         {
             return FindAll(By.CssSelector(cssSelector), scope, options, ValidateTextPattern(options, textPattern)).Select(BuildElement);
         }
 
+        /// <inheritdoc />
         public IEnumerable<Element> FindAllXPath(string xpath, Scope scope, Options options)
         {
             return FindAll(By.XPath(xpath), scope, options).Select(BuildElement);
@@ -102,95 +111,107 @@ namespace Coypu.Drivers.Selenium
 
         private IEnumerable<IWebElement> FindAll(By by, Scope scope, Options options, Func<IWebElement, bool> predicate = null)
         {
-            return elementFinder.FindAll(by, scope, options, predicate);
+            return _elementFinder.FindAll(by, scope, options, predicate);
         }
 
         private Element BuildElement(IWebElement element)
         {
             return new[] {"iframe", "frame"}.Contains(element.TagName.ToLower())
-                ? new SeleniumFrame(element, webDriver, seleniumWindowManager)
-                : new SeleniumElement(element, webDriver);
+                ? new SeleniumFrame(element, _webDriver, _seleniumWindowManager)
+                : new SeleniumElement(element, _webDriver);
         }
 
+        /// <inheritdoc />
         public bool HasDialog(string withText, Scope scope)
         {
-            elementFinder.SeleniumScope(scope);
-            return dialogs.HasDialog(withText);
+            _elementFinder.SeleniumScope(scope);
+            return _dialogs.HasDialog(withText);
         }
 
+        /// <inheritdoc />
         public void Visit(string url, Scope scope)
         {
-            elementFinder.SeleniumScope(scope);
-            webDriver.Navigate().GoToUrl(url);
+            _elementFinder.SeleniumScope(scope);
+            _webDriver.Navigate().GoToUrl(url);
         }
 
+        /// <inheritdoc />
         public void Click(Element element)
         {
             SeleniumElement(element).Click();
         }
 
+        /// <inheritdoc />
         public void Hover(Element element)
         {
-            mouseControl.Hover(element);
+            _mouseControl.Hover(element);
         }
 
+        /// <inheritdoc />
         public void SendKeys(Element element, string keys)
         {
             SeleniumElement(element).SendKeys(keys);
         }
 
+        /// <inheritdoc />
         public void MaximiseWindow(Scope scope)
         {
-            elementFinder.SeleniumScope(scope);
-            webDriver.Manage().Window.Maximize();
+            _elementFinder.SeleniumScope(scope);
+            _webDriver.Manage().Window.Maximize();
         }
 
+        /// <inheritdoc />
         public void Refresh(Scope scope)
         {
-            elementFinder.SeleniumScope(scope);
-            webDriver.Navigate().Refresh();
+            _elementFinder.SeleniumScope(scope);
+            _webDriver.Navigate().Refresh();
         }
 
+        /// <inheritdoc />
         public void ResizeTo(Size size, Scope scope)
         {
-            elementFinder.SeleniumScope(scope);
-            webDriver.Manage().Window.Size = size;
+            _elementFinder.SeleniumScope(scope);
+            _webDriver.Manage().Window.Size = size;
         }
 
+        /// <inheritdoc />
         public void SaveScreenshot(string fileName, Scope scope)
         {
-            elementFinder.SeleniumScope(scope);
+            _elementFinder.SeleniumScope(scope);
             var format = ImageFormatParser.GetImageFormat(fileName);
 
-            var screenshot = ((ITakesScreenshot) webDriver).GetScreenshot();
+            var screenshot = ((ITakesScreenshot) _webDriver).GetScreenshot();
             screenshot.SaveAsFile(fileName, format);
         }
 
+        /// <inheritdoc />
         public void GoBack(Scope scope)
         {
-            elementFinder.SeleniumScope(scope);
-            webDriver.Navigate().Back();
+            _elementFinder.SeleniumScope(scope);
+            _webDriver.Navigate().Back();
         }
 
+        /// <inheritdoc />
         public void GoForward(Scope scope)
         {
-            elementFinder.SeleniumScope(scope);
-            webDriver.Navigate().Forward();
+            _elementFinder.SeleniumScope(scope);
+            _webDriver.Navigate().Forward();
         }
 
+        /// <inheritdoc />
         public IEnumerable<Cookie> GetBrowserCookies()
         {
-            return webDriver.Manage().Cookies.AllCookies.Select(c => new Cookie(c.Name, c.Value, c.Path, c.Domain));
+            return _webDriver.Manage().Cookies.AllCookies.Select(c => new Cookie(c.Name, c.Value, c.Path, c.Domain));
         }
 
+        /// <inheritdoc />
         public IEnumerable<Element> FindWindows(string titleOrName, Scope scope, Options options)
         {
-            elementFinder.SeleniumScope(scope);
-            return windowHandleFinder.FindWindowHandles(titleOrName, options)
-                                     .Select(h => new SeleniumWindow(webDriver, h, seleniumWindowManager))
-                                     .Cast<Element>();
+            _elementFinder.SeleniumScope(scope);
+            return _windowHandleFinder.FindWindowHandles(titleOrName, options).Select(h => new SeleniumWindow(_webDriver, h, _seleniumWindowManager));
         }
 
+        /// <inheritdoc />
         public void Set(Element element, string value)
         {
             try
@@ -206,18 +227,21 @@ namespace Coypu.Drivers.Selenium
             SendKeys(element, value);
         }
 
+        /// <inheritdoc />
         public void AcceptModalDialog(Scope scope)
         {
-            elementFinder.SeleniumScope(scope);
-            dialogs.AcceptModalDialog();
+            _elementFinder.SeleniumScope(scope);
+            _dialogs.AcceptModalDialog();
         }
 
+        /// <inheritdoc />
         public void CancelModalDialog(Scope scope)
         {
-            elementFinder.SeleniumScope(scope);
-            dialogs.CancelModalDialog();
+            _elementFinder.SeleniumScope(scope);
+            _dialogs.CancelModalDialog();
         }
 
+        /// <inheritdoc />
         public void Check(Element field)
         {
             var seleniumElement = SeleniumElement(field);
@@ -226,6 +250,7 @@ namespace Coypu.Drivers.Selenium
                 seleniumElement.Click();
         }
 
+        /// <inheritdoc />
         public void Uncheck(Element field)
         {
             var seleniumElement = SeleniumElement(field);
@@ -234,21 +259,23 @@ namespace Coypu.Drivers.Selenium
                 seleniumElement.Click();
         }
 
+        /// <inheritdoc />
         public void Choose(Element field)
         {
             SeleniumElement(field).Click();
         }
 
+        /// <inheritdoc />
         public object ExecuteScript(string javascript, Scope scope, params object[] args)
         {
             if (NoJavascript)
-                throw new NotSupportedException("Javascript is not supported by " + browser);
+                throw new NotSupportedException("Javascript is not supported by " + _browser);
 
-            elementFinder.SeleniumScope(scope);
+            _elementFinder.SeleniumScope(scope);
             return JavaScriptExecutor.ExecuteScript(javascript, ConvertScriptArgs(args));
         }
 
-        private object[] ConvertScriptArgs(object[] args)
+        private static object[] ConvertScriptArgs(object[] args)
         {
             for (var i = 0; i < args.Length; ++i)
             {
@@ -260,33 +287,21 @@ namespace Coypu.Drivers.Selenium
             return args;
         }
 
-        private string NormalizeCRLFBetweenBrowserImplementations(string text)
+        private static IWebElement SeleniumElement(Element element)
         {
-            if (webDriver is ChromeDriver) // Which adds extra whitespace around CRLF
-                text = StripWhitespaceAroundCRLFs(text);
-
-            return Regex.Replace(text, "(\r\n)+", "\r\n");
+            return (IWebElement) element.Native;
         }
 
-        private string StripWhitespaceAroundCRLFs(string pageText)
-        {
-            return Regex.Replace(pageText, @"\s*\r\n\s*", "\r\n");
-        }
-
-        private IWebElement SeleniumElement(Element element)
-        {
-            return ((IWebElement) element.Native);
-        }
-
+        /// <inheritdoc />
         public void Dispose()
         {
-            if (webDriver == null)
+            if (_webDriver == null)
                 return;
 
             AcceptAnyAlert();
 
-            webDriver.Quit();
-            webDriver = null;
+            _webDriver.Quit();
+            _webDriver = null;
             Disposed = true;
         }
 
@@ -294,9 +309,9 @@ namespace Coypu.Drivers.Selenium
         {
             try
             {
-                seleniumWindowManager.SwitchToWindow(webDriver.WindowHandles[0]);
-                if (dialogs.HasAnyDialog())
-                    webDriver.SwitchTo().Alert().Accept();
+                _seleniumWindowManager.SwitchToWindow(_webDriver.WindowHandles[0]);
+                if (_dialogs.HasAnyDialog())
+                    _webDriver.SwitchTo().Alert().Accept();
             }
             catch (WebDriverException)
             {

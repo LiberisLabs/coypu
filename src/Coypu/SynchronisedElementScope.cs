@@ -5,21 +5,25 @@ using Coypu.Queries;
 
 namespace Coypu
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class SynchronisedElementScope : ElementScope
     {
-        private readonly Options options;
+        private readonly Options _options;
 
         internal SynchronisedElementScope(ElementFinder elementFinder, DriverScope outerScope, Options options)
             : base(elementFinder, outerScope)
         {
-            this.options = options;
+            _options = options;
         }
 
         internal override bool Stale { get; set; }
 
+        /// <inheritdoc />
         public override Element Now()
         {
-            return timingStrategy.Synchronise(new ElementQuery(this, options));
+            return timingStrategy.Synchronise(new ElementQuery(this, _options));
         }
 
         internal override void Try(DriverAction action)
@@ -27,9 +31,8 @@ namespace Coypu
             RetryUntilTimeout(action);
         }
 
-
         /// <summary>
-        /// <para>Check if this element exists within the <see cref="SessionConfiguration.Timeout"/></para>
+        /// <para>Check if this element exists within the <see cref="Options.Timeout"/></para>
         /// </summary>
         /// <param name="options">
         /// <para>Override the way Coypu is configured to find elements for this call only.</para>
@@ -42,7 +45,7 @@ namespace Coypu
         }
 
         /// <summary>
-        /// <para>Check if this element becomes missing within the <see cref="SessionConfiguration.Timeout"/></para>
+        /// <para>Check if this element becomes missing within the <see cref="Options.Timeout"/></para>
         /// </summary>
         /// <param name="options">
         /// <para>Override the way Coypu is configured to find elements for this call only.</para>
@@ -61,7 +64,7 @@ namespace Coypu
 
         internal override T Try<T>(Func<T> getAttribute)
         {
-            return Query(new LambdaQuery<T>(getAttribute, null, this, options));
+            return Query(new LambdaQuery<T>(getAttribute, null, this, _options));
         }
     }
 }

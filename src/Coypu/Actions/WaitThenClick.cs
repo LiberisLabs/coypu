@@ -8,10 +8,10 @@ namespace Coypu.Actions
     {
         private readonly Waiter waiter;
         private readonly ElementFinder elementFinder;
-        private readonly DisambiguationStrategy disambiguationStrategy;
+        private readonly IDisambiguationStrategy disambiguationStrategy;
         private readonly TimeSpan waitBeforeClick;
 
-        internal WaitThenClick(Driver driver, DriverScope scope, Options options, Waiter waiter, ElementFinder elementFinder, DisambiguationStrategy disambiguationStrategy)
+        internal WaitThenClick(Driver driver, DriverScope scope, Options options, Waiter waiter, ElementFinder elementFinder, IDisambiguationStrategy disambiguationStrategy)
             : base(driver, scope, options)
         {
             waitBeforeClick = options.WaitBeforeClick;
