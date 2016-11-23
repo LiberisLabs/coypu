@@ -29,7 +29,10 @@ namespace Coypu.Tests.TestDoubles
             return queriesRan.OfType<DriverAction>();
         }
 
-        public bool NoQueriesRan { get { return !queriesRan.Any(); } }
+        public bool NoQueriesRan
+        {
+            get { return !queriesRan.Any(); }
+        }
 
         public T Synchronise<T>(Query<T> query)
         {
@@ -42,16 +45,16 @@ namespace Coypu.Tests.TestDoubles
             queriesRan.Add(query);
 
             if (alwaysReturn != null)
-                return (T)alwaysReturn;
+                return (T) alwaysReturn;
 
             if (executeImmediatelyOnceThenReturn != null && executedImmediatelyOnce)
                 return (T) executeImmediatelyOnceThenReturn;
 
             Object key = query.ExpectedResult;
             if (key == null) key = NO_EXPECTED_RESULT;
-            
+
             if (stubbedQueryResult.ContainsKey(key))
-                return (T)stubbedQueryResult[key];
+                return (T) stubbedQueryResult[key];
 
             return default(T);
         }
@@ -62,6 +65,7 @@ namespace Coypu.Tests.TestDoubles
         }
 
         public bool ZeroTimeout { get; set; }
+
         public void SetOverrideTimeout(TimeSpan timeout)
         {
         }
@@ -87,7 +91,11 @@ namespace Coypu.Tests.TestDoubles
 
         public class TryUntilArgs
         {
-            public TimeSpan OverallTimeout { get { return Options.Timeout; } }
+            public TimeSpan OverallTimeout
+            {
+                get { return Options.Timeout; }
+            }
+
             public BrowserAction TryThisBrowserAction { get; private set; }
             public Query<bool> Until { get; private set; }
             public Options Options { get; private set; }

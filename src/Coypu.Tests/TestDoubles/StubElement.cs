@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+
 namespace Coypu.Tests.TestDoubles
 {
     public class StubElement : Element
     {
-        private readonly Dictionary<string,string> attributes = new Dictionary<string,string>();
+        private readonly Dictionary<string, string> attributes = new Dictionary<string, string>();
 
         public string Id { get; set; }
 
@@ -14,7 +15,7 @@ namespace Coypu.Tests.TestDoubles
         public string Name { get; set; }
 
         public string InnerHTML { get; set; }
-        
+
         public string Title { get; set; }
 
         public bool Disabled { get; set; }
@@ -29,15 +30,12 @@ namespace Coypu.Tests.TestDoubles
 
         public string this[string attributeName]
         {
-            get 
-            {
-                return attributes.ContainsKey(attributeName) ? attributes[attributeName] : string.Empty;
-            }
+            get { return attributes.ContainsKey(attributeName) ? attributes[attributeName] : string.Empty; }
         }
 
         public void StubAttribute(string attributeName, string value)
-        { 
-            attributes[attributeName] = value; 
+        {
+            attributes[attributeName] = value;
         }
     }
 }

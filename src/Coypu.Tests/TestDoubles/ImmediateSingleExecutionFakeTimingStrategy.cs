@@ -17,7 +17,8 @@ namespace Coypu.Tests.TestDoubles
             tryThis.Act();
         }
 
-        public bool ZeroTimeout{get; set; }
+        public bool ZeroTimeout { get; set; }
+
         public void SetOverrideTimeout(TimeSpan timeout)
         {
         }

@@ -18,7 +18,7 @@ namespace Coypu.Tests.TestBuilders
             var all = elementFinder.Find(elementFinder.Options).ToArray();
             if (!all.Any())
                 throw elementFinder.GetMissingException();
-            
+
             return all.First();
         }
     }
