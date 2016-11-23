@@ -28,16 +28,9 @@ namespace Coypu.AcceptanceTests
         }
 
         [OneTimeTearDown]
-        public void TearDown()
-        {
-            _browser.Dispose();
-        }
+        public void TearDown() => _browser.Dispose();
 
-
-        private void VisitTestPage(string page)
-        {
-            _browser.Visit(Helper.GetProjectFile($"html\\{page}"));
-        }
+        private void VisitTestPage(string page) => _browser.Visit(Helper.GetProjectFile($"html\\{page}"));
 
         [Test]
         public void Scope_becomes_stale()

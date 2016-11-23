@@ -22,15 +22,11 @@ namespace Coypu.AcceptanceTests
                 Timeout = TimeSpan.FromSeconds(10)
             };
 
-
             _browser = new BrowserSession(_sessionConfiguration);
         }
 
         [TearDown]
-        public void TearDown()
-        {
-            _browser.Dispose();
-        }
+        public void TearDown() => _browser.Dispose();
 
         [Test]
         public void AppHostContainsScheme()
@@ -41,10 +37,11 @@ namespace Coypu.AcceptanceTests
                 Driver = typeof(SeleniumWebDriver)
             };
 
-            _browser = new BrowserSession(_sessionConfiguration);
-
-            _browser.Visit("/");
-            Assert.That(_browser.Location.ToString(), Is.EqualTo("https://www.google.co.uk/"));
+            using (var browser = new BrowserSession(_sessionConfiguration))
+            {
+                browser.Visit("/");
+                Assert.That(browser.Location.ToString(), Is.EqualTo("https://www.google.co.uk/"));
+            }
         }
 
         [Test, Explicit]

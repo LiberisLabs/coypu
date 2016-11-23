@@ -19,10 +19,7 @@ namespace Coypu.AcceptanceTests
         }
 
         [OneTimeTearDown]
-        public void TearDownFixture()
-        {
-            _browser.Dispose();
-        }
+        public void TearDownFixture() => _browser.Dispose();
 
         [Test]
         public void GrabsTheOuterHtmlFromAnElement()

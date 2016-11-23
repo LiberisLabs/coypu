@@ -18,17 +18,10 @@ namespace Coypu.AcceptanceTests
         }
 
         [OneTimeTearDown]
-        public void TearDown()
-        {
-            _browser.Dispose();
-        }
+        public void TearDown() => _browser.Dispose();
 
         [SetUp]
-        public void SetUp()
-        {
-            
-            ReloadTestPage();
-        }
+        public void SetUp() => ReloadTestPage();
 
         private void ReloadTestPage()
         {

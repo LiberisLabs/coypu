@@ -9,7 +9,7 @@ namespace Coypu.AcceptanceTests
         [Test, Ignore("Didn't work from original fork")]
         public void Modal_dialog()
         {
-            using (var session = new BrowserSession(new SessionConfiguration{Browser = Browser.InternetExplorer}))
+            using (var session = new BrowserSession(new SessionConfiguration{Browser = Browser.Chrome}))
             {
                 VisitTestPage(session);
 

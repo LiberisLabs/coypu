@@ -8,20 +8,20 @@ namespace Coypu
     /// </summary>
     public class SessionConfiguration : Options
     {
-        const string DEFAULT_APP_HOST = "localhost";
-        const int DEFAULT_PORT = 80;
+        private const string DefaultAppHost = "localhost";
+        private const int DefaultPort = 80;
 
-        private string appHost;
+        private string _appHost;
 
         /// <summary>
         /// New default configuration
         /// </summary>
         public SessionConfiguration()
         {
-            AppHost = DEFAULT_APP_HOST;
-            Port = DEFAULT_PORT;
+            AppHost = DefaultAppHost;
+            Port = DefaultPort;
             SSL = false;
-            Browser = Drivers.Browser.Firefox;
+            Browser = Drivers.Browser.Chrome;
             Driver = typeof(SeleniumWebDriver);
         }
 
@@ -44,7 +44,7 @@ namespace Coypu
         /// </summary>
         public string AppHost
         {
-            get { return appHost; }
+            get { return _appHost; }
             set
             {
                 if (Uri.IsWellFormedUriString(value, UriKind.Absolute))
@@ -54,7 +54,7 @@ namespace Coypu
                     UserInfo = uri.UserInfo;
                     value = uri.Host;
                 }
-                appHost = value == null ? null : value.TrimEnd('/');
+                _appHost = value?.TrimEnd('/');
             }
         }
 

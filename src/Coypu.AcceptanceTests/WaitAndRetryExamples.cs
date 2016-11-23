@@ -14,7 +14,7 @@ namespace Coypu.AcceptanceTests
             var configuration = new SessionConfiguration
             {
                 Timeout = TimeSpan.FromMilliseconds(2000),
-                Browser = Drivers.Browser.Firefox,
+                Browser = Drivers.Browser.Chrome,
                 Driver = typeof(SeleniumWebDriver)
             };
 
@@ -22,16 +22,10 @@ namespace Coypu.AcceptanceTests
         }
 
         [OneTimeTearDown]
-        public void TearDown()
-        {
-            Browser.Dispose();
-        }
+        public void TearDown() => Browser.Dispose();
 
         [SetUp]
-        public void SetUp()
-        {
-            ReloadTestPageWithDelay();
-        }
+        public void SetUp() => ReloadTestPageWithDelay();
 
         protected void ApplyAsyncDelay()
         {

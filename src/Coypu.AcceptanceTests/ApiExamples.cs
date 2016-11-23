@@ -6,7 +6,7 @@ using Coypu.Drivers;
 using Coypu.Drivers.Selenium;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
 
 namespace Coypu.AcceptanceTests
@@ -548,7 +548,7 @@ namespace Coypu.AcceptanceTests
         [Test]
         public void CustomProfile()
         {
-            var configuration = new SessionConfiguration {Driver = typeof (CustomFirefoxProfileSeleniumWebDriver)};
+            var configuration = new SessionConfiguration {Driver = typeof (CustomChromeOptionsSeleniumWebDriver)};
 
             using (var custom = new BrowserSession(configuration))
             {
@@ -557,17 +557,16 @@ namespace Coypu.AcceptanceTests
             }
         }
 
-        public class CustomFirefoxProfileSeleniumWebDriver : SeleniumWebDriver
+        public class CustomChromeOptionsSeleniumWebDriver : SeleniumWebDriver
         {
-            public CustomFirefoxProfileSeleniumWebDriver(Drivers.Browser browser)
+            public CustomChromeOptionsSeleniumWebDriver(Browser browser)
                 : base(CustomProfile(), browser)
             {
             }
 
             private static RemoteWebDriver CustomProfile()
             {
-                var yourCustomProfile = new FirefoxProfile();
-                return new FirefoxDriver(yourCustomProfile);
+                return new ChromeDriver(new ChromeOptions());
             }
         }
 
@@ -575,7 +574,6 @@ namespace Coypu.AcceptanceTests
         [TestCase("Windows XP", "internet explorer", "6")]
         public void CustomBrowserSession(string platform, string browserName, string version)
         {
-
             var desiredCapabilites = new DesiredCapabilities(browserName, version, Platform.CurrentPlatform);
             desiredCapabilites.SetCapability("platform", platform);
             desiredCapabilites.SetCapability("username", "appiumci");

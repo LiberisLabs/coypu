@@ -14,32 +14,21 @@ namespace Coypu.AcceptanceTests
             var configuration = new SessionConfiguration
             {
                 Timeout = TimeSpan.FromMilliseconds(2000),
-                Browser = Drivers.Browser.InternetExplorer
+                Browser = Drivers.Browser.Chrome
             };
 
             _browser = new BrowserSession(configuration);
         }
+
         [OneTimeTearDown]
-        public void TearDown()
-        {
-            _browser.Dispose();
-        }
+        public void TearDown() => _browser.Dispose();
 
         [SetUp]
-        public void SetUp()
-        {
-            ReloadTestPage();
-        }
+        public void SetUp() => ReloadTestPage();
 
-        protected void ReloadTestPage()
-        {
-            _browser.Visit(TestPageLocation("InteractionTestsPage.htm"));
-        }
+        protected void ReloadTestPage() => _browser.Visit(TestPageLocation("InteractionTestsPage.htm"));
 
-        protected static string TestPageLocation(string page)
-        {
-            return Helper.GetProjectFile(@"html\" + page);
-        }
+        protected static string TestPageLocation(string page) => Helper.GetProjectFile(@"html\" + page);
 
         [Test]
         public void First_allows_ambiguous_results()

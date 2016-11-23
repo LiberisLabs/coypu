@@ -1,17 +1,17 @@
 ﻿using System.Linq;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Chrome;
 
 namespace Coypu.AcceptanceTests
 {
-	[TestFixture,Explicit]
+	[TestFixture, Explicit]
 	public class RawWebDriver
 	{
 	    [Test]
 		public void Retries_Autotrader()
         {
-            var browser = new FirefoxDriver();
+            var browser = new ChromeDriver();
             browser.Navigate().GoToUrl("http://www.autotrader.co.uk/used-cars");
 
 	        browser.FindElementByName("postcode").SendKeys("N1 1AA");
@@ -26,19 +26,10 @@ namespace Coypu.AcceptanceTests
 	        browser.FindElementByName("keywords").SendKeys("vtr");
         }
 
-
-
-
-
-
-
-
-
-
 	    [Test]
 		public void Visibility_NewTwitter()
 		{
-            var browser = new FirefoxDriver();
+            var browser = new ChromeDriver();
             browser.Navigate().GoToUrl("http://www.twitter.com");
 
             browser.FindElementByName("session[username_or_email]").SendKeys("theuser");
@@ -46,21 +37,10 @@ namespace Coypu.AcceptanceTests
             
 		}
 
-
-
-
-
-
-
-
-
-
-
-
 	    [Test]
 	    public void FindingStuff_CarBuzz()
         {
-            var browser = new FirefoxDriver();
+            var browser = new ChromeDriver();
 	        browser.Navigate().GoToUrl("http://carbuzz.heroku.com/car_search");
 
 	        browser.FindElementByName("make_17").Click();

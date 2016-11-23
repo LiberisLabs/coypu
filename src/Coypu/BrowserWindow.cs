@@ -12,9 +12,14 @@ namespace Coypu
     /// </summary>
     public class BrowserWindow : DriverScope
     {
-        internal BrowserWindow(SessionConfiguration SessionConfiguration, ElementFinder elementFinder, Driver driver, TimingStrategy timingStrategy, Waiter waiter, UrlBuilder urlBuilder,
+        internal BrowserWindow(SessionConfiguration sessionConfiguration,
+                               ElementFinder elementFinder,
+                               Driver driver,
+                               TimingStrategy timingStrategy,
+                               Waiter waiter,
+                               UrlBuilder urlBuilder,
                                DisambiguationStrategy disambiguationStrategy)
-            : base(SessionConfiguration, elementFinder, driver, timingStrategy, waiter, urlBuilder, disambiguationStrategy)
+            : base(sessionConfiguration, elementFinder, driver, timingStrategy, waiter, urlBuilder, disambiguationStrategy)
         {
         }
 
@@ -88,11 +93,7 @@ namespace Coypu
         /// <summary>
         /// Returns the page's title displayed in the browser
         /// </summary>
-        public string Title
-        {
-            get { return driver.Title(this); }
-        }
-
+        public string Title => driver.Title(this);
 
         /// <summary>
         /// Executes custom javascript in the browser
