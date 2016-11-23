@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using NUnit.Framework;
 
@@ -8,21 +7,20 @@ namespace Coypu.AcceptanceTests
     [TestFixture]
     public class SnapshotElementScope
     {
-        private SessionConfiguration SessionConfiguration;
-        private BrowserSession browser;
+        private SessionConfiguration _sessionConfiguration;
+        private BrowserSession _browser;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void SetUpFixture()
         {
-            SessionConfiguration = new SessionConfiguration();
-            SessionConfiguration.Timeout = TimeSpan.FromMilliseconds(1000);
-            browser = new BrowserSession(SessionConfiguration);
+            _sessionConfiguration = new SessionConfiguration {Timeout = TimeSpan.FromMilliseconds(1000)};
+            _browser = new BrowserSession(_sessionConfiguration);
         }
 
-        [TestFixtureTearDown]
+        [OneTimeTearDown]
         public void TearDown()
         {
-            browser.Dispose();
+            _browser.Dispose();
         }
 
         [SetUp]
@@ -34,13 +32,13 @@ namespace Coypu.AcceptanceTests
 
         private void ReloadTestPage()
         {
-            browser.Visit(Helper.GetProjectFile(@"html\InteractionTestsPage.htm"));
+            _browser.Visit(Helper.GetProjectFile(@"html\InteractionTestsPage.htm"));
         }
 
         [Test]
         public void FindAllCss_returns_scopes()
         {
-            var all = browser.FindAllCss("ul.snapshot-scope").ToList();
+            var all = _browser.FindAllCss("ul.snapshot-scope").ToList();
             Assert.That(all.Count(), Is.EqualTo(2));
 
             Assert.That(all[0].FindCss("li:first-child").Text, Is.EqualTo("Some"));
@@ -50,8 +48,8 @@ namespace Coypu.AcceptanceTests
         [Test]
         public void FindAllXPath_returns_scopes()
         {
-            var all = browser.FindAllXPath("//ul[@class='snapshot-scope']").ToList();
-            Assert.That(all.Count(), Is.EqualTo(2));
+            var all = _browser.FindAllXPath("//ul[@class='snapshot-scope']").ToList();
+            Assert.That(all.Count, Is.EqualTo(2));
 
             Assert.That(all[0].FindCss("li:first-child").Text, Is.EqualTo("Some"));
             Assert.That(all[1].FindCss("li:first-child").Text, Is.EqualTo("one"));
@@ -64,7 +62,7 @@ namespace Coypu.AcceptanceTests
         [Test]
         public void SnapshotScopes_raise_MissingHtml_immediately_when_stale()
         {
-            var all = browser.FindAllXPath("//ul[@class='snapshot-scope']").ToList();
+            var all = _browser.FindAllXPath("//ul[@class='snapshot-scope']").ToList();
 
             ReloadTestPage();
 
@@ -75,7 +73,7 @@ namespace Coypu.AcceptanceTests
         [Test]
         public void SnapshotScopes_work_with_hasContent_queries()
         {
-            var all = browser.FindAllCss("ul.snapshot-scope li:first-child").ToList();
+            var all = _browser.FindAllCss("ul.snapshot-scope li:first-child").ToList();
             Assert.That(all[0].HasContent("Some"), Is.True);
         }
     }

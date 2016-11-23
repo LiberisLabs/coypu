@@ -1,10 +1,9 @@
-﻿using System;
-using Coypu.Finders;
+﻿using Coypu.Finders;
 using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
 {
-    internal class When_refreshing_windows : DriverSpecs
+    internal class WhenRefreshingWindows : DriverSpecs
     {
         [Test]
         public void RefreshCausesPageToReload()
@@ -28,13 +27,13 @@ namespace Coypu.Drivers.Tests
             }
         }
 
-        private static void RefreshCausesScopeToReload(DriverScope driverScope)
+        private static void RefreshCausesScopeToReload(Scope driverScope)
         {
-            var tickBeforeRefresh = (Int64) Driver.ExecuteScript("return window.SpecData.CurrentTick;", driverScope);
+            var tickBeforeRefresh = (long) Driver.ExecuteScript("return window.SpecData.CurrentTick;", driverScope);
 
             Driver.Refresh(driverScope);
 
-            var tickAfterRefresh = (Int64) Driver.ExecuteScript("return window.SpecData.CurrentTick;", driverScope);
+            var tickAfterRefresh = (long) Driver.ExecuteScript("return window.SpecData.CurrentTick;", driverScope);
 
             Assert.That(tickAfterRefresh, Is.GreaterThan(tickBeforeRefresh));
         }

@@ -1,5 +1,3 @@
-using System;
-using System.IO;
 using Coypu.Drivers;
 using NUnit.Framework;
 
@@ -16,8 +14,7 @@ namespace Coypu.AcceptanceTests
                 VisitTestPage(session);
 
                 var linkId = session.FindLink("Open modal dialog").Id;
-                session.ExecuteScript(
-                    string.Format("window.setTimeout(function() {{document.getElementById('{0}').click()}},1);", linkId));
+                session.ExecuteScript($"window.setTimeout(function() {{document.getElementById('{linkId}').click()}},1);");
 
                 var dialog = session.FindWindow("Pop Up Window");
                 dialog.FillIn("text input in popup").With("I'm interacting with a modal dialog");
@@ -25,7 +22,7 @@ namespace Coypu.AcceptanceTests
             }
         }
 
-        private void VisitTestPage(BrowserSession browserSession)
+        private static void VisitTestPage(BrowserWindow browserSession)
         {
             browserSession.Visit(Helper.GetProjectFile(@"html\InteractionTestsPage.htm"));
         }

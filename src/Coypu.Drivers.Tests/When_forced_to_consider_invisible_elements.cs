@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using Coypu.Finders;
 using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
 {
-    public class When_forced_to_find_invisible_elements : DriverSpecs
+    public class WhenForcedToFindInvisibleElements : DriverSpecs
     {
         [Test]
         public void Does_find_hidden_inputs()

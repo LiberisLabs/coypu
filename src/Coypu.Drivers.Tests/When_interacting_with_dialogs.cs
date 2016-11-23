@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
 {
-    internal class When_interacting_with_dialogs : DriverSpecs
+    internal class WhenInteractingWithDialogs : DriverSpecs
     {
         [Test]
         public void Accepts_alerts()
@@ -18,7 +18,6 @@ namespace Coypu.Drivers.Tests
                 Driver.HasDialog("You have triggered an alert and this is the text.", Root).should_be_false();
             }
         }
-
 
         [Test]
         public void Clears_dialog()
@@ -117,13 +116,13 @@ namespace Coypu.Drivers.Tests
             }
         }
 
-        private static void CloseWindow(DriverScope popUp)
+        private static void CloseWindow(Scope popUp)
         {
             try
             {
                 Driver.ExecuteScript("self.close();", popUp);
             }
-            catch (Exception InvalidCastException)
+            catch (Exception)
             {
                 // IE permissions
             }

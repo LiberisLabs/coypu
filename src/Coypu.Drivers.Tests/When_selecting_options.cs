@@ -4,14 +4,13 @@ using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
 {
-    internal class When_selecting_options : DriverSpecs
+    internal class WhenSelectingOptions : DriverSpecs
     {
         private static DriverScope GetSelectScope(string locator)
         {
-            var select = new BrowserWindow(DefaultSessionConfiguration,
-                                         new SelectFinder(Driver, locator, Root, DefaultOptions), Driver,
-                                         null, null, null, DisambiguationStrategy);
-            return @select;
+            return new BrowserWindow(DefaultSessionConfiguration,
+                                     new SelectFinder(Driver, locator, Root, DefaultOptions), Driver,
+                                     null, null, null, DisambiguationStrategy);
         }
 
         [Test]
@@ -51,5 +50,4 @@ namespace Coypu.Drivers.Tests
             Assert.That(FindSingle(new OptionFinder(Driver, "one", GetSelectScope("Ambiguous select options"), Options.Substring)).Text, Is.EqualTo("one"));
         }
     }
-    
 }

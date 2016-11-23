@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
 {
-    internal class When_finding_windows : DriverSpecs
+    internal class WhenFindingWindows : DriverSpecs
     {
         [Test]
         public void Finds_by_name()

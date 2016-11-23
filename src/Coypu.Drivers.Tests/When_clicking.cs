@@ -1,11 +1,9 @@
-﻿using System.Linq;
-using Coypu.Finders;
-using NSpec;
+﻿using NSpec;
 using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
 {
-    public class When_clicking : DriverSpecs
+    public class WhenClicking : DriverSpecs
     {
         [Test]
         public void Clicks_the_underlying_element()

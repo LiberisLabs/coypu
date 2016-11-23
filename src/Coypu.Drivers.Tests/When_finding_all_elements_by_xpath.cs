@@ -1,11 +1,10 @@
 ﻿using System.Linq;
-using Coypu.Finders;
 using NSpec;
 using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
 {
-    internal class When_finding_all_elements_by_xpath : DriverSpecs
+    internal class WhenFindingAllElementsByXpath : DriverSpecs
     {
         [Test]
         public void Returns_empty_if_no_matches()

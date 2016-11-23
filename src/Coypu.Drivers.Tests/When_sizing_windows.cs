@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
 {
-    internal class When_sizing_windows : DriverSpecs
+    internal class WhenSizingWindows : DriverSpecs
     {
         [Test]
         public void MaximisesWindow()
@@ -22,7 +22,7 @@ namespace Coypu.Drivers.Tests
             {
                 Driver.Click(Link("Open pop up window"));
                 var popUp = new BrowserWindow(DefaultSessionConfiguration, new WindowFinder(Driver, "Pop Up Window", Root, DefaultOptions),
-                                            Driver, null, null, null, DisambiguationStrategy);
+                                              Driver, null, null, null, DisambiguationStrategy);
 
                 try
                 {
@@ -35,19 +35,17 @@ namespace Coypu.Drivers.Tests
             }
         }
 
-        private static void AssertMaximisesWindow(DriverScope driverScope)
+        private static void AssertMaximisesWindow(Scope driverScope)
         {
             var availWidth = Driver.ExecuteScript("return window.screen.availWidth;", driverScope);
-            var initalWidth =  Driver.ExecuteScript("return window.outerWidth;", driverScope);
+            var initalWidth = Driver.ExecuteScript("return window.outerWidth;", driverScope);
 
             Assert.That(initalWidth, Is.LessThan(availWidth));
 
             Driver.MaximiseWindow(driverScope);
 
-            Assert.That( Driver.ExecuteScript("return window.outerWidth;", driverScope), Is.GreaterThanOrEqualTo(availWidth));
+            Assert.That(Driver.ExecuteScript("return window.outerWidth;", driverScope), Is.GreaterThanOrEqualTo(availWidth));
         }
-
-
 
         [Test]
         public void ResizesWindow()
@@ -65,7 +63,7 @@ namespace Coypu.Drivers.Tests
             {
                 Driver.Click(Link("Open pop up window"));
                 var popUp = new BrowserWindow(DefaultSessionConfiguration, new WindowFinder(Driver, "Pop Up Window", Root, DefaultOptions),
-                                            Driver, null, null, null, DisambiguationStrategy);
+                                              Driver, null, null, null, DisambiguationStrategy);
 
                 try
                 {
@@ -78,7 +76,7 @@ namespace Coypu.Drivers.Tests
             }
         }
 
-        private static void AssertResizesWindow(DriverScope driverScope)
+        private static void AssertResizesWindow(Scope driverScope)
         {
             var availWidth = Driver.ExecuteScript("return window.screen.availWidth;", driverScope);
             var initalWidth = Driver.ExecuteScript("return window.outerWidth;", driverScope);

@@ -1,10 +1,9 @@
-using Coypu.Finders;
 using NSpec;
 using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
 {
-    internal class When_finding_fields_by_name : DriverSpecs {
+    internal class WhenFindingFieldsByName : DriverSpecs {
 
         [Test]
         public void Finds_text_input()
@@ -47,6 +46,5 @@ namespace Coypu.Drivers.Tests
         {
             Field("containerLabeledFileFieldName").Id.should_be("containerLabeledFileFieldId");
         }
-
     }
 }

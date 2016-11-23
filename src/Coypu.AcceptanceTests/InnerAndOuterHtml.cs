@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
 
@@ -8,36 +7,35 @@ namespace Coypu.AcceptanceTests
     [TestFixture]
     public class InnerAndOuterHtml
     {
-        private SessionConfiguration SessionConfiguration;
-        private BrowserSession browser;
+        private SessionConfiguration _sessionConfiguration;
+        private BrowserSession _browser;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void SetUpFixture()
         {
-            SessionConfiguration = new SessionConfiguration();
-            SessionConfiguration.Timeout = TimeSpan.FromMilliseconds(1000);
-            browser = new BrowserSession(SessionConfiguration);
-            browser.Visit(Helper.GetProjectFile(@"html\table.htm"));
+            _sessionConfiguration = new SessionConfiguration {Timeout = TimeSpan.FromMilliseconds(1000)};
+            _browser = new BrowserSession(_sessionConfiguration);
+            _browser.Visit(Helper.GetProjectFile(@"html\table.htm"));
         }
 
-        [TestFixtureTearDown]
+        [OneTimeTearDown]
         public void TearDownFixture()
         {
-            browser.Dispose();
+            _browser.Dispose();
         }
 
         [Test]
-        public void GrabsTheOuterHTMLFromAnElement()
+        public void GrabsTheOuterHtmlFromAnElement()
         {
-            var outerHTML = Normalise(browser.FindCss("table").OuterHTML);
-            Assert.That(outerHTML, Is.EqualTo("<table><tbody><tr><th>name</th><th>age</th></tr><tr><td>bob</td><td>12</td></tr><tr><td>jane</td><td>79</td></tr></tbody></table>"));
+            var outerHtml = Normalise(_browser.FindCss("table").OuterHTML);
+            Assert.That(outerHtml, Is.EqualTo("<table><tbody><tr><th>name</th><th>age</th></tr><tr><td>bob</td><td>12</td></tr><tr><td>jane</td><td>79</td></tr></tbody></table>"));
         }
 
         [Test]
-        public void GrabsTheInnerHTMLFromAnElement()
+        public void GrabsTheInnerHtmlFromAnElement()
         {
-            var innerHTML = Normalise(browser.FindCss("table").InnerHTML);
-            Assert.That(innerHTML, Is.EqualTo("<tbody><tr><th>name</th><th>age</th></tr><tr><td>bob</td><td>12</td></tr><tr><td>jane</td><td>79</td></tr></tbody>"));
+            var innerHtml = Normalise(_browser.FindCss("table").InnerHTML);
+            Assert.That(innerHtml, Is.EqualTo("<tbody><tr><th>name</th><th>age</th></tr><tr><td>bob</td><td>12</td></tr><tr><td>jane</td><td>79</td></tr></tbody>"));
         }
 
         private static string Normalise(string innerHtml)

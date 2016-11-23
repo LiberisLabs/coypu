@@ -1,11 +1,10 @@
 ﻿using System;
-using Coypu.Tests.TestDoubles;
 using NUnit.Framework;
 
 namespace Coypu.Tests
 {
     [TestFixture]
-    public class When_configuring_options
+    public class WhenConfiguringOptions
     {
         [Test]
         public void ConsiderInvisibleElements_defaults_to_false()

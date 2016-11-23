@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using NUnit.Framework;
 
 namespace Coypu.AcceptanceTests
@@ -7,10 +6,9 @@ namespace Coypu.AcceptanceTests
     [TestFixture]
     public class TextPrecisionAndMatch
     {
+        private BrowserSession _browser;
 
-        protected BrowserSession browser;
-
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void SetUpFixture()
         {
             var configuration = new SessionConfiguration
@@ -18,13 +16,13 @@ namespace Coypu.AcceptanceTests
                 Timeout = TimeSpan.FromMilliseconds(2000),
                 Browser = Drivers.Browser.InternetExplorer
             };
-            browser = new BrowserSession(configuration);
 
+            _browser = new BrowserSession(configuration);
         }
-        [TestFixtureTearDown]
+        [OneTimeTearDown]
         public void TearDown()
         {
-            browser.Dispose();
+            _browser.Dispose();
         }
 
         [SetUp]
@@ -35,7 +33,7 @@ namespace Coypu.AcceptanceTests
 
         protected void ReloadTestPage()
         {
-            browser.Visit(TestPageLocation("InteractionTestsPage.htm"));
+            _browser.Visit(TestPageLocation("InteractionTestsPage.htm"));
         }
 
         protected static string TestPageLocation(string page)
@@ -46,33 +44,33 @@ namespace Coypu.AcceptanceTests
         [Test]
         public void First_allows_ambiguous_results()
         {
-            Assert.That(browser.FindField("Some for labeled", Options.FirstSubstring).Id, Is.EqualTo("forLabeledRadioFieldPartialMatchId"));
-            Assert.That(browser.FindField("someFieldNameThatAppearsTwice", Options.FirstExact).Id, Is.EqualTo("someFieldNameThatAppearsTwice_1"));
-            Assert.That(browser.FindField("someFieldNameThatAppearsTwice", Options.FirstPreferExact).Id, Is.EqualTo("someFieldNameThatAppearsTwice_1"));
-            Assert.That(browser.FindField("Some for labeled radio option", Options.FirstPreferExact).Id, Is.EqualTo("forLabeledRadioFieldExactMatchId"));
+            Assert.That(_browser.FindField("Some for labeled", Options.FirstSubstring).Id, Is.EqualTo("forLabeledRadioFieldPartialMatchId"));
+            Assert.That(_browser.FindField("someFieldNameThatAppearsTwice", Options.FirstExact).Id, Is.EqualTo("someFieldNameThatAppearsTwice_1"));
+            Assert.That(_browser.FindField("someFieldNameThatAppearsTwice", Options.FirstPreferExact).Id, Is.EqualTo("someFieldNameThatAppearsTwice_1"));
+            Assert.That(_browser.FindField("Some for labeled radio option", Options.FirstPreferExact).Id, Is.EqualTo("forLabeledRadioFieldExactMatchId"));
         }
 
         [Test]
         public void Single_does_not_allow_ambiguous_results()
         {
-            Assert.Throws<AmbiguousException>(() => browser.FindField("Some for labeled", Options.SingleSubstring).Now());
-            Assert.Throws<AmbiguousException>(() => browser.FindField("someFieldNameThatAppearsTwice", Options.SingleExact).Now());
-            Assert.Throws<AmbiguousException>(() => browser.FindField("someFieldNameThatAppearsTwice", Options.SinglePreferExact).Now());
-            Assert.Throws<AmbiguousException>(() => browser.FindField("Some for labeled", Options.SinglePreferExact).Now());
+            Assert.Throws<AmbiguousException>(() => _browser.FindField("Some for labeled", Options.SingleSubstring).Now());
+            Assert.Throws<AmbiguousException>(() => _browser.FindField("someFieldNameThatAppearsTwice", Options.SingleExact).Now());
+            Assert.Throws<AmbiguousException>(() => _browser.FindField("someFieldNameThatAppearsTwice", Options.SinglePreferExact).Now());
+            Assert.Throws<AmbiguousException>(() => _browser.FindField("Some for labeled", Options.SinglePreferExact).Now());
         }
 
         [Test]
         public void Exact_finds_only_exact_text_matches()
         {
-            Assert.That(browser.FindField("Some for labeled radio option", Options.FirstExact).Id, Is.EqualTo("forLabeledRadioFieldExactMatchId"));
-            Assert.Throws<MissingHtmlException>(() => browser.FindField("Some for labeled radio", Options.FirstExact).Now());
+            Assert.That(_browser.FindField("Some for labeled radio option", Options.FirstExact).Id, Is.EqualTo("forLabeledRadioFieldExactMatchId"));
+            Assert.Throws<MissingHtmlException>(() => _browser.FindField("Some for labeled radio", Options.FirstExact).Now());
         }
         
         [Test]
         public void Substring_finds_substring_text_matches()
         {
-            Assert.That(browser.FindField("Some for labeled radio option", Options.FirstSubstring).Id, Is.EqualTo("forLabeledRadioFieldPartialMatchId"));
-            Assert.That(browser.FindField("Some for labeled", Options.FirstSubstring).Id, Is.EqualTo("forLabeledRadioFieldPartialMatchId"));
+            Assert.That(_browser.FindField("Some for labeled radio option", Options.FirstSubstring).Id, Is.EqualTo("forLabeledRadioFieldPartialMatchId"));
+            Assert.That(_browser.FindField("Some for labeled", Options.FirstSubstring).Id, Is.EqualTo("forLabeledRadioFieldPartialMatchId"));
         }
 
         // There is a race condition where these tests can fail occasionally
@@ -93,15 +91,15 @@ namespace Coypu.AcceptanceTests
         [Test]
         public void PreferExact_finds_exact_matches_before_substring_matches()
         {
-            Assert.That(browser.FindField("Some for labeled radio option", Options.FirstPreferExact).Id, Is.EqualTo("forLabeledRadioFieldExactMatchId"));
-            Assert.That(browser.FindField("Some for labeled radio option", Options.SinglePreferExact).Id, Is.EqualTo("forLabeledRadioFieldExactMatchId"));
+            Assert.That(_browser.FindField("Some for labeled radio option", Options.FirstPreferExact).Id, Is.EqualTo("forLabeledRadioFieldExactMatchId"));
+            Assert.That(_browser.FindField("Some for labeled radio option", Options.SinglePreferExact).Id, Is.EqualTo("forLabeledRadioFieldExactMatchId"));
         }
 
         [Test]
         public void PreferExact_finds_exact_match_select_option_before_substring_match()
         {
-            browser.Select("one",Options.PreferExact).From("Ambiguous select options");
-            Assert.That(browser.FindField("Ambiguous select options").SelectedOption, Is.EqualTo("one"));
+            _browser.Select("one",Options.PreferExact).From("Ambiguous select options");
+            Assert.That(_browser.FindField("Ambiguous select options").SelectedOption, Is.EqualTo("one"));
         }
     }
 }

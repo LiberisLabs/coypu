@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
 {
-    internal class When_using_iframes_as_scope : DriverSpecs
+    internal class WhenUsingIframesAsScope : DriverSpecs
     {
         [Test]
         public void Does_not_find_something_in_an_iframe()

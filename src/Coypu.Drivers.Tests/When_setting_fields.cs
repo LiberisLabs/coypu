@@ -4,21 +4,19 @@ using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
 {
-    internal class When_setting_fields : DriverSpecs
+    internal class WhenSettingFields : DriverSpecs
     {
-
         private static DriverScope GetSelectScope(string locator)
         {
-            var select = new BrowserWindow(DefaultSessionConfiguration,
-                                         new SelectFinder(Driver, locator, Root, DefaultOptions), Driver,
-                                         null, null, null, DisambiguationStrategy);
-            return @select;
+            return new BrowserWindow(DefaultSessionConfiguration,
+                                     new SelectFinder(Driver, locator, Root, DefaultOptions), Driver,
+                                     null, null, null, DisambiguationStrategy);
         }
 
         [Test]
         public void Sets_value_of_text_input_field_with_id()
         {
-            var textField = Field("containerLabeledTextInputFieldName");  
+            var textField = Field("containerLabeledTextInputFieldName");
             Driver.Set(textField, "should be much quicker since it's set by js");
 
             textField.Value.should_be("should be much quicker since it's set by js");

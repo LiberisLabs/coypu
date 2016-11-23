@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
 {
-    internal class When_navigating : DriverSpecs
+    internal class WhenNavigating : DriverSpecs
     {
         [Test]
         public void Gets_the_current_browser_location()
@@ -17,16 +17,14 @@ namespace Coypu.Drivers.Tests
             Assert.That(Driver.Location(Root), Is.EqualTo(new Uri(TestSiteUrl("/auto_login"))));
         }
 
-
         [Test]
         public void Gets_location_for_correct_window_scope()
         {
             Driver.Click(Link("Open pop up window"));
             var popUp = new BrowserWindow(DefaultSessionConfiguration, new WindowFinder(Driver, "Pop Up Window", Root, DefaultOptions), Driver, null, null, null, DisambiguationStrategy);
 
-            Assert.That(Driver.Location(popUp).AbsoluteUri, Is.StringEnding("src/Coypu.Drivers.Tests/html/popup.htm"));
+            Assert.That(Driver.Location(popUp).AbsoluteUri, Does.Contain("src/Coypu.Drivers.Tests/html/popup.htm"));
         }
-
 
         [Test]
         public void Not_just_when_set_by_visit()

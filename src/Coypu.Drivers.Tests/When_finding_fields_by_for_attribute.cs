@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
 {
-    internal class When_finding_fields_by_for_attribute : DriverSpecs
+    internal class WhenFindingFieldsByForAttribute : DriverSpecs
     {
         [Test]
         public void Finds_text_input()

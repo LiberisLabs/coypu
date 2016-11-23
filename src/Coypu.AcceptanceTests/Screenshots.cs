@@ -11,29 +11,28 @@ namespace Coypu.AcceptanceTests
         [Test]
         public void SavesToSpecifiedLocation()
         {
-            browser.Visit(Helper.GetProjectFile("html\\test-card.jpg"));
-            browser.ResizeTo(800, 600);
+            Browser.Visit(Helper.GetProjectFile("html\\test-card.jpg"));
+            Browser.ResizeTo(800, 600);
 
-            SavesToSpecifiedLocation(browser);
+            SavesToSpecifiedLocation(Browser);
         }
 
         [Test]
         public void CapturesCorrectWindow()
         {
-            browser.ClickLink("Open pop up window");
-            var popUp = browser.FindWindow("Pop Up Window");
+            Browser.ClickLink("Open pop up window");
+            var popUp = Browser.FindWindow("Pop Up Window");
             popUp.Visit(Helper.GetProjectFile("html\\test-card.jpg"));
             popUp.ResizeTo(800, 600);
 
             // Do something in the main window
-            browser.FindCss("body").Click();
+            Browser.FindCss("body").Click();
 
             SavesToSpecifiedLocation(popUp);
         }
 
         private static void SavesToSpecifiedLocation(BrowserWindow browserWindow)
         {
-            
             const string fileName = "screenshot-test-card.jpg";
             try
             {

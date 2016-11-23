@@ -1,10 +1,9 @@
-﻿using Coypu.Finders;
-using NSpec;
+﻿using NSpec;
 using NUnit.Framework;
 
 namespace Coypu.Drivers.Tests
 {
-    internal class When_accessing_attributes : DriverSpecs
+    internal class WhenAccessingAttributes : DriverSpecs
     {
         [Test]
         public void Exposes_element_attributes()
