@@ -11,25 +11,25 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void Finds_text_input()
         {
-            Assert.That("text input field two val", Is.EqualTo(DriverSpecs.Field("containerLabeledTextInputFieldName").Value));
+            Assert.That(DriverSpecs.Field("containerLabeledTextInputFieldName").Value, Is.EqualTo("text input field two val"));
         }
 
         [Test]
         public void Finds_textarea()
         {
-            Assert.That("textarea field two val", Is.EqualTo(DriverSpecs.Field("containerLabeledTextareaFieldName").Value));
+            Assert.That(DriverSpecs.Field("containerLabeledTextareaFieldName").Value, Is.EqualTo("textarea field two val"));
         }
 
         [Test]
         public void Finds_select()
         {
-            Assert.That("containerLabeledSelectFieldId", Is.EqualTo(DriverSpecs.Field("containerLabeledSelectFieldName").Id));
+            Assert.That(DriverSpecs.Field("containerLabeledSelectFieldName").Id, Is.EqualTo("containerLabeledSelectFieldId"));
         }
 
         [Test]
         public void Finds_checkbox()
         {
-            Assert.That("checkbox field two val", Is.EqualTo(DriverSpecs.Field("containerLabeledCheckboxFieldName").Value));
+            Assert.That(DriverSpecs.Field("containerLabeledCheckboxFieldName").Value, Is.EqualTo("checkbox field two val"));
         }
 
         [Test]
@@ -41,13 +41,13 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void Finds_password_input()
         {
-            Assert.That("containerLabeledPasswordFieldId", Is.EqualTo(DriverSpecs.Field("containerLabeledPasswordFieldName").Id));
+            Assert.That(DriverSpecs.Field("containerLabeledPasswordFieldName").Id, Is.EqualTo("containerLabeledPasswordFieldId"));
         }
 
         [Test]
         public void Finds_file_input()
         {
-            Assert.That("containerLabeledFileFieldId", Is.EqualTo(DriverSpecs.Field("containerLabeledFileFieldName").Id));
+            Assert.That(DriverSpecs.Field("containerLabeledFileFieldName").Id, Is.EqualTo("containerLabeledFileFieldId"));
         }
     }
 }

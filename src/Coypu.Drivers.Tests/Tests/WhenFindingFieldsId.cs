@@ -11,90 +11,90 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void Finds_field()
         {
-            Assert.That("text input field two val", Is.EqualTo(DriverSpecs.Field("containerLabeledTextInputFieldId").Value));
+            Assert.That(DriverSpecs.Field("containerLabeledTextInputFieldId").Value, Is.EqualTo("text input field two val"));
         }
 
         [Test]
         public void Finds_email_field()
         {
-            Assert.That("email input field two val", Is.EqualTo(DriverSpecs.Field("containerLabeledEmailInputFieldId").Value));
+            Assert.That(DriverSpecs.Field("containerLabeledEmailInputFieldId").Value, Is.EqualTo("email input field two val"));
         }
 
         [Test]
         public void Finds_tel_field()
         {
-            Assert.That("0123456789", Is.EqualTo(DriverSpecs.Field("containerLabeledTelInputFieldId").Value));
+            Assert.That(DriverSpecs.Field("containerLabeledTelInputFieldId").Value, Is.EqualTo("0123456789"));
         }
 
         [Test]
         public void Finds_number_field()
         {
-            Assert.That("42", Is.EqualTo(DriverSpecs.Field("containerLabeledNumberInputFieldId").Value));
+            Assert.That(DriverSpecs.Field("containerLabeledNumberInputFieldId").Value, Is.EqualTo("42"));
         }
 
         [Test]
         public void Finds_datetime_field()
         {
-            Assert.That("2012-01-02T03:04:05Z", Is.EqualTo(DriverSpecs.Field("containerLabeledDatetimeInputFieldId").Value));
+            Assert.That(DriverSpecs.Field("containerLabeledDatetimeInputFieldId").Value, Is.EqualTo("2012-01-02T03:04:05Z"));
         }
 
         [Test]
         public void Finds_datetime_local_field()
         {
-            Assert.That("2012-01-02T03:04:05", Is.EqualTo(DriverSpecs.Field("containerLabeledDatetimeLocalInputFieldId").Value));
+            Assert.That(DriverSpecs.Field("containerLabeledDatetimeLocalInputFieldId").Value, Is.EqualTo("2012-01-02T03:04:05"));
         }
 
         [Test]
         public void Finds_date_field()
         {
-            Assert.That("2012-01-02", Is.EqualTo(DriverSpecs.Field("containerLabeledDateInputFieldId").Value));
+            Assert.That(DriverSpecs.Field("containerLabeledDateInputFieldId").Value, Is.EqualTo("2012-01-02"));
         }
 
         [Test]
         public void Finds_url_field()
         {
-            Assert.That("http://www.example.com", Is.EqualTo(DriverSpecs.Field("containerLabeledUrlInputFieldId").Value));
+            Assert.That(DriverSpecs.Field("containerLabeledUrlInputFieldId").Value, Is.EqualTo("http://www.example.com"));
         }
         [Test]
         public void Finds_color_field()
         {
-            Assert.That("#ff0000", Is.EqualTo(DriverSpecs.Field("containerLabeledColorInputFieldId").Value));
+            Assert.That(DriverSpecs.Field("containerLabeledColorInputFieldId").Value, Is.EqualTo("#ff0000"));
         }
 
         [Test]
         public void Finds_textarea()
         {
-            Assert.That("textarea field two val", Is.EqualTo(DriverSpecs.Field("containerLabeledTextareaFieldId").Value));
+            Assert.That(DriverSpecs.Field("containerLabeledTextareaFieldId").Value, Is.EqualTo("textarea field two val"));
         }
 
         [Test]
         public void Finds_select()
         {
-            Assert.That("containerLabeledSelectFieldName", Is.EqualTo(DriverSpecs.Field("containerLabeledSelectFieldId").Name));
+            Assert.That(DriverSpecs.Field("containerLabeledSelectFieldId").Name, Is.EqualTo("containerLabeledSelectFieldName"));
         }
 
         [Test]
         public void Finds_checkbox()
         {
-            Assert.That("checkbox field two val", Is.EqualTo(DriverSpecs.Field("containerLabeledCheckboxFieldId").Value));
+            Assert.That(DriverSpecs.Field("containerLabeledCheckboxFieldId").Value, Is.EqualTo("checkbox field two val"));
         }
 
         [Test]
         public void Finds_radio()
         {
-            Assert.That("radio field two val", Is.EqualTo(DriverSpecs.Field("containerLabeledRadioFieldId").Value));
+            Assert.That(DriverSpecs.Field("containerLabeledRadioFieldId").Value, Is.EqualTo("radio field two val"));
         }
 
         [Test]
         public void Finds_password()
         {
-            Assert.That("containerLabeledPasswordFieldName", Is.EqualTo(DriverSpecs.Field("containerLabeledPasswordFieldId").Name));
+            Assert.That(DriverSpecs.Field("containerLabeledPasswordFieldId").Name, Is.EqualTo("containerLabeledPasswordFieldName"));
         }
 
         [Test]
         public void Finds_file()
         {
-            Assert.That("containerLabeledFileFieldName", Is.EqualTo(DriverSpecs.Field("containerLabeledFileFieldId").Name));
+            Assert.That(DriverSpecs.Field("containerLabeledFileFieldId").Name, Is.EqualTo("containerLabeledFileFieldName"));
         }
     }
 }

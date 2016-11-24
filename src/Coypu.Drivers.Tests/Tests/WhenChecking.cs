@@ -65,22 +65,22 @@ namespace Coypu.Drivers.Tests.Tests
         public void Fires_onclick_event_on_check()
         {
             var checkbox = DriverSpecs.Field(_driver, "uncheckedBox");
-            Assert.That("unchecked", Is.EqualTo(checkbox.Value));
+            Assert.That(checkbox.Value, Is.EqualTo("unchecked"));
 
             _driver.Check(checkbox);
 
-            Assert.That("unchecked - clicked", Is.EqualTo(DriverSpecs.Field(_driver, "uncheckedBox").Value));
+            Assert.That(DriverSpecs.Field(_driver, "uncheckedBox").Value, Is.EqualTo("unchecked - clicked"));
         }
 
         [Test]
         public void Fires_onclick_event_on_uncheck()
         {
             var checkbox = DriverSpecs.Field(_driver, "checkedBox");
-            Assert.That("checked", Is.EqualTo(checkbox.Value));
+            Assert.That(checkbox.Value, Is.EqualTo("checked"));
 
             _driver.Uncheck(checkbox);
 
-            Assert.That("checked - clicked", Is.EqualTo(DriverSpecs.Field(_driver, "checkedBox").Value));
+            Assert.That(DriverSpecs.Field(_driver, "checkedBox").Value, Is.EqualTo("checked - clicked"));
         }
     }
 }

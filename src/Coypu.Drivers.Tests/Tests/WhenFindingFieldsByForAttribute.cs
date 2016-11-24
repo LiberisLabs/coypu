@@ -13,43 +13,43 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void Finds_text_input()
         {
-            Assert.That("forLabeledTextInputFieldId", Is.EqualTo(DriverSpecs.Field("text input field linked by for", options: Options.Exact).Id));
+            Assert.That(DriverSpecs.Field("text input field linked by for", options: Options.Exact).Id, Is.EqualTo("forLabeledTextInputFieldId"));
         }
 
         [Test]
         public void Finds_password_field()
         {
-            Assert.That("forLabeledPasswordFieldId", Is.EqualTo(DriverSpecs.Field("password field linked by for").Id));
+            Assert.That(DriverSpecs.Field("password field linked by for").Id, Is.EqualTo("forLabeledPasswordFieldId"));
         }
 
         [Test]
         public void Finds_select_field()
         {
-            Assert.That("forLabeledSelectFieldId", Is.EqualTo(DriverSpecs.Field("select field linked by for").Id));
+            Assert.That(DriverSpecs.Field("select field linked by for").Id, Is.EqualTo("forLabeledSelectFieldId"));
         }
 
         [Test]
         public void Finds_checkbox()
         {
-            Assert.That("forLabeledCheckboxFieldId", Is.EqualTo(DriverSpecs.Field("checkbox field linked by for").Id));
+            Assert.That(DriverSpecs.Field("checkbox field linked by for").Id, Is.EqualTo("forLabeledCheckboxFieldId"));
         }
 
         [Test]
         public void Finds_radio_button()
         {
-            Assert.That("forLabeledRadioFieldId", Is.EqualTo(DriverSpecs.Field("radio field linked by for").Id));
+            Assert.That(DriverSpecs.Field("radio field linked by for").Id, Is.EqualTo("forLabeledRadioFieldId"));
         }
 
         [Test]
         public void Finds_textarea()
         {
-            Assert.That("forLabeledTextareaFieldId", Is.EqualTo(DriverSpecs.Field("textarea field linked by for").Id));
+            Assert.That(DriverSpecs.Field("textarea field linked by for").Id, Is.EqualTo("forLabeledTextareaFieldId"));
         }
 
         [Test]
         public void Finds_file_input()
         {
-            Assert.That("forLabeledFileFieldId", Is.EqualTo(DriverSpecs.Field("file field linked by for").Id));
+            Assert.That(DriverSpecs.Field("file field linked by for").Id, Is.EqualTo("forLabeledFileFieldId"));
         }
 
         [Test]

@@ -28,8 +28,8 @@ namespace Coypu.Drivers.Tests.Tests
 
             var cookies = DriverSpecs.Driver.GetBrowserCookies().ToArray();
 
-            Assert.That(cookies.First(c => c.Name == "cookie1").Value, Is.EqualTo("value1"));
-            Assert.That(cookies.First(c => c.Name == "cookie2").Value, Is.EqualTo("value2"));
+            Assert.That("value1", Is.EqualTo(cookies.First(c => c.Name == "cookie1").Value));
+            Assert.That("value2", Is.EqualTo(cookies.First(c => c.Name == "cookie2").Value));
         }
 
         [Test]
@@ -43,8 +43,8 @@ namespace Coypu.Drivers.Tests.Tests
 
             var cookies = DriverSpecs.Driver.GetBrowserCookies().ToArray();
 
-            Assert.That(cookies.First(c => c.Name == "cookie1").Value, Is.EqualTo("value11"));
-            Assert.That(cookies.First(c => c.Name == "cookie2").Value, Is.EqualTo("value22"));
+            Assert.That("value11", Is.EqualTo(cookies.First(c => c.Name == "cookie1").Value));
+            Assert.That("value22", Is.EqualTo(cookies.First(c => c.Name == "cookie2").Value));
         }
 
         // Internet Explorer fails this test - cookie information with path isn't available,
@@ -57,7 +57,7 @@ namespace Coypu.Drivers.Tests.Tests
 
             var cookies = DriverSpecs.Driver.GetBrowserCookies().ToArray();
 
-            Assert.That(cookies.First(c => c.Name == "cookie1").Path, Is.EqualTo("/resource"));
+            Assert.That("/resource", Is.EqualTo(cookies.First(c => c.Name == "cookie1").Path));
         }
     }
 }

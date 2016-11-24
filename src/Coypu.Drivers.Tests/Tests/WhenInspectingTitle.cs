@@ -11,7 +11,7 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void Gets_the_current_page_title()
         {
-            Assert.That("Coypu interaction tests page", Is.EqualTo(DriverSpecs.Driver.Title(DriverSpecs.Root)));
+            Assert.That(DriverSpecs.Driver.Title(DriverSpecs.Root), Is.EqualTo("Coypu interaction tests page"));
         }
     }
 }

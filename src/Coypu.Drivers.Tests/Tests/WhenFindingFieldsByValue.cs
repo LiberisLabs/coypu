@@ -10,14 +10,14 @@ namespace Coypu.Drivers.Tests.Tests
 
         [Test]
         public void Finds_radio_button_by_value() {
-            Assert.That("forLabeledRadioFieldName", Is.EqualTo(DriverSpecs.Field("radio field one val").Name));
-            Assert.That("containerLabeledRadioFieldName", Is.EqualTo(DriverSpecs.Field("radio field two val").Name));
+            Assert.That(DriverSpecs.Field("radio field one val").Name, Is.EqualTo("forLabeledRadioFieldName"));
+            Assert.That(DriverSpecs.Field("radio field two val").Name, Is.EqualTo("containerLabeledRadioFieldName"));
         }
 
         [Test]
         public void Finds_checkbox_by_value() {
-            Assert.That("checkboxByValueOneFieldName", Is.EqualTo(DriverSpecs.Field("checkbox one val").Name));
-            Assert.That("checkboxByValueTwoFieldName", Is.EqualTo(DriverSpecs.Field("checkbox two val").Name));
+            Assert.That(DriverSpecs.Field("checkbox one val").Name, Is.EqualTo("checkboxByValueOneFieldName"));
+            Assert.That(DriverSpecs.Field("checkbox two val").Name, Is.EqualTo("checkboxByValueTwoFieldName"));
         }
     }
 }

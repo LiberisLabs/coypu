@@ -13,28 +13,28 @@ namespace Coypu.Drivers.Tests.Tests
         public void FindsElementOuterHtml()
         {
             var outerHtml = Normalise(DriverSpecs.Css("table").OuterHTML);
-            Assert.That(outerHtml, Is.EqualTo("<table><tbody><tr><th>name</th><th>age</th></tr><tr><td>bob</td><td>12</td></tr><tr><td>jane</td><td>79</td></tr></tbody></table>"));
+            Assert.That("<table><tbody><tr><th>name</th><th>age</th></tr><tr><td>bob</td><td>12</td></tr><tr><td>jane</td><td>79</td></tr></tbody></table>", Is.EqualTo(outerHtml));
         }
 
         [Test]
         public void FindsElementInnerHtml()
         {
             var innerHtml = Normalise(DriverSpecs.Css("table").InnerHTML);
-            Assert.That(innerHtml, Is.EqualTo("<tbody><tr><th>name</th><th>age</th></tr><tr><td>bob</td><td>12</td></tr><tr><td>jane</td><td>79</td></tr></tbody>"));
+            Assert.That("<tbody><tr><th>name</th><th>age</th></tr><tr><td>bob</td><td>12</td></tr><tr><td>jane</td><td>79</td></tr></tbody>", Is.EqualTo(innerHtml));
         }
 
         [Test]
         public void FindsWindowOuterHtml()
         {
             var outerHtml = Normalise(DriverSpecs.Driver.Window.OuterHTML);
-            Assert.That(outerHtml, Is.EqualTo("<html><head><title>table</title></head><body><table><tbody><tr><th>name</th><th>age</th></tr><tr><td>bob</td><td>12</td></tr><tr><td>jane</td><td>79</td></tr></tbody></table></body></html>"));
+            Assert.That("<html><head><title>table</title></head><body><table><tbody><tr><th>name</th><th>age</th></tr><tr><td>bob</td><td>12</td></tr><tr><td>jane</td><td>79</td></tr></tbody></table></body></html>", Is.EqualTo(outerHtml));
         }
 
         [Test]
         public void FindsWindowInnerHtml()
         {
             var innerHtml = Normalise(DriverSpecs.Driver.Window.InnerHTML);
-            Assert.That(innerHtml, Is.EqualTo("<head><title>table</title></head><body><table><tbody><tr><th>name</th><th>age</th></tr><tr><td>bob</td><td>12</td></tr><tr><td>jane</td><td>79</td></tr></tbody></table></body>"));
+            Assert.That("<head><title>table</title></head><body><table><tbody><tr><th>name</th><th>age</th></tr><tr><td>bob</td><td>12</td></tr><tr><td>jane</td><td>79</td></tr></tbody></table></body>", Is.EqualTo(innerHtml));
         }
 
         private static string Normalise(string innerHtml)

@@ -12,11 +12,11 @@ namespace Coypu.Drivers.Tests.Tests
         public void Clicks_the_underlying_element()
         {
             var element = DriverSpecs.Button("clickMeTest");
-            Assert.That("Click me", Is.EqualTo(element.Value));
+            Assert.That(element.Value, Is.EqualTo("Click me"));
 
             DriverSpecs.Driver.Click(element);
 
-            Assert.That("Click me - clicked", Is.EqualTo(DriverSpecs.Button("clickMeTest").Value));
+            Assert.That(DriverSpecs.Button("clickMeTest").Value, Is.EqualTo("Click me - clicked"));
         }
     }
 }

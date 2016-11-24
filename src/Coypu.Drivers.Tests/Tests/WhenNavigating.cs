@@ -15,10 +15,10 @@ namespace Coypu.Drivers.Tests.Tests
         public void Gets_the_current_browser_location()
         {
             DriverSpecs.Driver.Visit(SomeRandomStaticHelpers.TestSiteUrl("/"), DriverSpecs.Root);
-            Assert.That(DriverSpecs.Driver.Location(DriverSpecs.Root), Is.EqualTo(new Uri(SomeRandomStaticHelpers.TestSiteUrl("/"))));
+            Assert.That(new Uri(SomeRandomStaticHelpers.TestSiteUrl("/")), Is.EqualTo(DriverSpecs.Driver.Location(DriverSpecs.Root)));
 
             DriverSpecs.Driver.Visit(SomeRandomStaticHelpers.TestSiteUrl("/auto_login"), DriverSpecs.Root);
-            Assert.That(DriverSpecs.Driver.Location(DriverSpecs.Root), Is.EqualTo(new Uri(SomeRandomStaticHelpers.TestSiteUrl("/auto_login"))));
+            Assert.That(new Uri(SomeRandomStaticHelpers.TestSiteUrl("/auto_login")), Is.EqualTo(DriverSpecs.Driver.Location(DriverSpecs.Root)));
         }
 
         [Test]
@@ -39,7 +39,7 @@ namespace Coypu.Drivers.Tests.Tests
             // Seems like WebDriver is not waiting on JS, has exec been made asnyc?
             Thread.Sleep(500);
 
-            Assert.That(DriverSpecs.Driver.Location(DriverSpecs.Root), Is.EqualTo(new Uri(SomeRandomStaticHelpers.TestSiteUrl("/resource/bdd"))));
+            Assert.That(new Uri(SomeRandomStaticHelpers.TestSiteUrl("/resource/bdd")), Is.EqualTo(DriverSpecs.Driver.Location(DriverSpecs.Root)));
         }
     }
 }

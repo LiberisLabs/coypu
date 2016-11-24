@@ -12,10 +12,10 @@ namespace Coypu.Drivers.Tests.Tests
         public void Mouses_over_the_underlying_element()
         {
             var element = DriverSpecs.Id("hoverOnMeTest");
-            Assert.That("Hover on me", Is.EqualTo(element.Text));
+            Assert.That(element.Text, Is.EqualTo("Hover on me"));
             DriverSpecs.Driver.Hover(element);
 
-            Assert.That("Hover on me - hovered", Is.EqualTo(DriverSpecs.Id("hoverOnMeTest").Text));
+            Assert.That(DriverSpecs.Id("hoverOnMeTest").Text, Is.EqualTo("Hover on me - hovered"));
         }
     }
 }

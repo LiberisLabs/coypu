@@ -16,27 +16,27 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void Runs_the_script_in_the_browser()
         {
-            Assert.That("first button", Is.EqualTo(DriverSpecs.Button(_driver, "firstButtonId").Text));
+            Assert.That(DriverSpecs.Button(_driver, "firstButtonId").Text, Is.EqualTo("first button"));
 
             _driver.ExecuteScript("document.getElementById('firstButtonId').innerHTML = 'script executed';", DriverSpecs.Root);
 
-            Assert.That("script executed", Is.EqualTo(DriverSpecs.Button(_driver, "firstButtonId").Text));
+            Assert.That(DriverSpecs.Button(_driver, "firstButtonId").Text, Is.EqualTo("script executed"));
         }
 
         [Test]
         public void Passes_the_arguments_to_the_browser()
         {
-            Assert.That("first button", Is.EqualTo(DriverSpecs.Button("firstButtonId").Text));
+            Assert.That(DriverSpecs.Button("firstButtonId").Text, Is.EqualTo("first button"));
 
             _driver.ExecuteScript("arguments[0].innerHTML = 'script executed ' + arguments[1];", DriverSpecs.Root, DriverSpecs.Button("firstButtonId"), 5);
 
-            Assert.That("script executed 5", Is.EqualTo(DriverSpecs.Button(_driver, "firstButtonId").Text));
+            Assert.That(DriverSpecs.Button(_driver, "firstButtonId").Text, Is.EqualTo("script executed 5"));
         }
       
         [Test]
         public void Returns_the_result()
         {
-            Assert.That("first button", Is.EqualTo(_driver.ExecuteScript("return document.getElementById('firstButtonId').innerHTML;", DriverSpecs.Root)));
+            Assert.That(_driver.ExecuteScript("return document.getElementById('firstButtonId').innerHTML;", DriverSpecs.Root), Is.EqualTo("first button"));
         }
     }
 }

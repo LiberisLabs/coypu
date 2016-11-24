@@ -14,8 +14,8 @@ namespace Coypu.Drivers.Tests.Tests
                 var iframeOne = new BrowserWindow(DriverSpecs.DefaultSessionConfiguration, elementFinder1, driver, null, null, null, disambiguationStrategy);
                 var iframeTwo = new BrowserWindow(DriverSpecs.DefaultSessionConfiguration, elementFinder2, driver, null, null, null, disambiguationStrategy);
 
-                Assert.That("iframe1ButtonId", Is.EqualTo(DriverSpecs.Button(driver, "scoped button", iframeOne, DriverSpecs.DefaultOptions).Id));
-                Assert.That("iframe2ButtonId", Is.EqualTo(DriverSpecs.Button(driver, "scoped button", iframeTwo, DriverSpecs.DefaultOptions).Id));
+                Assert.That(DriverSpecs.Button(driver, "scoped button", iframeOne, DriverSpecs.DefaultOptions).Id, Is.EqualTo("iframe1ButtonId"));
+                Assert.That(DriverSpecs.Button(driver, "scoped button", iframeTwo, DriverSpecs.DefaultOptions).Id, Is.EqualTo("iframe2ButtonId"));
             }
 
             public static Element FindField(Driver driver, string locator, DriverScope scope)
@@ -75,9 +75,9 @@ namespace Coypu.Drivers.Tests.Tests
         {
             var iframeOne = new BrowserWindow(DriverSpecs.DefaultSessionConfiguration, new FrameFinder(_driver, "I am iframe one", DriverSpecs.Root, DriverSpecs.DefaultOptions),
                                               _driver, null, null, null, new ThrowsWhenMissingButNoDisambiguationStrategy());
-            Assert.That("iframe1ButtonId", Is.EqualTo(DriverSpecs.Button("scoped button", iframeOne, DriverSpecs.DefaultOptions).Id));
+            Assert.That(DriverSpecs.Button("scoped button", iframeOne, DriverSpecs.DefaultOptions).Id, Is.EqualTo("iframe1ButtonId"));
 
-            Assert.That("scope1ButtonId", Is.EqualTo(DriverSpecs.Button("scoped button", DriverSpecs.Root, Options.PreferExact).Id));
+            Assert.That(DriverSpecs.Button("scoped button", DriverSpecs.Root, Options.PreferExact).Id, Is.EqualTo("scope1ButtonId"));
         }
 
         [Test]
@@ -96,11 +96,11 @@ namespace Coypu.Drivers.Tests.Tests
             IDisambiguationStrategy disambiguationStrategy = new ThrowsWhenMissingButNoDisambiguationStrategy();
             var iframeOne = new BrowserWindow(DriverSpecs.DefaultSessionConfiguration, new FrameFinder(_driver, "I am iframe one", DriverSpecs.Root, DriverSpecs.DefaultOptions),
                                               _driver, null, null, null, disambiguationStrategy);
-            Assert.That("iframe1ButtonId", Is.EqualTo(DriverSpecs.Button("scoped button", iframeOne, DriverSpecs.DefaultOptions).Id));
+            Assert.That(DriverSpecs.Button("scoped button", iframeOne, DriverSpecs.DefaultOptions).Id, Is.EqualTo("iframe1ButtonId"));
 
             var body = new BrowserWindow(DriverSpecs.DefaultSessionConfiguration, new CssFinder(_driver, "body", DriverSpecs.Root, DriverSpecs.DefaultOptions), _driver, null,
                                          null, null, disambiguationStrategy);
-            Assert.That("scope1ButtonId", Is.EqualTo(DriverSpecs.Button("scoped button", body, Options.PreferExact).Id));
+            Assert.That(DriverSpecs.Button("scoped button", body, Options.PreferExact).Id, Is.EqualTo("scope1ButtonId"));
         }
 
         [Test]

@@ -13,7 +13,7 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void Does_find_hidden_inputs()
         {
-            Assert.That(DriverSpecs.Field("firstHiddenInputId", options : Options.Invisible).Value, Is.EqualTo("first hidden input"));
+            Assert.That("first hidden input", Is.EqualTo(DriverSpecs.Field("firstHiddenInputId", options : Options.Invisible).Value));
 
             Assert.Throws<MissingHtmlException>(() => DriverSpecs.Field("firstHiddenInputId"));
         }
@@ -21,7 +21,7 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void Does_find_invisible_elements()
         {
-            Assert.That(DriverSpecs.Button("firstInvisibleInputId", options: Options.Invisible).Name, Is.EqualTo("firstInvisibleInputName"));
+            Assert.That("firstInvisibleInputName", Is.EqualTo(DriverSpecs.Button("firstInvisibleInputId", options: Options.Invisible).Name));
 
             Assert.Throws<MissingHtmlException>(() => DriverSpecs.Button("firstInvisibleInputId"));
         }

@@ -13,43 +13,43 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void Finds_text_input()
         {
-            Assert.That("containerLabeledTextInputFieldId", Is.EqualTo(DriverSpecs.Field("text input field in a label container", options: Options.Exact).Id));
+            Assert.That(DriverSpecs.Field("text input field in a label container", options: Options.Exact).Id, Is.EqualTo("containerLabeledTextInputFieldId"));
         }
 
         [Test]
         public void Finds_password()
         {
-            Assert.That("containerLabeledPasswordFieldId", Is.EqualTo(DriverSpecs.Field("password field in a label container").Id));
+            Assert.That(DriverSpecs.Field("password field in a label container").Id, Is.EqualTo("containerLabeledPasswordFieldId"));
         }
 
         [Test]
         public void Finds_checkbox()
         {
-            Assert.That("containerLabeledCheckboxFieldId", Is.EqualTo(DriverSpecs.Field("checkbox field in a label container").Id));
+            Assert.That(DriverSpecs.Field("checkbox field in a label container").Id, Is.EqualTo("containerLabeledCheckboxFieldId"));
         }
 
         [Test]
         public void Finds_radio()
         {
-            Assert.That("containerLabeledRadioFieldId", Is.EqualTo(DriverSpecs.Field("radio field in a label container").Id));
+            Assert.That(DriverSpecs.Field("radio field in a label container").Id, Is.EqualTo("containerLabeledRadioFieldId"));
         }
 
         [Test]
         public void Finds_select()
         {
-            Assert.That("containerLabeledSelectFieldId", Is.EqualTo(DriverSpecs.Field("select field in a label container").Id));
+            Assert.That(DriverSpecs.Field("select field in a label container").Id, Is.EqualTo("containerLabeledSelectFieldId"));
         }
 
         [Test]
         public void Finds_textarea()
         {
-            Assert.That("containerLabeledTextareaFieldId", Is.EqualTo(DriverSpecs.Field("textarea field in a label container").Id));
+            Assert.That(DriverSpecs.Field("textarea field in a label container").Id, Is.EqualTo("containerLabeledTextareaFieldId"));
         }
 
         [Test]
         public void Finds_file_field()
         {
-            Assert.That("containerLabeledFileFieldId", Is.EqualTo(DriverSpecs.Field("file field in a label container", options: Options.Exact).Id));
+            Assert.That(DriverSpecs.Field("file field in a label container", options: Options.Exact).Id, Is.EqualTo("containerLabeledFileFieldId"));
         }
 
         [Test]

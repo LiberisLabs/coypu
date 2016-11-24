@@ -19,11 +19,11 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void Sets_text_of_selected_option()
         {
-            Assert.That("select two option one", Is.EqualTo(DriverSpecs.Field("containerLabeledSelectFieldId").SelectedOption));
+            Assert.That(DriverSpecs.Field("containerLabeledSelectFieldId").SelectedOption, Is.EqualTo("select two option one"));
 
             DriverSpecs.Driver.Click(DriverSpecs.FindSingle(new OptionFinder(DriverSpecs.Driver, "select two option two", GetSelectScope("containerLabeledSelectFieldId"), DriverSpecs.DefaultOptions)));
 
-            Assert.That("select two option two", Is.EqualTo(DriverSpecs.Field("containerLabeledSelectFieldId").SelectedOption));
+            Assert.That(DriverSpecs.Field("containerLabeledSelectFieldId").SelectedOption, Is.EqualTo("select two option two"));
         }
 
         [Test]
@@ -44,13 +44,13 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void Selected_option_finds_exact_by_container_label()
         {
-            Assert.That(DriverSpecs.FindSingle(new OptionFinder(DriverSpecs.Driver, "one", GetSelectScope("Ambiguous select options"), Options.Exact)).Text, Is.EqualTo("one"));
+            Assert.That("one", Is.EqualTo(DriverSpecs.FindSingle(new OptionFinder(DriverSpecs.Driver, "one", GetSelectScope("Ambiguous select options"), Options.Exact)).Text));
         }
 
         [Test]
         public void Selected_option_finds_substring_by_container_label()
         {
-            Assert.That(DriverSpecs.FindSingle(new OptionFinder(DriverSpecs.Driver, "one", GetSelectScope("Ambiguous select options"), Options.Substring)).Text, Is.EqualTo("one"));
+            Assert.That("one", Is.EqualTo(DriverSpecs.FindSingle(new OptionFinder(DriverSpecs.Driver, "one", GetSelectScope("Ambiguous select options"), Options.Substring)).Text));
         }
     }
 }

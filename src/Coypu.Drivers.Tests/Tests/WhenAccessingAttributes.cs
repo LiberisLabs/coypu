@@ -12,10 +12,10 @@ namespace Coypu.Drivers.Tests.Tests
         public void Exposes_element_attributes()
         {
             var formWithAttributesToTest = DriverSpecs.Id("attributeTestForm", DriverSpecs.Root, DriverSpecs.DefaultOptions);
-            Assert.That("attributeTestForm", Is.EqualTo(formWithAttributesToTest["id"]));
-            Assert.That("post", Is.EqualTo(formWithAttributesToTest["method"]));
-            Assert.That("http://somesite.com/action.htm", Is.EqualTo(formWithAttributesToTest["action"]));
-            Assert.That("_parent", Is.EqualTo(formWithAttributesToTest["target"]));
+            Assert.That(formWithAttributesToTest["id"], Is.EqualTo("attributeTestForm"));
+            Assert.That(formWithAttributesToTest["method"], Is.EqualTo("post"));
+            Assert.That(formWithAttributesToTest["action"], Is.EqualTo("http://somesite.com/action.htm"));
+            Assert.That(formWithAttributesToTest["target"], Is.EqualTo("_parent"));
         }
     }
 }

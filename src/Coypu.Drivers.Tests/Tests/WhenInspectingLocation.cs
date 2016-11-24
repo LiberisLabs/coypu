@@ -22,10 +22,10 @@ namespace Coypu.Drivers.Tests.Tests
             _driver.Visit(SomeRandomStaticHelpers.TestSiteUrl("/auto_login"), DriverSpecs.Root);
 
             _driver.GoBack(DriverSpecs.Root);
-            Assert.That(_driver.Location(DriverSpecs.Root), Is.EqualTo(new Uri(SomeRandomStaticHelpers.TestSiteUrl("/"))));
+            Assert.That(new Uri(SomeRandomStaticHelpers.TestSiteUrl("/")), Is.EqualTo(_driver.Location(DriverSpecs.Root)));
 
             _driver.GoForward(DriverSpecs.Root);
-            Assert.That(_driver.Location(DriverSpecs.Root), Is.EqualTo(new Uri(SomeRandomStaticHelpers.TestSiteUrl("/auto_login"))));
+            Assert.That(new Uri(SomeRandomStaticHelpers.TestSiteUrl("/auto_login")), Is.EqualTo(_driver.Location(DriverSpecs.Root)));
         }
 
         [Test]
@@ -40,14 +40,14 @@ namespace Coypu.Drivers.Tests.Tests
 
             _driver.GoBack(popUp);
             Assert.That(_driver.Location(popUp).AbsoluteUri, Does.EndWith("/html/popup.htm"));
-            Assert.That(_driver.Location(DriverSpecs.Root).AbsoluteUri, Is.EqualTo(SomeRandomStaticHelpers.TestSiteUrl("/auto_login")));
+            Assert.That(SomeRandomStaticHelpers.TestSiteUrl("/auto_login"), Is.EqualTo(_driver.Location(DriverSpecs.Root).AbsoluteUri));
 
             _driver.GoForward(popUp);
-            Assert.That(_driver.Location(popUp).AbsoluteUri, Is.EqualTo(SomeRandomStaticHelpers.TestSiteUrl("/")));
+            Assert.That(SomeRandomStaticHelpers.TestSiteUrl("/"), Is.EqualTo(_driver.Location(popUp).AbsoluteUri));
 
             _driver.GoBack(DriverSpecs.Root);
             Assert.That(_driver.Location(DriverSpecs.Root).AbsoluteUri, Does.EndWith("/html/InteractionTestsPage.htm"));
-            Assert.That(_driver.Location(popUp).AbsoluteUri, Is.EqualTo(SomeRandomStaticHelpers.TestSiteUrl("/")));
+            Assert.That(SomeRandomStaticHelpers.TestSiteUrl("/"), Is.EqualTo(_driver.Location(popUp).AbsoluteUri));
         }
     }
 }

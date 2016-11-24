@@ -74,10 +74,10 @@ namespace Coypu.Drivers.Tests.Tests
             _driver.Click(DriverSpecs.Link("Open pop up window"));
             var popUp = new BrowserWindow(DriverSpecs.DefaultSessionConfiguration, new WindowFinder(_driver, "Pop Up Window", DriverSpecs.Root, DriverSpecs.DefaultOptions), _driver, null, null, null,
                                           new ThrowsWhenMissingButNoDisambiguationStrategy());
-            Assert.That(_driver.Title(popUp), Is.EqualTo("Pop Up Window"));
+            Assert.That("Pop Up Window", Is.EqualTo(_driver.Title(popUp)));
 
             _driver.ExecuteScript("window.setTimeout(function() {document.getElementById('alertTriggerLink').click();},200);", DriverSpecs.Root);
-            Assert.That(_driver.Title(popUp), Is.EqualTo("Pop Up Window"));
+            Assert.That("Pop Up Window", Is.EqualTo(_driver.Title(popUp)));
 
             System.Threading.Thread.Sleep(1000);
             _driver.AcceptModalDialog(DriverSpecs.Root);
@@ -91,10 +91,10 @@ namespace Coypu.Drivers.Tests.Tests
             _driver.Click(DriverSpecs.Link("Open pop up window"));
             var popUp = new BrowserWindow(DriverSpecs.DefaultSessionConfiguration, new WindowFinder(_driver, "Pop Up Window", DriverSpecs.Root, DriverSpecs.DefaultOptions), _driver, null, null, null,
                                           new ThrowsWhenMissingButNoDisambiguationStrategy());
-            Assert.That(_driver.Title(popUp), Is.EqualTo("Pop Up Window"));
+            Assert.That("Pop Up Window", Is.EqualTo(_driver.Title(popUp)));
 
             _driver.ExecuteScript("window.setTimeout(function() {document.getElementById('confirmTriggerLink').click();},500);", DriverSpecs.Root);
-            Assert.That(_driver.Title(popUp), Is.EqualTo("Pop Up Window"));
+            Assert.That("Pop Up Window", Is.EqualTo(_driver.Title(popUp)));
             try
             {
                 _driver.ExecuteScript("self.close();", popUp);

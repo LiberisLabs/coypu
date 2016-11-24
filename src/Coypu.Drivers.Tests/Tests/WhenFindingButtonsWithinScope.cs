@@ -23,22 +23,22 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void Finds_button_by_name()
         {
-            Assert.That("scope1ButtonId", Is.EqualTo(DriverSpecs.Button("scopedButtonName", _scope1).Id));
-            Assert.That("scope2ButtonId", Is.EqualTo(DriverSpecs.Button("scopedButtonName", _scope2).Id));
+            Assert.That(DriverSpecs.Button("scopedButtonName", _scope1).Id, Is.EqualTo("scope1ButtonId"));
+            Assert.That(DriverSpecs.Button("scopedButtonName", _scope2).Id, Is.EqualTo("scope2ButtonId"));
         }
 
         [Test]
         public void Finds_input_button_by_value()
         {
-            Assert.That("scope1InputButtonId", Is.EqualTo(DriverSpecs.Button("scoped input button", _scope1).Id));
-            Assert.That("scope2InputButtonId", Is.EqualTo(DriverSpecs.Button("scoped input button", _scope2).Id));
+            Assert.That(DriverSpecs.Button("scoped input button", _scope1).Id, Is.EqualTo("scope1InputButtonId"));
+            Assert.That(DriverSpecs.Button("scoped input button", _scope2).Id, Is.EqualTo("scope2InputButtonId"));
         }
 
         [Test]
         public void Finds_button_by_text()
         {
-            Assert.That("scope1ButtonId", Is.EqualTo(DriverSpecs.Button("scoped button", _scope1).Id));
-            Assert.That("scope2ButtonId", Is.EqualTo(DriverSpecs.Button("scoped button", _scope2).Id));
+            Assert.That(DriverSpecs.Button("scoped button", _scope1).Id, Is.EqualTo("scope1ButtonId"));
+            Assert.That(DriverSpecs.Button("scoped button", _scope2).Id, Is.EqualTo("scope2ButtonId"));
         }
     }
 }

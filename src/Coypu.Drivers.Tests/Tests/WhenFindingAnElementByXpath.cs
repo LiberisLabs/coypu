@@ -12,10 +12,10 @@ namespace Coypu.Drivers.Tests.Tests
         public void Finds_present_examples()
         {
             var shouldFind = "//*[@id = 'inspectingContent']//p[@class='css-test']/span";
-            Assert.That("This", Is.EqualTo(DriverSpecs.XPath(shouldFind).Text));
+            Assert.That(DriverSpecs.XPath(shouldFind).Text, Is.EqualTo("This"));
 
             shouldFind = "//ul[@id='cssTest']/li[3]";
-            Assert.That("Me! Pick me!", Is.EqualTo(DriverSpecs.XPath(shouldFind).Text));
+            Assert.That(DriverSpecs.XPath(shouldFind).Text, Is.EqualTo("Me! Pick me!"));
         }
 
         [Test]

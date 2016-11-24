@@ -30,8 +30,8 @@ namespace Coypu.Drivers.Tests.Tests
 
                 driver.ResizeTo(new Size(768, 500), driverScope);
 
-                Assert.That(driver.ExecuteScript("return window.outerWidth;", driverScope), Is.EqualTo(768));
-                Assert.That(driver.ExecuteScript("return window.outerHeight;", driverScope), Is.EqualTo(500));
+                Assert.That(768, Is.EqualTo(driver.ExecuteScript("return window.outerWidth;", driverScope)));
+                Assert.That(500, Is.EqualTo(driver.ExecuteScript("return window.outerHeight;", driverScope)));
             }
         }
 

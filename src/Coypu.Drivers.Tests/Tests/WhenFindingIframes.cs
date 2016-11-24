@@ -11,22 +11,22 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void Finds_by_header_text()
         {
-            Assert.That("iframe1", Is.EqualTo(DriverSpecs.Frame("I am iframe one").Id));
-            Assert.That("iframe2", Is.EqualTo(DriverSpecs.Frame("I am iframe two").Id));
+            Assert.That(DriverSpecs.Frame("I am iframe one").Id, Is.EqualTo("iframe1"));
+            Assert.That(DriverSpecs.Frame("I am iframe two").Id, Is.EqualTo("iframe2"));
         }
 
         [Test]
         public void Finds_by_id()
         {
-            Assert.That("iframe1", Is.EqualTo(DriverSpecs.Frame("iframe1").Id));
-            Assert.That("iframe2", Is.EqualTo(DriverSpecs.Frame("iframe2").Id));
+            Assert.That(DriverSpecs.Frame("iframe1").Id, Is.EqualTo("iframe1"));
+            Assert.That(DriverSpecs.Frame("iframe2").Id, Is.EqualTo("iframe2"));
         }
 
         [Test]
         public void Finds_by_title()
         {
-            Assert.That("iframe1", Is.EqualTo(DriverSpecs.Frame("iframe one title").Id));
-            Assert.That("iframe2", Is.EqualTo(DriverSpecs.Frame("iframe two title").Id));
+            Assert.That(DriverSpecs.Frame("iframe one title").Id, Is.EqualTo("iframe1"));
+            Assert.That(DriverSpecs.Frame("iframe two title").Id, Is.EqualTo("iframe2"));
         }
     }
 }

@@ -21,9 +21,9 @@ namespace Coypu.Drivers.Tests.Tests
         {
             const string shouldFind = "//*[@id='inspectingContent']//ul[@id='cssTest']/li";
             var all = DriverSpecs.Driver.FindAllXPath(shouldFind, DriverSpecs.Root, DriverSpecs.DefaultOptions);
-            Assert.That(3, Is.EqualTo(all.Count()));
-            Assert.That("two", Is.EqualTo(all.ElementAt(1).Text));
-            Assert.That("Me! Pick me!", Is.EqualTo(all.ElementAt(2).Text));
+            Assert.That(all.Count(), Is.EqualTo(3));
+            Assert.That(all.ElementAt(1).Text, Is.EqualTo("two"));
+            Assert.That(all.ElementAt(2).Text, Is.EqualTo("Me! Pick me!"));
         }
     }
 }

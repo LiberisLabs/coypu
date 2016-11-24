@@ -11,8 +11,8 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void Finds_element_by_id()
         {
-            Assert.That("firstLinkId", Is.EqualTo(DriverSpecs.Id("firstLinkId").Id));
-            Assert.That("secondLinkId", Is.EqualTo(DriverSpecs.Id("secondLinkId").Id));
+            Assert.That(DriverSpecs.Id("firstLinkId").Id, Is.EqualTo("firstLinkId"));
+            Assert.That(DriverSpecs.Id("secondLinkId").Id, Is.EqualTo("secondLinkId"));
         }
 
         [Test]

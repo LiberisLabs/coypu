@@ -13,20 +13,20 @@ namespace Coypu.Drivers.Tests.Tests
         public void Finds_present_examples()
         {
             var shouldFind = "#inspectingContent p.css-test span";
-            Assert.That("This", Is.EqualTo(DriverSpecs.Css(shouldFind).Text));
+            Assert.That(DriverSpecs.Css(shouldFind).Text, Is.EqualTo("This"));
 
             shouldFind = "ul#cssTest li:nth-child(3)";
-            Assert.That("Me! Pick me!", Is.EqualTo(DriverSpecs.Css(shouldFind).Text));
+            Assert.That(DriverSpecs.Css(shouldFind).Text, Is.EqualTo("Me! Pick me!"));
         }
 
         [Test]
         public void Finds_present_examples_by_text()
         {
             var shouldFind = "#inspectingContent p.css-test span";
-            Assert.That("This", Is.EqualTo(DriverSpecs.Css(shouldFind, new Regex("^This$")).Text));
+            Assert.That(DriverSpecs.Css(shouldFind, new Regex("^This$")).Text, Is.EqualTo("This"));
 
             shouldFind = "ul#cssTest li:nth-child(3)";
-            Assert.That("Me! Pick me!", Is.EqualTo(DriverSpecs.Css(shouldFind, new Regex("Pick me")).Text));
+            Assert.That(DriverSpecs.Css(shouldFind, new Regex("Pick me")).Text, Is.EqualTo("Me! Pick me!"));
         }
 
         [Test]

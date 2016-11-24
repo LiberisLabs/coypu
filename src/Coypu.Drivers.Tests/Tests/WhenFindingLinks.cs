@@ -11,8 +11,8 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void Finds_link_by_text()
         {
-            Assert.That("firstLinkId", Is.EqualTo(DriverSpecs.Link("first link").Id));
-            Assert.That("secondLinkId", Is.EqualTo(DriverSpecs.Link("second link").Id));
+            Assert.That(DriverSpecs.Link("first link").Id, Is.EqualTo("firstLinkId"));
+            Assert.That(DriverSpecs.Link("second link").Id, Is.EqualTo("secondLinkId"));
         }
 
         [Test]
@@ -30,7 +30,7 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void Finds_a_link_with_both_types_of_quote_in_its_text()
         {
-            Assert.That(DriverSpecs.Link("I'm a link with \"both\" types of quote in my text").Id, Is.EqualTo("linkWithBothQuotesId"));
+            Assert.That("linkWithBothQuotesId", Is.EqualTo(DriverSpecs.Link("I'm a link with \"both\" types of quote in my text").Id));
         }
     }
 }

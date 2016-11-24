@@ -11,22 +11,22 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void Finds_by_header_text()
         {
-            Assert.That("frame1", Is.EqualTo(DriverSpecs.Frame("I am frame one").Name));
-            Assert.That("frame2", Is.EqualTo(DriverSpecs.Frame("I am frame two").Name));
+            Assert.That(DriverSpecs.Frame("I am frame one").Name, Is.EqualTo("frame1"));
+            Assert.That(DriverSpecs.Frame("I am frame two").Name, Is.EqualTo("frame2"));
         }
 
         [Test]
         public void Finds_by_name()
         {
-            Assert.That("frame1", Is.EqualTo(DriverSpecs.Frame("frame1").Name));
-            Assert.That("frame2", Is.EqualTo(DriverSpecs.Frame("frame2").Name));
+            Assert.That(DriverSpecs.Frame("frame1").Name, Is.EqualTo("frame1"));
+            Assert.That(DriverSpecs.Frame("frame2").Name, Is.EqualTo("frame2"));
         }
 
         [Test]
         public void Finds_by_id()
         {
-            Assert.That("frame1", Is.EqualTo(DriverSpecs.Frame("frame1id").Name));
-            Assert.That("frame2", Is.EqualTo(DriverSpecs.Frame("frame2id").Name));
+            Assert.That(DriverSpecs.Frame("frame1id").Name, Is.EqualTo("frame1"));
+            Assert.That(DriverSpecs.Frame("frame2id").Name, Is.EqualTo("frame2"));
         }
     }
 }
