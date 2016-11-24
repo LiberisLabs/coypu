@@ -208,10 +208,7 @@
     <Compile Include="WebRequests\WebRequestCookieInjector.cs" />
     <Compile Include="Finders\XPathFinder.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="bin\" />
-    <Folder Include="Predicates\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
