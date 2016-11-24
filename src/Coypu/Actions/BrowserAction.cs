@@ -1,30 +1,50 @@
-using System;
 using Coypu.Queries;
 
 namespace Coypu.Actions
 {
-    public abstract class BrowserAction : Query<object>
+    /// <summary>
+    /// 
+    /// </summary>
+    public abstract class BrowserAction : IQuery<object>
     {
-        public Options Options { get; private set; }
-        public DriverScope Scope { get; private set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public Options Options { get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public DriverScope Scope { get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="scope"></param>
+        /// <param name="options"></param>
         protected BrowserAction(DriverScope scope, Options options)
         {
             Options = options;
             Scope = scope;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public abstract void Act();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public object Run()
         {
             Act();
             return null;
         }
 
-        public object ExpectedResult
-        {
-            get { return null; }
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public object ExpectedResult => null;
     }
 }

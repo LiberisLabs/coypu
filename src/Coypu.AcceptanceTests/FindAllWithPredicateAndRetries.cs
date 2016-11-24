@@ -6,31 +6,31 @@ namespace Coypu.AcceptanceTests
 {
     public class FindAllWithPredicateAndRetries : WaitAndRetryExamples
     {
-        const string shouldFindCSS = "#inspectingContent ul#cssTest li";
-        const string shouldFindXPath = "//*[@id='inspectingContent']//ul[@id = 'cssTest']//li";
+        private const string ShouldFindCss = "#inspectingContent ul#cssTest li";
+        private const string ShouldFindXPath = "//*[@id='inspectingContent']//ul[@id = 'cssTest']//li";
 
         [Test]
         public void FindAllCss_with_predicate_example()
         {
-            var all = browser.FindAllCss(shouldFindCSS, (elements) => elements.Count() == 3);
+            var all = Browser.FindAllCss(ShouldFindCss, (elements) => elements.Count() == 3);
             CheckExpectedElements(all);
         }
 
         [Test]
         public void FindAllCss_with_failing_asertions_in_predicate_example()
         {
-            Assert.Throws<AssertionException>(() => browser.FindAllCss(shouldFindCSS, (elements) =>
-                {
-                    Assert.That(elements.Count(), Is.EqualTo(4));
-                    return true;
-                }
-            ));
+            Assert.Throws<AssertionException>(() => Browser.FindAllCss(ShouldFindCss, (elements) =>
+            {
+                Assert.That(elements.Count(), Is.EqualTo(4));
+                return true;
+            }
+                                                  ));
         }
 
         [Test]
         public void FindAllCss_with_passing_asertions_in_predicate_example()
         {
-            var all = browser.FindAllCss(shouldFindCSS, (elements) =>
+            var all = Browser.FindAllCss(ShouldFindCss, (elements) =>
             {
                 CheckExpectedElements(elements);
                 return true;
@@ -42,25 +42,24 @@ namespace Coypu.AcceptanceTests
         [Test]
         public void FindAllXPath_with_predicate_example()
         {
-            var all = browser.FindAllXPath(shouldFindXPath, (elements) => elements.Count() == 3);
+            var all = Browser.FindAllXPath(ShouldFindXPath, (elements) => elements.Count() == 3);
             CheckExpectedElements(all);
         }
 
         [Test]
         public void FindAllXPath_with_failing_asertions_in_predicate_example()
         {
-            Assert.Throws<AssertionException>(() => browser.FindAllXPath(shouldFindXPath, (elements) =>
+            Assert.Throws<AssertionException>(() => Browser.FindAllXPath(ShouldFindXPath, elements =>
             {
                 Assert.That(elements.Count(), Is.EqualTo(4));
                 return true;
-            }
-            ));
+            }));
         }
 
         [Test]
         public void FindAllXPath_with_passing_asertions_in_predicate_example()
         {
-            var all = browser.FindAllXPath(shouldFindXPath, (elements) =>
+            var all = Browser.FindAllXPath(ShouldFindXPath, (elements) =>
             {
                 CheckExpectedElements(elements);
                 return true;

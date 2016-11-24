@@ -1,34 +1,44 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Coypu.Finders
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public abstract class ElementFinder
     {
-        protected internal readonly Driver Driver;
-        private readonly string locator;
+        protected internal readonly IDriver Driver;
         protected readonly DriverScope Scope;
-        protected readonly Options options;
 
-        protected ElementFinder(Driver driver, string locator, DriverScope scope, Options options)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="driver"></param>
+        /// <param name="locator"></param>
+        /// <param name="scope"></param>
+        /// <param name="options"></param>
+        protected ElementFinder(IDriver driver, string locator, DriverScope scope, Options options)
         {
             Driver = driver;
-            this.locator = locator;
+            Locator = locator;
             Scope = scope;
-            this.options = options;
+            Options = options;
         }
 
-        public Options Options
-        {
-            get { return options; }
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public Options Options { get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public abstract bool SupportsSubstringTextMatching { get; }
 
-        internal string Locator { get { return locator; } }
+        internal string Locator { get; }
 
-        internal abstract IEnumerable<Element> Find(Options options);
+        internal abstract IEnumerable<IElement> Find(Options options);
 
         internal abstract string QueryDescription { get; }
 
@@ -39,8 +49,7 @@ namespace Coypu.Finders
 
         internal ElementScope AsScope()
         {
-            return new SynchronisedElementScope(this, Scope, options);
+            return new SynchronisedElementScope(this, Scope, Options);
         }
     }
-
 }

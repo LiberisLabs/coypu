@@ -7,14 +7,17 @@ namespace Coypu.Drivers
     /// </summary>
     public class Html : XPath
     {
-        private static readonly string[] InputButtonTypes = new[] { "button", "submit", "image", "reset" };
-        private static readonly string[] FieldTagNames = new[] { "input", "select", "textarea" };
-        private static readonly string[] FieldInputTypes = new[] { "text", "password", "radio", "checkbox", "file", "email", "tel", "url", "number", "datetime", "datetime-local", "date", "month", "week", "time", "color", "search" };
-        private static readonly string[] FieldInputTypeWithHidden = FieldInputTypes.Union(new[] { "hidden" }).ToArray();
-        private static readonly string[] FindByNameTypes = FieldInputTypes.Except(new[] { "radio" }).ToArray();
-        private static readonly string[] FindByValueTypes = new[] { "checkbox", "radio" };
-        private readonly string[] sectionTags = {"section", "div", "li"};
-        private readonly string[] headerTags = {"h1", "h2", "h3", "h4", "h5", "h6"};
+        private static readonly string[] InputButtonTypes = new[] {"button", "submit", "image", "reset"};
+        private static readonly string[] FieldTagNames = new[] {"input", "select", "textarea"};
+
+        private static readonly string[] FieldInputTypes = new[]
+        {"text", "password", "radio", "checkbox", "file", "email", "tel", "url", "number", "datetime", "datetime-local", "date", "month", "week", "time", "color", "search"};
+
+        private static readonly string[] FieldInputTypeWithHidden = FieldInputTypes.Union(new[] {"hidden"}).ToArray();
+        private static readonly string[] FindByNameTypes = FieldInputTypes.Except(new[] {"radio"}).ToArray();
+        private static readonly string[] FindByValueTypes = new[] {"checkbox", "radio"};
+        private readonly string[] _sectionTags = {"section", "div", "li"};
+        private readonly string[] _headerTags = {"h1", "h2", "h3", "h4", "h5", "h6"};
 
         public Html(bool uppercaseTagNames = false) : base(uppercaseTagNames)
         {
@@ -29,8 +32,8 @@ namespace Coypu.Drivers
 
         public string Link(string locator, Options options)
         {
-            return 
-                Descendent("a") + 
+            return
+                Descendent("a") +
                 Where(IsText(locator, options));
         }
 
@@ -70,8 +73,7 @@ namespace Coypu.Drivers
                 Descendent() +
                 Where(
                     TagNamedOneOf("iframe", "frame")) +
-                    or + FrameAttributesMatch(locator);
-
+                or + FrameAttributesMatch(locator);
         }
 
         public string Button(string locator, Options options)
@@ -97,7 +99,6 @@ namespace Coypu.Drivers
                     Child("legend") +
                     Where(IsText(locator, options)) +
                     or + HasId(locator));
-
         }
 
         public string Section(string locator, Options options)
@@ -105,10 +106,10 @@ namespace Coypu.Drivers
             return
                 Descendent() +
                 Where(
-                    TagNamedOneOf(sectionTags) +
+                    TagNamedOneOf(_sectionTags) +
                     And(
                         Child() +
-                        Where(TagNamedOneOf(headerTags) + and + IsText(locator, options)) +
+                        Where(TagNamedOneOf(_headerTags) + and + IsText(locator, options)) +
                         or + HasId(locator)));
         }
 
@@ -142,8 +143,8 @@ namespace Coypu.Drivers
         private string IsAFieldInputType(Options options)
         {
             var fieldInputTypes = options.ConsiderInvisibleElements
-                            ? FieldInputTypeWithHidden
-                            : FieldInputTypes;
+                ? FieldInputTypeWithHidden
+                : FieldInputTypes;
 
             return AttributeIsOneOfOrMissing("type", fieldInputTypes);
         }
@@ -152,7 +153,6 @@ namespace Coypu.Drivers
         {
             return Group(IsAFieldInputType(options)
                          + And(HasId(locator) + or + Is("@placeholder", locator, options)));
-
         }
 
         private string HasId(string locator)

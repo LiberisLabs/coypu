@@ -11,7 +11,7 @@ namespace Coypu.Drivers.Selenium
             var extension = new FileInfo(fileName).Extension.ToLower().Replace("jpg", "jpeg");
 
             ImageFormat format;
-            if      (AreEqual(extension, ImageFormat.Bmp))
+            if (AreEqual(extension, ImageFormat.Bmp))
                 format = ImageFormat.Bmp;
             else if (AreEqual(extension, ImageFormat.Gif))
                 format = ImageFormat.Gif;

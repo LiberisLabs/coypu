@@ -1,26 +1,18 @@
 using System;
-using System.Collections.Generic;
 using Coypu.Drivers;
 
 namespace Coypu.Finders
 {
     internal class FieldsetFinder : XPathQueryFinder
     {
-        internal FieldsetFinder(Driver driver, string locator, DriverScope scope, Options options) : base(driver, locator, scope, options) { }
-
-        public override bool SupportsSubstringTextMatching
+        internal FieldsetFinder(IDriver driver, string locator, DriverScope scope, Options options) : base(driver, locator, scope, options)
         {
-            get { return true; }
         }
 
-        internal override string QueryDescription
-        {
-            get { return "fieldset: " + Locator; }
-        }
+        public override bool SupportsSubstringTextMatching => true;
 
-        protected override Func<string, Options, string> GetQuery(Html html)
-        {
-            return html.Fieldset;
-        }
+        internal override string QueryDescription => "fieldset: " + Locator;
+
+        protected override Func<string, Options, string> GetQuery(Html html) => html.Fieldset;
     }
 }

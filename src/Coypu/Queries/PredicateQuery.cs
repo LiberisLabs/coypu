@@ -1,27 +1,43 @@
-using System;
-
 namespace Coypu.Queries
 {
-    public abstract class PredicateQuery : Query<bool>
+    /// <summary>
+    /// 
+    /// </summary>
+    public abstract class PredicateQuery : IQuery<bool>
     {
-        public Options Options { get; private set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public Options Options { get; }
+        /// <summary>
+        /// 
+        /// </summary>
         public DriverScope Scope { get; private set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="options"></param>
         protected PredicateQuery(Options options)
         {
             Options = options;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public abstract bool Predicate();
 
-        public bool Run()
-        {
-            return Predicate();
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public bool Run() => Predicate();
 
-        public object ExpectedResult
-        {
-            get { return true; }
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public object ExpectedResult => true;
     }
 }

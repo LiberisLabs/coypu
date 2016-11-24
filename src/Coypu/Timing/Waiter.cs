@@ -2,7 +2,7 @@
 
 namespace Coypu.Timing
 {
-    public interface Waiter
+    public interface IWaiter
     {
         void Wait(TimeSpan duration);
     }

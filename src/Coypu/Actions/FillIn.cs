@@ -2,28 +2,28 @@ namespace Coypu.Actions
 {
     internal class FillIn : DriverAction
     {
-        private readonly string value;
-        private readonly ElementScope element;
+        private readonly string _value;
+        private readonly ElementScope _element;
 
-        internal FillIn(Driver driver, ElementScope element, string value, Options options) : base(driver, element, options)
+        internal FillIn(IDriver driver, ElementScope element, string value, Options options) : base(driver, element, options)
         {
-            this.element = element;
-            this.value = value;
+            _element = element;
+            _value = value;
         }
 
         private void BringIntoFocus()
         {
-            Driver.Click(element);
+            Driver.Click(_element);
         }
 
         internal void Set()
         {
-            Driver.Set(element, value);
+            Driver.Set(_element, _value);
         }
 
         internal void Focus()
         {
-            if (element["type"] != "file")
+            if (_element["type"] != "file")
                 BringIntoFocus();
         }
 

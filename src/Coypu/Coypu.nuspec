@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>LiberisLabs-Coypu</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>meh</authors>
+    <owners>meh</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>wot</description>
+    <releaseNotes>N/A</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>Coypu</tags>
+    <projectUrl>https://github.com/LiberisLabs/Coypu</projectUrl>
+  </metadata>
+</package>

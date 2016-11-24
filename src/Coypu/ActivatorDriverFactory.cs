@@ -3,15 +3,22 @@ using System.Reflection;
 
 namespace Coypu
 {
-    public class ActivatorDriverFactory : DriverFactory
+    /// <summary>
+    /// 
+    /// </summary>
+    public class ActivatorDriverFactory : IDriverFactory
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public static int OpenDrivers { get; set; }
 
-        public Driver NewWebDriver(Type driverType, Drivers.Browser browser)
+        /// <inheritdoc />
+        public IDriver NewWebDriver(Type driverType, Drivers.Browser browser)
         {
             try
             {
-                var driver = (Driver)Activator.CreateInstance(driverType, browser);
+                var driver = (IDriver) Activator.CreateInstance(driverType, browser);
                 OpenDrivers++;
                 return driver;
             }

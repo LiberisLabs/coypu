@@ -5,21 +5,14 @@ namespace Coypu.Finders
 {
     internal class SelectFinder : XPathQueryFinder
     {
-        internal SelectFinder(Driver driver, string locator, DriverScope scope, Options options) : base(driver, locator, scope, options) { }
-
-        public override bool SupportsSubstringTextMatching
+        internal SelectFinder(IDriver driver, string locator, DriverScope scope, Options options) : base(driver, locator, scope, options)
         {
-            get { return true; }
         }
 
-        protected override Func<string, Options, string> GetQuery(Html html)
-        {
-            return html.Select;
-        }
+        public override bool SupportsSubstringTextMatching => true;
 
-        internal override string QueryDescription
-        {
-            get { return "select: " + Locator; }
-        }
+        protected override Func<string, Options, string> GetQuery(Html html) => html.Select;
+
+        internal override string QueryDescription => "select: " + Locator;
     }
 }

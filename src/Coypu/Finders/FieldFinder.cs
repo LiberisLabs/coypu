@@ -5,21 +5,17 @@ namespace Coypu.Finders
 {
     internal class FieldFinder : XPathQueryFinder
     {
-        internal FieldFinder(Driver driver, string locator, DriverScope scope, Options options) : base(driver, locator, scope, options) { }
-
-        public override bool SupportsSubstringTextMatching
+        internal FieldFinder(IDriver driver, string locator, DriverScope scope, Options options) : base(driver, locator, scope, options)
         {
-            get { return true; }
         }
+
+        public override bool SupportsSubstringTextMatching => true;
 
         protected override Func<string, Options, string> GetQuery(Html html)
         {
             return html.Field;
         }
 
-        internal override string QueryDescription
-        {
-            get { return "field: " + Locator; }
-        }
+        internal override string QueryDescription => "field: " + Locator;
     }
 }

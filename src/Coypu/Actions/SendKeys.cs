@@ -2,20 +2,20 @@ namespace Coypu.Actions
 {
     internal class SendKeys : DriverAction
     {
-        private readonly string keys;
-        private readonly DriverScope driverScope;
+        private readonly string _keys;
+        private readonly DriverScope _driverScope;
 
-        internal SendKeys(string keys, DriverScope driverScope, Driver driver, Options options)
+        internal SendKeys(string keys, DriverScope driverScope, IDriver driver, Options options)
             : base(driver, driverScope, options)
         {
-            this.keys = keys;
-            this.driverScope = driverScope;
+            _keys = keys;
+            _driverScope = driverScope;
         }
 
         public override void Act()
         {
-            var element = driverScope.Now();
-            Driver.SendKeys(element,keys);
+            var element = _driverScope.Now();
+            Driver.SendKeys(element, _keys);
         }
     }
 }

@@ -9,28 +9,29 @@ namespace Coypu.AcceptanceTests
     [TestFixture]
     public class WebRequests
     {
-        private SelfishSite site;
-        private BrowserSession browser;
+        private SelfishSite _site;
+        private BrowserSession _browser;
 
         [SetUp]
         public void SetUp()
         {
-            site = new SelfishSite();
+            _site = new SelfishSite();
 
-            var configuration = new SessionConfiguration();
+            var configuration = new SessionConfiguration
+            {
+                Timeout = TimeSpan.FromMilliseconds(1000),
+                Port = _site.BaseUri.Port
+            };
 
-            configuration.Timeout = TimeSpan.FromMilliseconds(1000);
-            configuration.Port = site.BaseUri.Port;
-
-            browser = new BrowserSession(configuration);
-            browser.Visit("/");
+            _browser = new BrowserSession(configuration);
+            _browser.Visit("/");
         }
 
         [TearDown]
         public void TearDown()
         {
-            browser.Dispose();
-            site.Dispose();
+            _browser.Dispose();
+            _site.Dispose();
         }
 
         [Test]
@@ -39,7 +40,7 @@ namespace Coypu.AcceptanceTests
             var saveAs = TempFileName();
             var expectedResource = Encoding.Default.GetBytes("bdd");
 
-            browser.SaveWebResource("/resource/bdd", saveAs);
+            _browser.SaveWebResource("/resource/bdd", saveAs);
 
             Assert.That(File.ReadAllBytes(saveAs), Is.EqualTo(expectedResource));
         }
@@ -48,28 +49,25 @@ namespace Coypu.AcceptanceTests
         public void It_saves_a_restricted_file_from_a_site_you_are_logged_into()
         {
             var saveAs = TempFileName();
-            var expectedResource = "bdd";
-            
-            browser.SaveWebResource("/restricted_resource/bdd", saveAs);
+            const string expectedResource = "bdd";
+
+            _browser.SaveWebResource("/restricted_resource/bdd", saveAs);
             Assert.That(File.ReadAllBytes(saveAs), Is.Not.EqualTo(expectedResource));
 
-            browser.Visit("/auto_login");
+            _browser.Visit("/auto_login");
 
-            browser.SaveWebResource("/restricted_resource/bdd", saveAs);
+            _browser.SaveWebResource("/restricted_resource/bdd", saveAs);
             Assert.That(File.ReadAllText(saveAs), Is.EqualTo(expectedResource));
         }
 
-        private string TempFileName()
+        private static string TempFileName()
         {
             var saveAs = Path.GetTempFileName();
-            Clean(saveAs);
-            return saveAs;
-        }
-
-        private void Clean(string saveAs)
-        {
             if (File.Exists(saveAs))
+            {
                 File.Delete(saveAs);
+            }
+            return saveAs;
         }
     }
 }

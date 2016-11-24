@@ -12,33 +12,28 @@ namespace Coypu
     /// </summary>
     public class SnapshotElementScope : ElementScope
     {
-        private readonly Element element;
-        private readonly Options options;
+        private readonly IElement _element;
 
-        internal SnapshotElementScope(Element element, DriverScope scope, Options options)
+        internal SnapshotElementScope(IElement element, DriverScope scope, Options options)
             : base(null, scope)
         {
-            this.element = element;
-            this.options = options;
+            _element = element;
         }
 
         internal override bool Stale
         {
             get { return true; }
-            set {}
+            set { }
         }
 
-        protected internal override Element FindElement()
-        {
-            return element;
-        }
+        protected internal override IElement FindElement() => _element;
 
         internal override void Try(DriverAction action)
         {
             action.Act();
         }
 
-        internal override bool Try(Query<bool> query)
+        internal override bool Try(IQuery<bool> query)
         {
             return query.Run();
         }
@@ -48,14 +43,16 @@ namespace Coypu
             return getAttribute();
         }
 
-        public override bool Exists(Options options = null)
+        /// <inheritdoc />
+        public override bool Exists(Options o = null)
         {
-            return FindXPath(".", options).Exists();
+            return FindXPath(".", o).Exists();
         }
 
-        public override bool Missing(Options options = null)
+        /// <inheritdoc />
+        public override bool Missing(Options o = null)
         {
-            return FindXPath(".", options).Missing();
+            return FindXPath(".", o).Missing();
         }
     }
 }

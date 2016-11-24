@@ -4,45 +4,45 @@ namespace Coypu.Actions
 {
     internal class Select : DriverAction
     {
-        private readonly string locator;
-        private readonly string optionToSelect;
-        private readonly Options options;
-        private readonly DisambiguationStrategy disambiguationStrategy;
-        private ElementScope selectElement;
+        private readonly string _locator;
+        private readonly string _optionToSelect;
+        private readonly Options _options;
+        private readonly IDisambiguationStrategy _disambiguationStrategy;
+        private ElementScope _selectElement;
 
-        internal Select(Driver driver, DriverScope scope, string locator, string optionToSelect, DisambiguationStrategy disambiguationStrategy, Options options)
+        internal Select(IDriver driver, DriverScope scope, string locator, string optionToSelect, IDisambiguationStrategy disambiguationStrategy, Options options)
             : base(driver, scope, options)
         {
-            this.locator = locator;
-            this.optionToSelect = optionToSelect;
-            this.options = options;
-            this.disambiguationStrategy = disambiguationStrategy;
+            _locator = locator;
+            _optionToSelect = optionToSelect;
+            _options = options;
+            _disambiguationStrategy = disambiguationStrategy;
         }
 
-        internal Select(Driver driver, ElementScope selectElement, string optionToSelect, DisambiguationStrategy disambiguationStrategy, Options options)
+        internal Select(IDriver driver, ElementScope selectElement, string optionToSelect, IDisambiguationStrategy disambiguationStrategy, Options options)
             : base(driver, selectElement, options)
         {
-            this.selectElement = selectElement;
-            this.optionToSelect = optionToSelect;
-            this.options = options;
-            this.disambiguationStrategy = disambiguationStrategy;
+            _selectElement = selectElement;
+            _optionToSelect = optionToSelect;
+            _options = options;
+            _disambiguationStrategy = disambiguationStrategy;
         }
 
         public override void Act()
         {
-            selectElement = selectElement ?? FindSelectElement();
-            SelectOption(selectElement);
+            _selectElement = _selectElement ?? FindSelectElement();
+            SelectOption(_selectElement);
         }
 
         private SnapshotElementScope FindSelectElement()
         {
-            var selectElementFound = disambiguationStrategy.ResolveQuery(new SelectFinder(Driver, locator, Scope, options));
-            return new SnapshotElementScope(selectElementFound, Scope, options);
+            var selectElementFound = _disambiguationStrategy.ResolveQuery(new SelectFinder(Driver, _locator, Scope, _options));
+            return new SnapshotElementScope(selectElementFound, Scope, _options);
         }
 
-        void SelectOption(ElementScope selectElementScope)
+        private void SelectOption(DriverScope selectElementScope)
         {
-            var option = disambiguationStrategy.ResolveQuery(new OptionFinder(Driver, optionToSelect, selectElementScope, options));
+            var option = _disambiguationStrategy.ResolveQuery(new OptionFinder(Driver, _optionToSelect, selectElementScope, _options));
             Driver.Click(option);
         }
     }

@@ -24,14 +24,8 @@ namespace Coypu.Drivers.Tests.Sites
             });
         }
 
-        public Uri BaseUri
-        {
-            get { return new Uri(_server.BaseUri); }
-        }
+        public Uri BaseUri => new Uri(_server.BaseUri);
 
-        public void Dispose()
-        {
-            _server.Dispose();
-        }
+        public void Dispose() => _server.Dispose();
     }
 }

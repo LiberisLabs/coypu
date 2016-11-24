@@ -17,13 +17,4 @@
         /// </summary>
         Single
     }
-
-    public enum TextPrecision
-    {
-        Exact,
-        Substring,
-        PreferExact
-    }
-
-
 }

@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Reflection;
 
 namespace Coypu
 {
@@ -9,27 +8,25 @@ namespace Coypu
     /// </summary>
     public class Options
     {
-        private const bool DEFAULT_CONSIDER_INVISIBLE_ELEMENTS = false;
-        private const TextPrecision DEFAULT_PRECISION = TextPrecision.PreferExact;
-        private const Match DEFAULT_MATCH = Match.Single;
-        private static readonly TimeSpan DEFAULT_TIMEOUT = TimeSpan.FromSeconds(1);
-        private static readonly TimeSpan DEFAULT_RETRY_INTERVAL = TimeSpan.FromSeconds(0.05);
-        private static readonly TimeSpan DEFAULT_WAIT_BEFORE_CLICK = TimeSpan.Zero;
+        private const bool DefaultConsiderInvisibleElements = false;
+        private const TextPrecision DefaultPrecision = TextPrecision.PreferExact;
+        private const Match DefaultMatch = Match.Single;
+        private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(1);
+        private static readonly TimeSpan DefaultRetryInterval = TimeSpan.FromSeconds(0.05);
+        private static readonly TimeSpan DefaultWaitBeforeClick = TimeSpan.Zero;
 
         protected bool? considerInvisibleElements;
-        private TextPrecision? textPrecision;
-        private Match? match;
-        private TimeSpan? retryInterval;
-        private TimeSpan? timeout;
-        private TimeSpan? waitBeforeClick;
+        private TextPrecision? _textPrecision;
+        private Match? _match;
+        private TimeSpan? _retryInterval;
+        private TimeSpan? _timeout;
+        private TimeSpan? _waitBeforeClick;
 
 
+        /// <inheritdoc />
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            //if (obj.GetType() != this.GetType()) return false;
-            return Equals((Options) obj);
+            return !ReferenceEquals(null, obj) && (ReferenceEquals(this, obj) || Equals((Options) obj));
         }
 
         /// <summary>
@@ -51,43 +48,27 @@ namespace Coypu
         /// <summary>
         /// Just picks the first element that matches
         /// </summary>
-        public static Options First
-        {
-            get { return new Options {Match = Match.First}; }
-        }
+        public static Options First => new Options {Match = Match.First};
 
         /// <summary>
         /// Raises an error if more than one element match
         /// </summary>
-        public static Options Single
-        {
-            get { return new Options { Match = Match.Single }; }
-        }
-
+        public static Options Single => new Options {Match = Match.Single};
 
         /// <summary>
         /// Match by exact visible text
         /// </summary>
-        public static Options Exact
-        {
-            get { return new Options { TextPrecision = TextPrecision.Exact }; }
-        }
+        public static Options Exact => new Options {TextPrecision = TextPrecision.Exact};
 
         /// <summary>
         /// Match by substring in visible text
         /// </summary>
-        public static Options Substring
-        {
-            get { return new Options { TextPrecision = TextPrecision.Substring }; }
-        }
+        public static Options Substring => new Options {TextPrecision = TextPrecision.Substring};
 
         /// <summary>
         /// If multiple matches are found, some of which are exact, and some of which are not, then the first exactly matching element is returned
         /// </summary>
-        public static Options PreferExact
-        {
-            get { return new Options { TextPrecision = TextPrecision.PreferExact }; }
-        }
+        public static Options PreferExact => new Options {TextPrecision = TextPrecision.PreferExact};
 
         /// <summary>
         /// Match exact visible text; Just picks the first element that matches
@@ -125,8 +106,8 @@ namespace Coypu
         /// </summary>
         public TimeSpan Timeout
         {
-            get { return timeout ?? DEFAULT_TIMEOUT; }
-            set { timeout = value; }
+            get { return _timeout ?? DefaultTimeout; }
+            set { _timeout = value; }
         }
 
         /// <summary>
@@ -135,8 +116,8 @@ namespace Coypu
         /// </summary>
         public TimeSpan RetryInterval
         {
-            get { return retryInterval ?? DEFAULT_RETRY_INTERVAL; }
-            set { retryInterval = value; }
+            get { return _retryInterval ?? DefaultRetryInterval; }
+            set { _retryInterval = value; }
         }
 
         /// <summary>
@@ -145,8 +126,8 @@ namespace Coypu
         /// </summary>
         public TimeSpan WaitBeforeClick
         {
-            get { return waitBeforeClick ?? DEFAULT_WAIT_BEFORE_CLICK; }
-            set { waitBeforeClick = value; }
+            get { return _waitBeforeClick ?? DefaultWaitBeforeClick; }
+            set { _waitBeforeClick = value; }
         }
 
         /// <summary>
@@ -155,7 +136,7 @@ namespace Coypu
         /// </summary>
         public bool ConsiderInvisibleElements
         {
-            get { return considerInvisibleElements ?? DEFAULT_CONSIDER_INVISIBLE_ELEMENTS; }
+            get { return considerInvisibleElements ?? DefaultConsiderInvisibleElements; }
             set { considerInvisibleElements = value; }
         }
 
@@ -164,32 +145,28 @@ namespace Coypu
         /// </summary>
         public TextPrecision TextPrecision
         {
-            get { return textPrecision ?? DEFAULT_PRECISION; }
-            set { textPrecision = value; }
+            get { return _textPrecision ?? DefaultPrecision; }
+            set { _textPrecision = value; }
         }
 
-        internal bool TextPrecisionExact
-        {
-            get { return textPrecision == TextPrecision.Exact; }
-        }
+        internal bool TextPrecisionExact => _textPrecision == TextPrecision.Exact;
 
         /// <summary>
         /// <para>With PreventAmbiguousMatches you can control whether Coypu should throw an exception when multiple elements match a query.</para>
         /// </summary>
         public Match Match
         {
-            get { return match ?? DEFAULT_MATCH; }
-            set { match = value; }
+            get { return _match ?? DefaultMatch; }
+            set { _match = value; }
         }
 
         internal string BuildAmbiguousMessage(string queryDescription, int count)
         {
-            var message = string.Format(@"Ambiguous match, found {0} elements matching {1}
+            var message = $@"Ambiguous match, found {count} elements matching {queryDescription}
 
 Coypu does this by default from v2.0. Your options:
 
- * Look for something more specific",
-                    count, queryDescription);
+ * Look for something more specific";
 
 
             if (TextPrecision != TextPrecision.Exact)
@@ -213,54 +190,79 @@ Coypu does this by default from v2.0. Your options:
             defaultOptions = defaultOptions ?? new Options();
 
             return new Options
-                {
-                    considerInvisibleElements = Default(preferredOptions.considerInvisibleElements, defaultOptions.considerInvisibleElements),
-                    textPrecision = Default(preferredOptions.textPrecision, defaultOptions.textPrecision),
-                    match = Default(preferredOptions.match, defaultOptions.match),
-                    retryInterval = Default(preferredOptions.retryInterval, defaultOptions.retryInterval),
-                    timeout = Default(preferredOptions.timeout, defaultOptions.timeout),
-                    waitBeforeClick = Default(preferredOptions.waitBeforeClick, defaultOptions.waitBeforeClick)
-                };
+            {
+                considerInvisibleElements = Default(preferredOptions.considerInvisibleElements, defaultOptions.considerInvisibleElements),
+                _textPrecision = Default(preferredOptions._textPrecision, defaultOptions._textPrecision),
+                _match = Default(preferredOptions._match, defaultOptions._match),
+                _retryInterval = Default(preferredOptions._retryInterval, defaultOptions._retryInterval),
+                _timeout = Default(preferredOptions._timeout, defaultOptions._timeout),
+                _waitBeforeClick = Default(preferredOptions._waitBeforeClick, defaultOptions._waitBeforeClick)
+            };
         }
 
-     
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="defaultValue"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         protected static T? Default<T>(T? value, T? defaultValue) where T : struct
         {
-            return value.HasValue 
-                       ? value
-                       : defaultValue;
+            return value ?? defaultValue;
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
-			return string.Join(Environment.NewLine, GetType().GetProperties(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public).Select(p => p.Name + ": " + p.GetValue(this, null)).ToArray());
+            return string.Join(Environment.NewLine,
+                               GetType().GetProperties(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public).Select(p => p.Name + ": " + p.GetValue(this, null)).ToArray());
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         protected bool Equals(Options other)
         {
-            return considerInvisibleElements.Equals(other.considerInvisibleElements) && textPrecision.Equals(other.textPrecision) && match == other.match && retryInterval.Equals(other.retryInterval) && timeout.Equals(other.timeout) && waitBeforeClick.Equals(other.waitBeforeClick);
+            return considerInvisibleElements.Equals(other.considerInvisibleElements) && _textPrecision.Equals(other._textPrecision) && _match == other._match && _retryInterval.Equals(other._retryInterval) &&
+                   _timeout.Equals(other._timeout) && _waitBeforeClick.Equals(other._waitBeforeClick);
         }
 
+        /// <inheritdoc />
         public override int GetHashCode()
         {
             unchecked
             {
                 var hashCode = considerInvisibleElements.GetHashCode();
-                hashCode = (hashCode * 397) ^ textPrecision.GetHashCode();
-                hashCode = (hashCode * 397) ^ match.GetHashCode();
-                hashCode = (hashCode * 397) ^ retryInterval.GetHashCode();
-                hashCode = (hashCode * 397) ^ timeout.GetHashCode();
-                hashCode = (hashCode * 397) ^ waitBeforeClick.GetHashCode();
+                hashCode = (hashCode*397) ^ _textPrecision.GetHashCode();
+                hashCode = (hashCode*397) ^ _match.GetHashCode();
+                hashCode = (hashCode*397) ^ _retryInterval.GetHashCode();
+                hashCode = (hashCode*397) ^ _timeout.GetHashCode();
+                hashCode = (hashCode*397) ^ _waitBeforeClick.GetHashCode();
                 return hashCode;
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static bool operator ==(Options left, Options right)
         {
             return Equals(left, right);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static bool operator !=(Options left, Options right)
         {
             return !Equals(left, right);

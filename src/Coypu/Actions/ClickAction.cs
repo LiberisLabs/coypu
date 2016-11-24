@@ -2,17 +2,17 @@ namespace Coypu.Actions
 {
     internal class ClickAction : DriverAction
     {
-        private readonly ElementScope elementScope;
+        private readonly ElementScope _elementScope;
 
-        internal ClickAction(ElementScope elementScope, Driver driver, Options options)
+        internal ClickAction(ElementScope elementScope, IDriver driver, Options options)
             : base(driver, elementScope, options)
         {
-            this.elementScope = elementScope;
+            _elementScope = elementScope;
         }
 
         public override void Act()
         {
-            Driver.Click(elementScope);
+            Driver.Click(_elementScope);
         }
     }
 }

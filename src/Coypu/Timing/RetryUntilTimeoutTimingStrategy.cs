@@ -7,7 +7,10 @@ using OpenQA.Selenium;
 
 namespace Coypu.Timing
 {
-    public class RetryUntilTimeoutTimingStrategy : TimingStrategy
+    /// <summary>
+    /// 
+    /// </summary>
+    public class RetryUntilTimeoutTimingStrategy : ITimingStrategy
     {
         public void TryUntil(BrowserAction tryThis, PredicateQuery until, Options options)
         {
@@ -17,25 +20,24 @@ namespace Coypu.Timing
         }
 
         public bool ZeroTimeout { get; set; }
-        private TimeSpan? overrideTimeout;
+        private TimeSpan? _overrideTimeout;
 
         public void SetOverrideTimeout(TimeSpan timeout)
         {
-            overrideTimeout = timeout;
+            _overrideTimeout = timeout;
         }
 
         public void ClearOverrideTimeout()
         {
-            overrideTimeout = null;
+            _overrideTimeout = null;
         }
 
-        public TResult Synchronise<TResult>(Query<TResult> query)
+        public TResult Synchronise<TResult>(IQuery<TResult> query)
         {
             var interval = query.Options.RetryInterval;
             var stopWatch = Stopwatch.StartNew();
             while (true)
             {
-
                 try
                 {
                     var result = query.Run();
@@ -60,7 +62,7 @@ namespace Coypu.Timing
                 {
                     if (TimeoutReached(stopWatch, Timeout(query), interval))
                         throw ex;
-            
+
                     WaitForInterval(interval);
                 }
                 catch (Exception ex)
@@ -68,13 +70,13 @@ namespace Coypu.Timing
                     MarkAsStale(query);
                     if (TimeoutReached(stopWatch, Timeout(query), interval))
                         throw ex;
-            
+
                     WaitForInterval(interval);
                 }
             }
         }
 
-        private static void MarkAsStale<TResult>(Query<TResult> query)
+        private static void MarkAsStale<TResult>(IQuery<TResult> query)
         {
             if (query.Scope == null)
                 return;
@@ -85,16 +87,16 @@ namespace Coypu.Timing
                 query.Scope.Stale = true;
         }
 
-        private TimeSpan Timeout<TResult>(Query<TResult> query)
+        private TimeSpan Timeout<TResult>(IQuery<TResult> query)
         {
             TimeSpan timeout;
             if (ZeroTimeout)
             {
                 timeout = TimeSpan.Zero;
             }
-            else if (overrideTimeout.HasValue)
+            else if (_overrideTimeout.HasValue)
             {
-                timeout = overrideTimeout.Value;
+                timeout = _overrideTimeout.Value;
             }
             else
             {
@@ -103,17 +105,17 @@ namespace Coypu.Timing
             return timeout;
         }
 
-        private void WaitForInterval(TimeSpan interval)
+        private static void WaitForInterval(TimeSpan interval)
         {
             Thread.Sleep(interval);
         }
 
-        private bool ExpectedResultNotFoundWithinTimeout<TResult>(object expectedResult, TResult result, Stopwatch stopWatch, TimeSpan timeout, TimeSpan interval)
+        private static bool ExpectedResultNotFoundWithinTimeout<TResult>(object expectedResult, TResult result, Stopwatch stopWatch, TimeSpan timeout, TimeSpan interval)
         {
             return expectedResult != null && !result.Equals(expectedResult) && !TimeoutReached(stopWatch, timeout, interval);
         }
 
-        private bool TimeoutReached(Stopwatch stopWatch, TimeSpan timeout, TimeSpan interval)
+        private static bool TimeoutReached(Stopwatch stopWatch, TimeSpan timeout, TimeSpan interval)
         {
             var elapsedTimeToNextCall = TimeSpan.FromMilliseconds(stopWatch.ElapsedMilliseconds) + interval;
             var timeoutReached = elapsedTimeToNextCall >= timeout;

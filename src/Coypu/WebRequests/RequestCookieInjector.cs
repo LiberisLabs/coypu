@@ -3,7 +3,7 @@ using System.Net;
 
 namespace Coypu.WebRequests
 {
-    internal interface RequestCookieInjector
+    internal interface IRequestCookieInjector
     {
         WebRequest InjectCookies(WebRequest httpRequest, IEnumerable<Cookie> enumerable);
     }

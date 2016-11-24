@@ -6,24 +6,24 @@ namespace Coypu.Actions
 {
     internal class WaitThenClick : DriverAction
     {
-        private readonly Waiter waiter;
-        private readonly ElementFinder elementFinder;
-        private readonly DisambiguationStrategy disambiguationStrategy;
-        private readonly TimeSpan waitBeforeClick;
+        private readonly IWaiter _waiter;
+        private readonly ElementFinder _elementFinder;
+        private readonly IDisambiguationStrategy _disambiguationStrategy;
+        private readonly TimeSpan _waitBeforeClick;
 
-        internal WaitThenClick(Driver driver, DriverScope scope, Options options, Waiter waiter, ElementFinder elementFinder, DisambiguationStrategy disambiguationStrategy)
+        internal WaitThenClick(IDriver driver, DriverScope scope, Options options, IWaiter waiter, ElementFinder elementFinder, IDisambiguationStrategy disambiguationStrategy)
             : base(driver, scope, options)
         {
-            waitBeforeClick = options.WaitBeforeClick;
-            this.waiter = waiter;
-            this.elementFinder = elementFinder;
-            this.disambiguationStrategy = disambiguationStrategy;
+            _waitBeforeClick = options.WaitBeforeClick;
+            _waiter = waiter;
+            _elementFinder = elementFinder;
+            _disambiguationStrategy = disambiguationStrategy;
         }
 
         public override void Act()
         {
-            var element = disambiguationStrategy.ResolveQuery(elementFinder);
-            waiter.Wait(waitBeforeClick);
+            var element = _disambiguationStrategy.ResolveQuery(_elementFinder);
+            _waiter.Wait(_waitBeforeClick);
             Driver.Click(element);
         }
     }
