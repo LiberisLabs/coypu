@@ -12,9 +12,9 @@ namespace Coypu
     /// </summary>
     public class SnapshotElementScope : ElementScope
     {
-        private readonly Element _element;
+        private readonly IElement _element;
 
-        internal SnapshotElementScope(Element element, DriverScope scope, Options options)
+        internal SnapshotElementScope(IElement element, DriverScope scope, Options options)
             : base(null, scope)
         {
             _element = element;
@@ -26,14 +26,14 @@ namespace Coypu
             set { }
         }
 
-        protected internal override Element FindElement() => _element;
+        protected internal override IElement FindElement() => _element;
 
         internal override void Try(DriverAction action)
         {
             action.Act();
         }
 
-        internal override bool Try(Query<bool> query)
+        internal override bool Try(IQuery<bool> query)
         {
             return query.Run();
         }

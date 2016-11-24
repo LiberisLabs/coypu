@@ -8,7 +8,7 @@ namespace Coypu.Drivers.Tests.Tests
     {
         private DriverScope _scope1;
         private DriverScope _scope2;
-        private Driver _driver;
+        private IDriver _driver;
         private DriverScope _scope;
 
         [OneTimeSetUp]

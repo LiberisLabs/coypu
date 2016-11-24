@@ -6,16 +6,16 @@ namespace Coypu.Drivers.Tests
 {
     internal class TestDriver
     {
-        private static Driver _driver;
+        private static IDriver _driver;
 
-        public static Driver Instance(string testPage = @"html\InteractionTestsPage.htm")
+        public static IDriver Instance(string testPage = @"html\InteractionTestsPage.htm")
         {
             var driver = EnsureDriver();
             driver.Visit(SomeRandomStaticHelpers.TestHtmlPathLocation(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, testPage)), DriverHelpers.WindowScope(driver));
             return driver;
         }
 
-        private static Driver EnsureDriver()
+        private static IDriver EnsureDriver()
         {
             var driverType = typeof(SeleniumWebDriver);
 
@@ -27,7 +27,7 @@ namespace Coypu.Drivers.Tests
                 _driver.Dispose();
             }
 
-            _driver = (Driver) Activator.CreateInstance(driverType, Browser.Chrome);
+            _driver = (IDriver) Activator.CreateInstance(driverType, Browser.Chrome);
 
             return _driver;
         }

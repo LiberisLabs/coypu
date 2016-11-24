@@ -10,7 +10,7 @@ namespace Coypu
     /// <summary>
     /// The scope for any browser interaction: a browser window, frame or element.
     /// </summary>
-    public interface Scope
+    public interface IScope
     {
         /// <summary>
         /// Click a button, input of type button|submit|image or div with the css class "button"
@@ -123,7 +123,7 @@ namespace Coypu
         bool HasContentMatch(Regex pattern, Options options = null);
 
         /// <summary>
-        /// Query whether text does not appear on the page. Returns as soon as the text does not appear, or when the <see cref="SessionConfiguration.Timeout"/> is reached.
+        /// Query whether text does not appear on the page. Returns as soon as the text does not appear, or when the <see cref="Options.Timeout"/> is reached.
         /// </summary>
         /// <param name="text">The exact text expected not to be found</param>
         /// <param name="options">
@@ -135,7 +135,7 @@ namespace Coypu
         bool HasNoContent(string text, Options options = null);
 
         /// <summary>
-        /// Query whether text does not appear on the page using a regular expression. Returns as soon as the text does not appear, or when the <see cref="SessionConfiguration.Timeout"/> is reached.
+        /// Query whether text does not appear on the page using a regular expression. Returns as soon as the text does not appear, or when the <see cref="Options.Timeout"/> is reached.
         /// </summary>
         /// <param name="pattern">The regular expression expected not to match</param>
         /// <param name="options">
@@ -434,7 +434,7 @@ namespace Coypu
         /// <para>Waits for the <see cref="Options.RetryInterval"/> between retries.</para>
         /// </summary>
         /// <param name="query">A query</param>
-        T Query<T>(Query<T> query);
+        T Query<T>(IQuery<T> query);
 
         /// <summary>
         /// <para>Execute a query repeatedly until either the expected result is returned or the <see cref="Options.Timeout"/> is passed.</para>
@@ -538,7 +538,7 @@ namespace Coypu
         /// <code>new Options{Timeout = TimeSpan.FromSeconds(60)}</code></param>
         /// <returns>The first matching button</returns>
         /// <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
-        Scope ClickButton(string locator, PredicateQuery until, Options options = null);
+        IScope ClickButton(string locator, PredicateQuery until, Options options = null);
 
         /// <summary>
         /// <para>Click a link and wait for a condition to be satisfied for a specified time otherwise click and wait again.</para> 
@@ -553,14 +553,14 @@ namespace Coypu
         /// <code>new Options{Timeout = TimeSpan.FromSeconds(60)}</code></param>
         /// <returns>The first matching button</returns>
         /// <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
-        Scope ClickLink(string locator, PredicateQuery until, Options options = null);
+        IScope ClickLink(string locator, PredicateQuery until, Options options = null);
 
         /// <summary>
         /// Try and find this scope now
         /// </summary>
         /// <returns>The element found</returns>
         /// <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
-        Element Now();
+        IElement Now();
 
         /// <summary>
         /// The location of the current browser window

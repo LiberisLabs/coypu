@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 
 namespace Coypu.Drivers.Selenium
 {
-    internal class SeleniumElement : Element
+    internal class SeleniumElement : IElement
     {
         protected readonly IWebElement native;
         protected readonly IWebDriver selenium;
@@ -14,45 +14,21 @@ namespace Coypu.Drivers.Selenium
             this.selenium = selenium;
         }
 
-        public string Id
-        {
-            get { return native.GetAttribute("id"); }
-        }
+        public string Id => native.GetAttribute("id");
 
-        public virtual string Text
-        {
-            get { return native.Text; }
-        }
+        public virtual string Text => native.Text;
 
-        public string Value
-        {
-            get { return native.GetAttribute("value"); }
-        }
+        public string Value => native.GetAttribute("value");
 
-        public string Name
-        {
-            get { return native.GetAttribute("name"); }
-        }
+        public string Name => native.GetAttribute("name");
 
-        public virtual string OuterHTML
-        {
-            get { return native.GetAttribute("outerHTML"); }
-        }
+        public virtual string OuterHtml => native.GetAttribute("outerHTML");
 
-        public virtual string InnerHTML
-        {
-            get { return native.GetAttribute("innerHTML"); }
-        }
+        public virtual string InnerHtml => native.GetAttribute("innerHTML");
 
-        public string Title
-        {
-            get { return native.GetAttribute("title"); }
-        }
+        public string Title => native.GetAttribute("title");
 
-        public bool Disabled
-        {
-            get { return !native.Enabled; }
-        }
+        public bool Disabled => !native.Enabled;
 
         public string SelectedOption
         {
@@ -65,19 +41,10 @@ namespace Coypu.Drivers.Selenium
             }
         }
 
-        public bool Selected
-        {
-            get { return native.Selected; }
-        }
+        public bool Selected => native.Selected;
 
-        public virtual object Native
-        {
-            get { return native; }
-        }
+        public virtual object Native => native;
 
-        public string this[string attributeName]
-        {
-            get { return native.GetAttribute(attributeName); }
-        }
+        public string this[string attributeName] => native.GetAttribute(attributeName);
     }
 }

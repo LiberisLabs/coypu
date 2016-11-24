@@ -5,7 +5,7 @@ namespace Coypu.Tests.WhenApplyingMatchStrategy
 {
     public class StubElementFinder : ElementFinder
     {
-        public IDictionary<Options, IEnumerable<Element>> StubbedFindResults = new Dictionary<Options, IEnumerable<Element>>();
+        public IDictionary<Options, IEnumerable<IElement>> StubbedFindResults = new Dictionary<Options, IEnumerable<IElement>>();
 
         public StubElementFinder(Options options, bool supportsSubstringTextMatching = true, string queryDescription = null) : base(null, null, null, options)
         {
@@ -15,7 +15,7 @@ namespace Coypu.Tests.WhenApplyingMatchStrategy
 
         public override bool SupportsSubstringTextMatching { get; }
 
-        internal override IEnumerable<Element> Find(Options o)
+        internal override IEnumerable<IElement> Find(Options o)
         {
             return StubbedFindResults[o];
         }

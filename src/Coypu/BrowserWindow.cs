@@ -14,10 +14,10 @@ namespace Coypu
     {
         internal BrowserWindow(SessionConfiguration sessionConfiguration,
                                ElementFinder elementFinder,
-                               Driver driver,
-                               TimingStrategy timingStrategy,
-                               Waiter waiter,
-                               UrlBuilder urlBuilder,
+                               IDriver driver,
+                               ITimingStrategy timingStrategy,
+                               IWaiter waiter,
+                               IUrlBuilder urlBuilder,
                                IDisambiguationStrategy disambiguationStrategy)
             : base(sessionConfiguration, elementFinder, driver, timingStrategy, waiter, urlBuilder, disambiguationStrategy)
         {

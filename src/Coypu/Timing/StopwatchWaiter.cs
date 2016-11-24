@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace Coypu.Timing
 {
-    internal class StopwatchWaiter : Waiter
+    internal class StopwatchWaiter : IWaiter
     {
         public void Wait(TimeSpan duration)
         {

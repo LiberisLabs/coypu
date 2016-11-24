@@ -48,7 +48,7 @@ namespace Coypu.Tests.WhenInteractingWithTheBrowser
         }
 
         protected void Should_make_direct_call_when_no_predicate_supplied(Func<string, Func<IEnumerable<SnapshotElementScope>, bool>, Options, IEnumerable<SnapshotElementScope>> subject,
-                                                                          Action<string, IEnumerable<Element>, DriverScope, Options> stub)
+                                                                          Action<string, IEnumerable<IElement>, DriverScope, Options> stub)
         {
             var locator = "Find me " + DateTime.Now.Ticks;
 
@@ -62,7 +62,7 @@ namespace Coypu.Tests.WhenInteractingWithTheBrowser
         }
 
         private void Should_wrap_elements_in_snapshot_scope(Func<string, Func<IEnumerable<SnapshotElementScope>, bool>, Options, IEnumerable<SnapshotElementScope>> subject,
-                                                            Action<string, IEnumerable<Element>, DriverScope, Options> stub)
+                                                            Action<string, IEnumerable<IElement>, DriverScope, Options> stub)
         {
             var locator = "Find me " + DateTime.Now.Ticks;
 
@@ -77,7 +77,7 @@ namespace Coypu.Tests.WhenInteractingWithTheBrowser
         }
 
         protected void Should_test_predicate_against_query_results_and_retry_on_failure(Func<string, Func<IEnumerable<SnapshotElementScope>, bool>, Options, IEnumerable<SnapshotElementScope>> subject,
-                                                                                        Action<string, IEnumerable<Element>, Scope, Options> stub)
+                                                                                        Action<string, IEnumerable<IElement>, IScope, Options> stub)
         {
             var locator = "Find me " + DateTime.Now.Ticks;
 
@@ -97,8 +97,8 @@ namespace Coypu.Tests.WhenInteractingWithTheBrowser
         }
 
         private void VerifyFoundRobustlyAndThrows<T>(Func<string, Func<IEnumerable<SnapshotElementScope>, bool>, Options, IEnumerable<SnapshotElementScope>> subject, int driverCallIndex,
-                                                     string locator, Func<IEnumerable<SnapshotElementScope>, bool> predicate, IEnumerable<Element> expectedDeferredResult,
-                                                     IEnumerable<Element> expectedImmediateResult, Options options)
+                                                     string locator, Func<IEnumerable<SnapshotElementScope>, bool> predicate, IEnumerable<IElement> expectedDeferredResult,
+                                                     IEnumerable<IElement> expectedImmediateResult, Options options)
             where T : Exception
         {
             Assert.Throws<T>(
@@ -107,7 +107,7 @@ namespace Coypu.Tests.WhenInteractingWithTheBrowser
         }
 
         protected void VerifyFoundRobustly(Func<string, Func<IEnumerable<SnapshotElementScope>, bool>, Options, IEnumerable<SnapshotElementScope>> subject, int driverCallIndex, string locator,
-                                           Func<IEnumerable<SnapshotElementScope>, bool> predicate, IEnumerable<Element> expectedDeferredResult, IEnumerable<Element> expectedImmediateResult,
+                                           Func<IEnumerable<SnapshotElementScope>, bool> predicate, IEnumerable<IElement> expectedDeferredResult, IEnumerable<IElement> expectedImmediateResult,
                                            Options options)
         {
             var scopedResult = subject(locator, predicate, options);

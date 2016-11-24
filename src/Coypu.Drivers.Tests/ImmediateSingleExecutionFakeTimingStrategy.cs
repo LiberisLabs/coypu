@@ -5,9 +5,9 @@ using Coypu.Timing;
 
 namespace Coypu.Drivers.Tests
 {
-    internal class ImmediateSingleExecutionFakeTimingStrategy : TimingStrategy
+    internal class ImmediateSingleExecutionFakeTimingStrategy : ITimingStrategy
     {
-        public T Synchronise<T>(Query<T> query)
+        public T Synchronise<T>(IQuery<T> query)
         {
             return query.Run();
         }

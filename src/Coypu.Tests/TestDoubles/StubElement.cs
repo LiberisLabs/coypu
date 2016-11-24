@@ -2,7 +2,7 @@
 
 namespace Coypu.Tests.TestDoubles
 {
-    public class StubElement : Element
+    public class StubElement : IElement
     {
         private readonly Dictionary<string, string> attributes = new Dictionary<string, string>();
 
@@ -14,13 +14,13 @@ namespace Coypu.Tests.TestDoubles
 
         public string Name { get; set; }
 
-        public string InnerHTML { get; set; }
+        public string InnerHtml { get; set; }
 
         public string Title { get; set; }
 
         public bool Disabled { get; set; }
 
-        public string OuterHTML { get; set; }
+        public string OuterHtml { get; set; }
 
         public string SelectedOption { get; set; }
 

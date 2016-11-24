@@ -68,12 +68,12 @@ namespace Coypu.Tests.WhenInteractingWithTheBrowser
             return RunQueryAndCheckTiming(query);
         }
 
-        protected T RunQueryAndCheckTiming<T>(Query<T> query)
+        protected T RunQueryAndCheckTiming<T>(IQuery<T> query)
         {
             return RunQueryAndCheckTiming(query, sessionConfiguration.Timeout);
         }
 
-        protected T RunQueryAndCheckTiming<T>(Query<T> query, TimeSpan timeout)
+        protected T RunQueryAndCheckTiming<T>(IQuery<T> query, TimeSpan timeout)
         {
             SpyTimingStrategy.ExecuteImmediately = true;
             var queryResult = query.Run();
@@ -84,7 +84,7 @@ namespace Coypu.Tests.WhenInteractingWithTheBrowser
             return queryResult;
         }
 
-        protected void VerifyFoundRobustly(Func<string, Options, Scope> scope, int driverCallIndex, string locator, StubElement expectedDeferredResult, StubElement expectedImmediateResult,
+        protected void VerifyFoundRobustly(Func<string, Options, IScope> scope, int driverCallIndex, string locator, StubElement expectedDeferredResult, StubElement expectedImmediateResult,
                                            Options options)
         {
             var sub = scope;
@@ -93,28 +93,28 @@ namespace Coypu.Tests.WhenInteractingWithTheBrowser
             Assert.That(scopedResult, Is.Not.SameAs(expectedDeferredResult), "Result was not found robustly");
             Assert.That(scopedResult, Is.SameAs(expectedImmediateResult));
 
-            var elementScopeResult = RunQueryAndCheckTiming<Element>(options.Timeout, driverCallIndex);
+            var elementScopeResult = RunQueryAndCheckTiming<IElement>(options.Timeout, driverCallIndex);
 
             Assert.That(elementScopeResult, Is.SameAs(expectedDeferredResult));
         }
     }
 
-    public class StubDriverFactory : DriverFactory
+    public class StubDriverFactory : IDriverFactory
     {
-        private readonly Driver driver;
+        private readonly IDriver driver;
 
-        public StubDriverFactory(Driver driver)
+        public StubDriverFactory(IDriver driver)
         {
             this.driver = driver;
         }
 
-        public Driver NewWebDriver(Type driverType, Drivers.Browser browser)
+        public IDriver NewWebDriver(Type driverType, Drivers.Browser browser)
         {
             return driver;
         }
     }
 
-    public class StubUrlBuilder : UrlBuilder
+    public class StubUrlBuilder : IUrlBuilder
     {
         private readonly Dictionary<string, string> urls = new Dictionary<string, string>();
 
@@ -129,7 +129,7 @@ namespace Coypu.Tests.WhenInteractingWithTheBrowser
         }
     }
 
-    public class FakeWaiter : Waiter
+    public class FakeWaiter : IWaiter
     {
         private Action<TimeSpan> doOnWait = ms => { };
 

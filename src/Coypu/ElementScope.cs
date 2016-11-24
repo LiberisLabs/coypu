@@ -8,7 +8,7 @@ namespace Coypu
     /// <summary>
     /// 
     /// </summary>
-    public abstract class ElementScope : DriverScope, Element
+    public abstract class ElementScope : DriverScope, IElement
     {
         internal ElementScope(ElementFinder elementFinder, DriverScope outerScope)
             : base(elementFinder, outerScope)
@@ -16,7 +16,7 @@ namespace Coypu
         }
 
         internal abstract void Try(DriverAction action);
-        internal abstract bool Try(Query<bool> query);
+        internal abstract bool Try(IQuery<bool> query);
         internal abstract T Try<T>(Func<T> getAttribute);
 
         /// <inheritdoc />
@@ -44,15 +44,15 @@ namespace Coypu
         }
 
         /// <inheritdoc />
-        public string OuterHTML
+        public string OuterHtml
         {
-            get { return Try(() => Now().OuterHTML); }
+            get { return Try(() => Now().OuterHtml); }
         }
 
         /// <inheritdoc />
-        public string InnerHTML
+        public string InnerHtml
         {
-            get { return Try(() => Now().InnerHTML); }
+            get { return Try(() => Now().InnerHtml); }
         }
 
         /// <inheritdoc />

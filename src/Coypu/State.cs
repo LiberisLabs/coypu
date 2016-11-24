@@ -8,15 +8,15 @@ namespace Coypu
     ///</summary>
     public class State
     {
-        private readonly Query<bool> condition;
+        private readonly IQuery<bool> _condition;
 
         ///<summary>
         /// Describe a possible state for the page with a condition to identify this state.
         ///</summary>
         ///<param name="condition">How to identify this state</param>
-        public State(Query<bool> condition)
+        public State(IQuery<bool> condition)
         {
-            this.condition = condition;
+            _condition = condition;
         }
 
         ///<summary>
@@ -25,14 +25,14 @@ namespace Coypu
         ///<param name="condition">How to identify this state</param>
         public State(Func<bool> condition)
         {
-            this.condition = new LambdaQuery<bool>(condition, true, new Options {Timeout = TimeSpan.Zero});
+            _condition = new LambdaQuery<bool>(condition, true, new Options {Timeout = TimeSpan.Zero});
         }
 
         internal bool ConditionWasMet { get; private set; }
 
         internal bool CheckCondition()
         {
-            return ConditionWasMet = condition.Run();
+            return ConditionWasMet = _condition.Run();
         }
     }
 }

@@ -2,23 +2,20 @@ namespace Coypu.Queries
 {
     internal class HasDialogQuery : DriverScopeQuery<bool>
     {
-        private readonly Driver driver;
-        private readonly string text;
+        private readonly IDriver _driver;
+        private readonly string _text;
 
-        public override object ExpectedResult
-        {
-            get { return true; }
-        }
+        public override object ExpectedResult => true;
 
-        protected internal HasDialogQuery(Driver driver, string text, DriverScope driverScope, Options options) : base(driverScope, options)
+        protected internal HasDialogQuery(IDriver driver, string text, DriverScope driverScope, Options options) : base(driverScope, options)
         {
-            this.driver = driver;
-            this.text = text;
+            _driver = driver;
+            _text = text;
         }
 
         public override bool Run()
         {
-            return driver.HasDialog(text, Scope);
+            return _driver.HasDialog(_text, Scope);
         }
     }
 }

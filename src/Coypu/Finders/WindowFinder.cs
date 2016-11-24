@@ -5,28 +5,16 @@ namespace Coypu.Finders
 {
     internal class WindowFinder : ElementFinder
     {
-        internal WindowFinder(Driver driver, string locator, DriverScope scope, Options options) : base(driver, locator, scope, options)
+        internal WindowFinder(IDriver driver, string locator, DriverScope scope, Options options) : base(driver, locator, scope, options)
         {
         }
 
-        public override bool SupportsSubstringTextMatching
-        {
-            get { return true; }
-        }
+        public override bool SupportsSubstringTextMatching => true;
 
-        internal override IEnumerable<Element> Find(Options options)
-        {
-            return Driver.FindWindows(Locator, Scope, options);
-        }
+        internal override IEnumerable<IElement> Find(Options options) => Driver.FindWindows(Locator, Scope, options);
 
-        internal override string QueryDescription
-        {
-            get { return "window: " + Locator; }
-        }
+        internal override string QueryDescription => "window: " + Locator;
 
-        protected internal override Exception GetMissingException()
-        {
-            return new MissingWindowException("Unable to find " + QueryDescription);
-        }
+        protected internal override Exception GetMissingException() => new MissingWindowException("Unable to find " + QueryDescription);
     }
 }

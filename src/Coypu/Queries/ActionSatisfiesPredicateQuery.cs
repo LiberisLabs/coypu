@@ -3,33 +3,30 @@ using Coypu.Timing;
 
 namespace Coypu.Queries
 {
-    internal class ActionSatisfiesPredicateQuery : Query<bool>
+    internal class ActionSatisfiesPredicateQuery : IQuery<bool>
     {
-        private readonly BrowserAction tryThis;
-        private readonly PredicateQuery until;
-        private readonly TimingStrategy timingStrategy;
+        private readonly BrowserAction _tryThis;
+        private readonly PredicateQuery _until;
+        private readonly ITimingStrategy _timingStrategy;
 
-        public Options Options { get; private set; }
-        public DriverScope Scope { get; private set; }
+        public Options Options { get; }
+        public DriverScope Scope { get; }
 
-        internal ActionSatisfiesPredicateQuery(BrowserAction tryThis, PredicateQuery until, Options options, TimingStrategy timingStrategy)
+        internal ActionSatisfiesPredicateQuery(BrowserAction tryThis, PredicateQuery until, Options options, ITimingStrategy timingStrategy)
         {
-            this.tryThis = tryThis;
-            this.until = until;
-            this.timingStrategy = timingStrategy;
+            _tryThis = tryThis;
+            _until = until;
+            _timingStrategy = timingStrategy;
             Options = options;
             Scope = tryThis.Scope;
         }
 
         public bool Run()
         {
-            tryThis.Act();
-            return timingStrategy.Synchronise(until);
+            _tryThis.Act();
+            return _timingStrategy.Synchronise(_until);
         }
 
-        public object ExpectedResult
-        {
-            get { return true; }
-        }
+        public object ExpectedResult => true;
     }
 }

@@ -6,45 +6,39 @@ namespace Coypu.Finders
 {
     internal class XPathFinder : XPathQueryFinder
     {
-        private readonly string text;
-        private readonly Regex textPattern;
+        private readonly string _text;
+        private readonly Regex _textPattern;
 
-        protected string SelectorType
-        {
-            get { return "xpath"; }
-        }
+        protected string SelectorType => "xpath";
 
-        public XPathFinder(Driver driver, string locator, DriverScope scope, Options options)
+        public XPathFinder(IDriver driver, string locator, DriverScope scope, Options options)
             : base(driver, locator, scope, options)
         {
         }
 
-        public XPathFinder(Driver driver, string locator, DriverScope scope, Options options, Regex textPattern)
+        public XPathFinder(IDriver driver, string locator, DriverScope scope, Options options, Regex textPattern)
             : base(driver, locator, scope, options)
         {
-            this.textPattern = textPattern;
+            _textPattern = textPattern;
         }
 
-        public XPathFinder(Driver driver, string locator, DriverScope scope, Options options, string text)
+        public XPathFinder(IDriver driver, string locator, DriverScope scope, Options options, string text)
             : base(driver, locator, scope, options)
         {
-            this.text = text;
+            _text = text;
         }
 
-        public override bool SupportsSubstringTextMatching
-        {
-            get { return true; }
-        }
+        public override bool SupportsSubstringTextMatching => true;
 
         internal override string QueryDescription
         {
             get
             {
                 var queryDesciption = SelectorType + ": " + Locator;
-                if (text != null)
-                    queryDesciption += " with text " + text;
-                if (textPattern != null)
-                    queryDesciption += " with text matching /" + (text ?? textPattern.ToString()) + "/";
+                if (_text != null)
+                    queryDesciption += " with text " + _text;
+                if (_textPattern != null)
+                    queryDesciption += " with text matching /" + (_text ?? _textPattern.ToString()) + "/";
 
                 return queryDesciption;
             }
@@ -52,17 +46,7 @@ namespace Coypu.Finders
 
         protected override Func<string, Options, string> GetQuery(Html html)
         {
-            return ((locator, options) =>
-            {
-                if (string.IsNullOrEmpty(text))
-                {
-                    return Locator;
-                }
-                else
-                {
-                    return Locator + XPath.Where(html.IsText(text, options));
-                }
-            });
+            return (locator, options) => string.IsNullOrEmpty(_text) ? Locator : Locator + XPath.Where(html.IsText(_text, options));
         }
     }
 }

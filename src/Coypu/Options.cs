@@ -68,10 +68,7 @@ namespace Coypu
         /// <summary>
         /// If multiple matches are found, some of which are exact, and some of which are not, then the first exactly matching element is returned
         /// </summary>
-        public static Options PreferExact
-        {
-            get { return new Options {TextPrecision = TextPrecision.PreferExact}; }
-        }
+        public static Options PreferExact => new Options {TextPrecision = TextPrecision.PreferExact};
 
         /// <summary>
         /// Match exact visible text; Just picks the first element that matches
@@ -152,10 +149,7 @@ namespace Coypu
             set { _textPrecision = value; }
         }
 
-        internal bool TextPrecisionExact
-        {
-            get { return _textPrecision == TextPrecision.Exact; }
-        }
+        internal bool TextPrecisionExact => _textPrecision == TextPrecision.Exact;
 
         /// <summary>
         /// <para>With PreventAmbiguousMatches you can control whether Coypu should throw an exception when multiple elements match a query.</para>

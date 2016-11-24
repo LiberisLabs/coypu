@@ -6,20 +6,20 @@ namespace Coypu.Drivers.Selenium
 {
     internal class FrameFinder
     {
-        private readonly IWebDriver selenium;
-        private readonly ElementFinder elementFinder;
-        private readonly XPath xPath;
-        private readonly SeleniumWindowManager seleniumWindowManager;
+        private readonly IWebDriver _selenium;
+        private readonly ElementFinder _elementFinder;
+        private readonly XPath _xPath;
+        private readonly SeleniumWindowManager _seleniumWindowManager;
 
         public FrameFinder(IWebDriver selenium, ElementFinder elementFinder, XPath xPath, SeleniumWindowManager seleniumWindowManager)
         {
-            this.selenium = selenium;
-            this.elementFinder = elementFinder;
-            this.xPath = xPath;
-            this.seleniumWindowManager = seleniumWindowManager;
+            _selenium = selenium;
+            _elementFinder = elementFinder;
+            _xPath = xPath;
+            _seleniumWindowManager = seleniumWindowManager;
         }
 
-        public IEnumerable<IWebElement> FindFrame(string locator, Scope scope, Options options)
+        public IEnumerable<IWebElement> FindFrame(string locator, IScope scope, Options options)
         {
             var frames = AllElementsByTag(scope, "iframe", options)
                 .Union(AllElementsByTag(scope, "frame", options));
@@ -27,9 +27,9 @@ namespace Coypu.Drivers.Selenium
             return WebElement(locator, frames, options);
         }
 
-        private IEnumerable<IWebElement> AllElementsByTag(Scope scope, string tagNameToFind, Options options)
+        private IEnumerable<IWebElement> AllElementsByTag(IScope scope, string tagNameToFind, Options options)
         {
-            return elementFinder.FindAll(By.TagName(tagNameToFind), scope, options);
+            return _elementFinder.FindAll(By.TagName(tagNameToFind), scope, options);
         }
 
         private IEnumerable<IWebElement> WebElement(string locator, IEnumerable<IWebElement> webElements, Options options)
@@ -42,17 +42,15 @@ namespace Coypu.Drivers.Selenium
 
         private bool FrameContentsMatch(IWebElement e, string locator, Options options)
         {
-            var currentHandle = selenium.CurrentWindowHandle;
+            var currentHandle = _selenium.CurrentWindowHandle;
             try
             {
-                var frame = seleniumWindowManager.SwitchToFrame(e);
-                return
-                    frame.Title == locator ||
-                    frame.FindElements(By.XPath(".//h1[" + xPath.IsText(locator, options) + "]")).Any();
+                var frame = _seleniumWindowManager.SwitchToFrame(e);
+                return frame.Title == locator || frame.FindElements(By.XPath(".//h1[" + _xPath.IsText(locator, options) + "]")).Any();
             }
             finally
             {
-                selenium.SwitchTo().Window(currentHandle);
+                _selenium.SwitchTo().Window(currentHandle);
             }
         }
     }

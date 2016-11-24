@@ -2,17 +2,17 @@ namespace Coypu.Actions
 {
     internal class Uncheck : DriverAction
     {
-        private readonly ElementScope element;
+        private readonly ElementScope _element;
 
-        internal Uncheck(Driver driver, ElementScope element, Options options)
+        internal Uncheck(IDriver driver, ElementScope element, Options options)
             : base(driver, element, options)
         {
-            this.element = element;
+            _element = element;
         }
 
         public override void Act()
         {
-            Driver.Uncheck(element);
+            Driver.Uncheck(_element);
         }
     }
 }

@@ -121,14 +121,13 @@
     <Compile Include="FinderException.cs" />
     <Compile Include="Finders\ButtonFinder.cs" />
     <Compile Include="Actions\WaitThenClick.cs" />
-    <Compile Include="Finders\DisambiguationStrategy.cs" />
+    <Compile Include="Finders\IDisambiguationStrategy.cs" />
     <Compile Include="Finders\FinderOptionsDisambiguationStrategy.cs" />
     <Compile Include="Finders\OptionFinder.cs" />
     <Compile Include="Finders\SelectFinder.cs" />
     <Compile Include="Finders\WithTextFinder.cs" />
     <Compile Include="Finders\XPathQueryFinder.cs" />
     <Compile Include="Match.cs" />
-    <Compile Include="Matchers\Shows.cs" />
     <Compile Include="MissingDialogException.cs" />
     <Compile Include="MissingWindowException.cs" />
     <Compile Include="ElementFoundExtensions.cs" />
@@ -182,6 +181,7 @@
     <Compile Include="Scope.cs" />
     <Compile Include="Finders\SectionFinder.cs" />
     <Compile Include="SnapshotElementScope.cs" />
+    <Compile Include="TextPrecision.cs" />
     <Compile Include="WebRequests\RequestCookieInjector.cs" />
     <Compile Include="WebRequests\RestrictedResourceDownloader.cs" />
     <Compile Include="FillInWith.cs">

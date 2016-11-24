@@ -9,7 +9,7 @@ namespace Coypu.Drivers.Tests.Tests
     {
         private static class Helpers
         {
-            public static void AssertMaximisesWindow(Driver driver, Scope driverScope)
+            public static void AssertMaximisesWindow(IDriver driver, IScope driverScope)
             {
                 var availWidth = driver.ExecuteScript("return window.screen.availWidth;", driverScope);
                 var initalWidth = driver.ExecuteScript("return window.outerWidth;", driverScope);
@@ -21,7 +21,7 @@ namespace Coypu.Drivers.Tests.Tests
                 Assert.That(driver.ExecuteScript("return window.outerWidth;", driverScope), Is.GreaterThanOrEqualTo(availWidth));
             }
 
-            public static void AssertResizesWindow(Driver driver, Scope driverScope)
+            public static void AssertResizesWindow(IDriver driver, IScope driverScope)
             {
                 var availWidth = driver.ExecuteScript("return window.screen.availWidth;", driverScope);
                 var initalWidth = driver.ExecuteScript("return window.outerWidth;", driverScope);
@@ -35,7 +35,7 @@ namespace Coypu.Drivers.Tests.Tests
             }
         }
 
-        private Driver _driver;
+        private IDriver _driver;
         private DriverScope _scope;
 
         [SetUp]

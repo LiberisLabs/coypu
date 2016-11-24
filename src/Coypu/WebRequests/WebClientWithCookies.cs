@@ -4,24 +4,24 @@ using System.Net;
 
 namespace Coypu.WebRequests
 {
-    internal class WebClientWithCookies : WebClient, RestrictedResourceDownloader
+    internal class WebClientWithCookies : WebClient, IRestrictedResourceDownloader
     {
-        private IEnumerable<Cookie> requestCookies;
-        private readonly WebRequestCookieInjector webRequestCookieInjector;
+        private IEnumerable<Cookie> _requestCookies;
+        private readonly WebRequestCookieInjector _webRequestCookieInjector;
 
         public WebClientWithCookies()
         {
-            webRequestCookieInjector = new WebRequestCookieInjector();
+            _webRequestCookieInjector = new WebRequestCookieInjector();
         }
 
         public void SetCookies(IEnumerable<Cookie> cookies)
         {
-            requestCookies = cookies;
+            _requestCookies = cookies;
         }
 
         protected override WebRequest GetWebRequest(Uri address)
         {
-            return webRequestCookieInjector.InjectCookies(base.GetWebRequest(address), requestCookies);
+            return _webRequestCookieInjector.InjectCookies(base.GetWebRequest(address), _requestCookies);
         }
     }
 }

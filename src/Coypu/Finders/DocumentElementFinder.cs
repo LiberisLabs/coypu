@@ -4,25 +4,19 @@ namespace Coypu.Finders
 {
     internal class DocumentElementFinder : ElementFinder
     {
-        private Element window;
+        private IElement _window;
 
-        public DocumentElementFinder(Driver driver, Options options) : base(driver, "Window", null, options)
+        public DocumentElementFinder(IDriver driver, Options options) : base(driver, "Window", null, options)
         {
         }
 
-        public override bool SupportsSubstringTextMatching
+        public override bool SupportsSubstringTextMatching => false;
+
+        internal override IEnumerable<IElement> Find(Options options)
         {
-            get { return false; }
+            return new[] {_window = (_window ?? Driver.Window)};
         }
 
-        internal override IEnumerable<Element> Find(Options options)
-        {
-            return new[] {window = (window ?? Driver.Window)};
-        }
-
-        internal override string QueryDescription
-        {
-            get { return "Document Element"; }
-        }
+        internal override string QueryDescription => "Document Element";
     }
 }

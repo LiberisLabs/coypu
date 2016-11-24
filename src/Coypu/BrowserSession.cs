@@ -10,7 +10,7 @@ namespace Coypu
     /// </summary>
     public class BrowserSession : BrowserWindow, IDisposable
     {
-        private readonly RestrictedResourceDownloader restrictedResourceDownloader;
+        private readonly IRestrictedResourceDownloader _restrictedResourceDownloader;
 
         internal bool WasDisposed { get; private set; }
 
@@ -46,7 +46,7 @@ namespace Coypu
         /// Replaces sessionConfiguration driver.
         /// </summary>
         /// <param name="driver"></param>
-        public BrowserSession(Driver driver)
+        public BrowserSession(IDriver driver)
             : this(
                 new SessionConfiguration(),
                 driver,
@@ -65,7 +65,7 @@ namespace Coypu
         /// </summary>
         /// <param name="sessionConfiguration"></param>
         /// <param name="driver"></param>
-        public BrowserSession(SessionConfiguration sessionConfiguration, Driver driver)
+        public BrowserSession(SessionConfiguration sessionConfiguration, IDriver driver)
             : this(
                 sessionConfiguration,
                 driver,
@@ -80,12 +80,12 @@ namespace Coypu
 
         internal BrowserSession(
             SessionConfiguration sessionConfiguration,
-            DriverFactory driverFactory,
-            TimingStrategy timingStrategy,
-            Waiter waiter,
-            UrlBuilder urlBuilder,
+            IDriverFactory driverFactory,
+            ITimingStrategy timingStrategy,
+            IWaiter waiter,
+            IUrlBuilder urlBuilder,
             IDisambiguationStrategy disambiguationStrategy,
-            RestrictedResourceDownloader restrictedResourceDownloader
+            IRestrictedResourceDownloader restrictedResourceDownloader
             )
             : base(
                 sessionConfiguration,
@@ -97,17 +97,17 @@ namespace Coypu
                 disambiguationStrategy
                 )
         {
-            this.restrictedResourceDownloader = restrictedResourceDownloader;
+            this._restrictedResourceDownloader = restrictedResourceDownloader;
         }
 
         internal BrowserSession(
             SessionConfiguration sessionConfiguration,
-            Driver driver,
-            TimingStrategy timingStrategy,
-            Waiter waiter,
-            UrlBuilder urlBuilder,
+            IDriver driver,
+            ITimingStrategy timingStrategy,
+            IWaiter waiter,
+            IUrlBuilder urlBuilder,
             IDisambiguationStrategy disambiguationStrategy,
-            RestrictedResourceDownloader restrictedResourceDownloader
+            IRestrictedResourceDownloader restrictedResourceDownloader
             )
             : base(
                 sessionConfiguration,
@@ -119,13 +119,13 @@ namespace Coypu
                 disambiguationStrategy
                 )
         {
-            this.restrictedResourceDownloader = restrictedResourceDownloader;
+            this._restrictedResourceDownloader = restrictedResourceDownloader;
         }
 
         /// <summary>
         /// Access to grand-parent DriverScope's driver.
         /// </summary>
-        public Driver Driver
+        public IDriver Driver
         {
             get { return driver; }
         }
@@ -146,8 +146,8 @@ namespace Coypu
         /// <param name="saveAs">Path to save the file to</param>
         public void SaveWebResource(string resource, string saveAs)
         {
-            restrictedResourceDownloader.SetCookies(driver.GetBrowserCookies());
-            restrictedResourceDownloader.DownloadFile(urlBuilder.GetFullyQualifiedUrl(resource, SessionConfiguration), saveAs);
+            _restrictedResourceDownloader.SetCookies(driver.GetBrowserCookies());
+            _restrictedResourceDownloader.DownloadFile(urlBuilder.GetFullyQualifiedUrl(resource, SessionConfiguration), saveAs);
         }
 
         /// <summary>

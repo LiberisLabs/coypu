@@ -5,7 +5,7 @@ namespace Coypu.Drivers.Tests.Tests
     [TestFixture]
     internal class WhenFindingFieldsets
     {
-        private Driver _driver;
+        private IDriver _driver;
 
         [OneTimeSetUp]
         public void Given() => _driver = TestDriver.Instance();

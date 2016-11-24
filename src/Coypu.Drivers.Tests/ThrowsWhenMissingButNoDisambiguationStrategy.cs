@@ -5,7 +5,7 @@ namespace Coypu.Drivers.Tests
 {
     internal class ThrowsWhenMissingButNoDisambiguationStrategy : IDisambiguationStrategy
     {
-        public Element ResolveQuery(ElementFinder elementFinder)
+        public IElement ResolveQuery(ElementFinder elementFinder)
         {
             var all = elementFinder.Find(elementFinder.Options).ToArray();
             if (!all.Any())

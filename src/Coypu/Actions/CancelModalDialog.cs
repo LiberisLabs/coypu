@@ -2,16 +2,16 @@ namespace Coypu.Actions
 {
     internal class CancelModalDialog : DriverAction
     {
-        private readonly DriverScope driverScope;
+        private readonly DriverScope _driverScope;
 
-        internal CancelModalDialog(DriverScope driverScope, Driver driver, Options options) : base(driver, driverScope, options)
+        internal CancelModalDialog(DriverScope driverScope, IDriver driver, Options options) : base(driver, driverScope, options)
         {
-            this.driverScope = driverScope;
+            _driverScope = driverScope;
         }
 
         public override void Act()
         {
-            Driver.CancelModalDialog(driverScope);
+            Driver.CancelModalDialog(_driverScope);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Coypu.Drivers.Tests.Tests
     [TestFixture]
     internal class WhenRefreshingWindows
     {
-        private Driver _driver;
+        private IDriver _driver;
         private DriverScope _scope;
 
         [OneTimeSetUp]
@@ -41,7 +41,7 @@ namespace Coypu.Drivers.Tests.Tests
             }
         }
 
-        private static void RefreshCausesScopeToReload(Scope driverScope, Driver driver)
+        private static void RefreshCausesScopeToReload(IScope driverScope, IDriver driver)
         {
             var tickBeforeRefresh = (long)driver.ExecuteScript("return window.SpecData.CurrentTick;", driverScope);
 

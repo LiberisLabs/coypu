@@ -2,17 +2,17 @@ namespace Coypu.Actions
 {
     internal class Hover : DriverAction
     {
-        private readonly DriverScope driverScope;
+        private readonly DriverScope _driverScope;
 
-        internal Hover(DriverScope driverScope, Driver driver, Options options)
+        internal Hover(DriverScope driverScope, IDriver driver, Options options)
             : base(driver, driverScope, options)
         {
-            this.driverScope = driverScope;
+            _driverScope = driverScope;
         }
 
         public override void Act()
         {
-            var element = driverScope.Now();
+            var element = _driverScope.Now();
             Driver.Hover(element);
         }
     }

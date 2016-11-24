@@ -103,7 +103,7 @@ namespace Coypu.Tests.WhenInteractingWithTheBrowser
             AssertSingleElementEquals(element, driver.CheckedElements);
         }
 
-        private static void AssertSingleElementEquals(StubElement element, IEnumerable<Element> elements)
+        private static void AssertSingleElementEquals(StubElement element, IEnumerable<IElement> elements)
         {
             Assert.That(elements.Cast<SynchronisedElementScope>().Single().Now(), Is.EqualTo(element));
         }

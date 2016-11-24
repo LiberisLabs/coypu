@@ -6,7 +6,7 @@ namespace Coypu.Drivers.Tests.Tests
     [TestFixture]
     internal class WhenInspectingHtml
     {
-        private Driver _driver;
+        private IDriver _driver;
 
         [OneTimeSetUp]
         public void Given() => _driver = TestDriver.Instance(@"html\table.htm");
@@ -14,28 +14,28 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void FindsElementOuterHtml()
         {
-            var outerHtml = Normalise(DriverHelpers.Css(_driver, "table").OuterHTML);
+            var outerHtml = Normalise(DriverHelpers.Css(_driver, "table").OuterHtml);
             Assert.That("<table><tbody><tr><th>name</th><th>age</th></tr><tr><td>bob</td><td>12</td></tr><tr><td>jane</td><td>79</td></tr></tbody></table>", Is.EqualTo(outerHtml));
         }
 
         [Test]
         public void FindsElementInnerHtml()
         {
-            var innerHtml = Normalise(DriverHelpers.Css(_driver, "table").InnerHTML);
+            var innerHtml = Normalise(DriverHelpers.Css(_driver, "table").InnerHtml);
             Assert.That("<tbody><tr><th>name</th><th>age</th></tr><tr><td>bob</td><td>12</td></tr><tr><td>jane</td><td>79</td></tr></tbody>", Is.EqualTo(innerHtml));
         }
 
         [Test]
         public void FindsWindowOuterHtml()
         {
-            var outerHtml = Normalise(_driver.Window.OuterHTML);
+            var outerHtml = Normalise(_driver.Window.OuterHtml);
             Assert.That("<html><head><title>table</title></head><body><table><tbody><tr><th>name</th><th>age</th></tr><tr><td>bob</td><td>12</td></tr><tr><td>jane</td><td>79</td></tr></tbody></table></body></html>", Is.EqualTo(outerHtml));
         }
 
         [Test]
         public void FindsWindowInnerHtml()
         {
-            var innerHtml = Normalise(_driver.Window.InnerHTML);
+            var innerHtml = Normalise(_driver.Window.InnerHtml);
             Assert.That("<head><title>table</title></head><body><table><tbody><tr><th>name</th><th>age</th></tr><tr><td>bob</td><td>12</td></tr><tr><td>jane</td><td>79</td></tr></tbody></table></body>", Is.EqualTo(innerHtml));
         }
 

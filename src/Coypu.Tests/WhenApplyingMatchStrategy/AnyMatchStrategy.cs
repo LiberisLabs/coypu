@@ -21,17 +21,17 @@ namespace Coypu.Tests.WhenApplyingMatchStrategy
             };
         }
 
-        protected static void StubExactResults(StubElementFinder finder, Options finderOptions, IEnumerable<Element> exactResults)
+        protected static void StubExactResults(StubElementFinder finder, Options finderOptions, IEnumerable<IElement> exactResults)
         {
             finder.StubbedFindResults[Options.Merge(Options.Exact, finderOptions)] = exactResults;
         }
 
-        protected static void StubSubstringResults(StubElementFinder finder, Options finderOptions, IEnumerable<Element> exactResults)
+        protected static void StubSubstringResults(StubElementFinder finder, Options finderOptions, IEnumerable<IElement> exactResults)
         {
             finder.StubbedFindResults[Options.Merge(Options.Substring, finderOptions)] = exactResults;
         }
 
-        protected static Element ResolveQuery(StubElementFinder finder)
+        protected static IElement ResolveQuery(StubElementFinder finder)
         {
             var strategy = new FinderOptionsDisambiguationStrategy();
             return strategy.ResolveQuery(finder);

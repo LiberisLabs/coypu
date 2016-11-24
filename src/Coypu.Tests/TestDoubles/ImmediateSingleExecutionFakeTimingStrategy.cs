@@ -5,9 +5,9 @@ using Coypu.Timing;
 
 namespace Coypu.Tests.TestDoubles
 {
-    public class ImmediateSingleExecutionFakeTimingStrategy : TimingStrategy
+    public class ImmediateSingleExecutionFakeTimingStrategy : ITimingStrategy
     {
-        public T Synchronise<T>(Query<T> query)
+        public T Synchronise<T>(IQuery<T> query)
         {
             return query.Run();
         }

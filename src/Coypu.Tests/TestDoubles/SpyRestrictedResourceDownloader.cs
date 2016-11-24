@@ -4,7 +4,7 @@ using Coypu.WebRequests;
 
 namespace Coypu.Tests.TestDoubles
 {
-    public class SpyRestrictedResourceDownloader : RestrictedResourceDownloader
+    public class SpyRestrictedResourceDownloader : IRestrictedResourceDownloader
     {
         private readonly IList<DownloadedFile> downloadedFiles = new List<DownloadedFile>();
 

@@ -11,7 +11,7 @@ namespace Coypu.Drivers.Selenium
     /// <summary>
     /// 
     /// </summary>
-    public class SeleniumWebDriver : Driver
+    public class SeleniumWebDriver : IDriver
     {
         /// <inheritdoc />
         public bool Disposed { get; private set; }
@@ -54,21 +54,21 @@ namespace Coypu.Drivers.Selenium
         }
 
         /// <inheritdoc />
-        public Uri Location(Scope scope)
+        public Uri Location(IScope scope)
         {
             _elementFinder.SeleniumScope(scope);
             return new Uri(_webDriver.Url);
         }
 
         /// <inheritdoc />
-        public string Title(Scope scope)
+        public string Title(IScope scope)
         {
             _elementFinder.SeleniumScope(scope);
             return _webDriver.Title;
         }
 
         /// <inheritdoc />
-        public Element Window => new SeleniumWindow(_webDriver, _webDriver.CurrentWindowHandle, _seleniumWindowManager);
+        public IElement Window => new SeleniumWindow(_webDriver, _webDriver.CurrentWindowHandle, _seleniumWindowManager);
 
         /// <summary>
         /// 
@@ -81,7 +81,7 @@ namespace Coypu.Drivers.Selenium
         public object Native => _webDriver;
 
         /// <inheritdoc />
-        public IEnumerable<Element> FindFrames(string locator, Scope scope, Options options)
+        public IEnumerable<IElement> FindFrames(string locator, IScope scope, Options options)
         {
             return _frameFinder.FindFrame(locator, scope, options).Select(BuildElement);
         }
@@ -98,23 +98,23 @@ namespace Coypu.Drivers.Selenium
         }
 
         /// <inheritdoc />
-        public IEnumerable<Element> FindAllCss(string cssSelector, Scope scope, Options options, Regex textPattern = null)
+        public IEnumerable<IElement> FindAllCss(string cssSelector, IScope scope, Options options, Regex textPattern = null)
         {
             return FindAll(By.CssSelector(cssSelector), scope, options, ValidateTextPattern(options, textPattern)).Select(BuildElement);
         }
 
         /// <inheritdoc />
-        public IEnumerable<Element> FindAllXPath(string xpath, Scope scope, Options options)
+        public IEnumerable<IElement> FindAllXPath(string xpath, IScope scope, Options options)
         {
             return FindAll(By.XPath(xpath), scope, options).Select(BuildElement);
         }
 
-        private IEnumerable<IWebElement> FindAll(By by, Scope scope, Options options, Func<IWebElement, bool> predicate = null)
+        private IEnumerable<IWebElement> FindAll(By by, IScope scope, Options options, Func<IWebElement, bool> predicate = null)
         {
             return _elementFinder.FindAll(by, scope, options, predicate);
         }
 
-        private Element BuildElement(IWebElement element)
+        private IElement BuildElement(IWebElement element)
         {
             return new[] {"iframe", "frame"}.Contains(element.TagName.ToLower())
                 ? new SeleniumFrame(element, _webDriver, _seleniumWindowManager)
@@ -122,60 +122,60 @@ namespace Coypu.Drivers.Selenium
         }
 
         /// <inheritdoc />
-        public bool HasDialog(string withText, Scope scope)
+        public bool HasDialog(string withText, IScope scope)
         {
             _elementFinder.SeleniumScope(scope);
             return _dialogs.HasDialog(withText);
         }
 
         /// <inheritdoc />
-        public void Visit(string url, Scope scope)
+        public void Visit(string url, IScope scope)
         {
             _elementFinder.SeleniumScope(scope);
             _webDriver.Navigate().GoToUrl(url);
         }
 
         /// <inheritdoc />
-        public void Click(Element element)
+        public void Click(IElement element)
         {
             SeleniumElement(element).Click();
         }
 
         /// <inheritdoc />
-        public void Hover(Element element)
+        public void Hover(IElement element)
         {
             _mouseControl.Hover(element);
         }
 
         /// <inheritdoc />
-        public void SendKeys(Element element, string keys)
+        public void SendKeys(IElement element, string keys)
         {
             SeleniumElement(element).SendKeys(keys);
         }
 
         /// <inheritdoc />
-        public void MaximiseWindow(Scope scope)
+        public void MaximiseWindow(IScope scope)
         {
             _elementFinder.SeleniumScope(scope);
             _webDriver.Manage().Window.Maximize();
         }
 
         /// <inheritdoc />
-        public void Refresh(Scope scope)
+        public void Refresh(IScope scope)
         {
             _elementFinder.SeleniumScope(scope);
             _webDriver.Navigate().Refresh();
         }
 
         /// <inheritdoc />
-        public void ResizeTo(Size size, Scope scope)
+        public void ResizeTo(Size size, IScope scope)
         {
             _elementFinder.SeleniumScope(scope);
             _webDriver.Manage().Window.Size = size;
         }
 
         /// <inheritdoc />
-        public void SaveScreenshot(string fileName, Scope scope)
+        public void SaveScreenshot(string fileName, IScope scope)
         {
             _elementFinder.SeleniumScope(scope);
             var format = ImageFormatParser.GetImageFormat(fileName);
@@ -185,14 +185,14 @@ namespace Coypu.Drivers.Selenium
         }
 
         /// <inheritdoc />
-        public void GoBack(Scope scope)
+        public void GoBack(IScope scope)
         {
             _elementFinder.SeleniumScope(scope);
             _webDriver.Navigate().Back();
         }
 
         /// <inheritdoc />
-        public void GoForward(Scope scope)
+        public void GoForward(IScope scope)
         {
             _elementFinder.SeleniumScope(scope);
             _webDriver.Navigate().Forward();
@@ -205,14 +205,14 @@ namespace Coypu.Drivers.Selenium
         }
 
         /// <inheritdoc />
-        public IEnumerable<Element> FindWindows(string titleOrName, Scope scope, Options options)
+        public IEnumerable<IElement> FindWindows(string titleOrName, IScope scope, Options options)
         {
             _elementFinder.SeleniumScope(scope);
             return _windowHandleFinder.FindWindowHandles(titleOrName, options).Select(h => new SeleniumWindow(_webDriver, h, _seleniumWindowManager));
         }
 
         /// <inheritdoc />
-        public void Set(Element element, string value)
+        public void Set(IElement element, string value)
         {
             try
             {
@@ -228,21 +228,21 @@ namespace Coypu.Drivers.Selenium
         }
 
         /// <inheritdoc />
-        public void AcceptModalDialog(Scope scope)
+        public void AcceptModalDialog(IScope scope)
         {
             _elementFinder.SeleniumScope(scope);
             _dialogs.AcceptModalDialog();
         }
 
         /// <inheritdoc />
-        public void CancelModalDialog(Scope scope)
+        public void CancelModalDialog(IScope scope)
         {
             _elementFinder.SeleniumScope(scope);
             _dialogs.CancelModalDialog();
         }
 
         /// <inheritdoc />
-        public void Check(Element field)
+        public void Check(IElement field)
         {
             var seleniumElement = SeleniumElement(field);
 
@@ -251,7 +251,7 @@ namespace Coypu.Drivers.Selenium
         }
 
         /// <inheritdoc />
-        public void Uncheck(Element field)
+        public void Uncheck(IElement field)
         {
             var seleniumElement = SeleniumElement(field);
 
@@ -260,13 +260,13 @@ namespace Coypu.Drivers.Selenium
         }
 
         /// <inheritdoc />
-        public void Choose(Element field)
+        public void Choose(IElement field)
         {
             SeleniumElement(field).Click();
         }
 
         /// <inheritdoc />
-        public object ExecuteScript(string javascript, Scope scope, params object[] args)
+        public object ExecuteScript(string javascript, IScope scope, params object[] args)
         {
             if (NoJavascript)
                 throw new NotSupportedException("Javascript is not supported by " + _browser);
@@ -279,7 +279,7 @@ namespace Coypu.Drivers.Selenium
         {
             for (var i = 0; i < args.Length; ++i)
             {
-                var argAsElement = args[i] as Element;
+                var argAsElement = args[i] as IElement;
                 if (argAsElement != null)
                     args[i] = argAsElement.Native;
             }
@@ -287,7 +287,7 @@ namespace Coypu.Drivers.Selenium
             return args;
         }
 
-        private static IWebElement SeleniumElement(Element element)
+        private static IWebElement SeleniumElement(IElement element)
         {
             return (IWebElement) element.Native;
         }

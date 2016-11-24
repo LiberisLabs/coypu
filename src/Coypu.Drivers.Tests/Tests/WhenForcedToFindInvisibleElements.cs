@@ -7,7 +7,7 @@ namespace Coypu.Drivers.Tests.Tests
     [TestFixture]
     public class WhenForcedToFindInvisibleElements
     {
-        private Driver _driver;
+        private IDriver _driver;
 
         [OneTimeSetUp]
         public void Given() => _driver = TestDriver.Instance();

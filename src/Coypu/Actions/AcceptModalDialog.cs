@@ -2,16 +2,16 @@ namespace Coypu.Actions
 {
     internal class AcceptModalDialog : DriverAction
     {
-        private readonly DriverScope driverScope;
+        private readonly DriverScope _driverScope;
 
-        internal AcceptModalDialog(DriverScope driverScope, Driver driver, Options options) : base(driver, driverScope, options)
+        internal AcceptModalDialog(DriverScope driverScope, IDriver driver, Options options) : base(driver, driverScope, options)
         {
-            this.driverScope = driverScope;
+            _driverScope = driverScope;
         }
 
         public override void Act()
         {
-            Driver.AcceptModalDialog(driverScope);
+            Driver.AcceptModalDialog(_driverScope);
         }
     }
 }

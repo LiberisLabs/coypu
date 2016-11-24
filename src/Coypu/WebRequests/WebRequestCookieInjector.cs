@@ -7,7 +7,7 @@ namespace Coypu.WebRequests
     {
         internal WebRequest InjectCookies(WebRequest webRequest, IEnumerable<Cookie> cookies)
         {
-            WebRequest request = webRequest;
+            var request = webRequest;
 
             return request is HttpWebRequest
                 ? AddCookiesToCookieContainer((HttpWebRequest) request, cookies)
@@ -19,7 +19,7 @@ namespace Coypu.WebRequests
         {
             httpRequest.CookieContainer = new CookieContainer();
 
-            foreach (Cookie cookie in cookies)
+            foreach (var cookie in cookies)
                 httpRequest.CookieContainer.Add(cookie);
 
             return httpRequest;

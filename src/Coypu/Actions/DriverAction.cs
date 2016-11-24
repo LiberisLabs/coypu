@@ -8,7 +8,7 @@ namespace Coypu.Actions
         /// <summary>
         /// 
         /// </summary>
-        protected Driver Driver { get; }
+        protected IDriver Driver { get; }
 
         /// <summary>
         /// 
@@ -16,7 +16,7 @@ namespace Coypu.Actions
         /// <param name="driver"></param>
         /// <param name="scope"></param>
         /// <param name="options"></param>
-        protected DriverAction(Driver driver, DriverScope scope, Options options)
+        protected DriverAction(IDriver driver, DriverScope scope, Options options)
             : base(scope, options)
         {
             Driver = driver;

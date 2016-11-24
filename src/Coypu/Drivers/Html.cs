@@ -16,8 +16,8 @@ namespace Coypu.Drivers
         private static readonly string[] FieldInputTypeWithHidden = FieldInputTypes.Union(new[] {"hidden"}).ToArray();
         private static readonly string[] FindByNameTypes = FieldInputTypes.Except(new[] {"radio"}).ToArray();
         private static readonly string[] FindByValueTypes = new[] {"checkbox", "radio"};
-        private readonly string[] sectionTags = {"section", "div", "li"};
-        private readonly string[] headerTags = {"h1", "h2", "h3", "h4", "h5", "h6"};
+        private readonly string[] _sectionTags = {"section", "div", "li"};
+        private readonly string[] _headerTags = {"h1", "h2", "h3", "h4", "h5", "h6"};
 
         public Html(bool uppercaseTagNames = false) : base(uppercaseTagNames)
         {
@@ -106,10 +106,10 @@ namespace Coypu.Drivers
             return
                 Descendent() +
                 Where(
-                    TagNamedOneOf(sectionTags) +
+                    TagNamedOneOf(_sectionTags) +
                     And(
                         Child() +
-                        Where(TagNamedOneOf(headerTags) + and + IsText(locator, options)) +
+                        Where(TagNamedOneOf(_headerTags) + and + IsText(locator, options)) +
                         or + HasId(locator)));
         }
 

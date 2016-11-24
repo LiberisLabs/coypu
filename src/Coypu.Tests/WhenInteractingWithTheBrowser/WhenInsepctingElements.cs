@@ -77,13 +77,13 @@ namespace Coypu.Tests.WhenInteractingWithTheBrowser
         [Test]
         public void It_synchronises_both_find_element_and_attribute_getter_for_innerHTML()
         {
-            Synchronises_FindElement_and_returns_property_value("actual-innerHTML", (element, value) => element.InnerHTML = value, (element => element.InnerHTML));
+            Synchronises_FindElement_and_returns_property_value("actual-innerHTML", (element, value) => element.InnerHtml = value, (element => element.InnerHtml));
         }
 
         [Test]
         public void It_synchronises_both_find_element_and_attribute_getter_for_outerHTML()
         {
-            Synchronises_FindElement_and_returns_property_value("actual-outerHTML", (element, value) => element.OuterHTML = value, (element => element.OuterHTML));
+            Synchronises_FindElement_and_returns_property_value("actual-outerHTML", (element, value) => element.OuterHtml = value, (element => element.OuterHtml));
         }
 
         private void Synchronises_FindElement_and_returns_property_value<T>(T testValue, Action<StubElement, T> stubProperty, Func<ElementScope, T> getProperty,

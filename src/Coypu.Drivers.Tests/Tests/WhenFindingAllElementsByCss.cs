@@ -6,7 +6,7 @@ namespace Coypu.Drivers.Tests.Tests
     [TestFixture]
     internal class WhenFindingAllElementsByCss
     {
-        private Driver _driver;
+        private IDriver _driver;
         private DriverScope _scope;
 
         [OneTimeSetUp]

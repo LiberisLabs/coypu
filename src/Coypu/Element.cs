@@ -3,7 +3,7 @@ namespace Coypu
     /// <summary>
     /// An HTML element
     /// </summary>
-    public interface Element
+    public interface IElement
     {
         /// <summary>
         /// The value of the 'id' attribute
@@ -48,12 +48,12 @@ namespace Coypu
         /// <summary>
         /// The outer HTML of the element
         /// </summary>
-        string OuterHTML { get; }
+        string OuterHtml { get; }
 
         /// <summary>
         /// The inner HTML of the element
         /// </summary>
-        string InnerHTML { get; }
+        string InnerHtml { get; }
 
         /// <summary>
         /// The title of the element

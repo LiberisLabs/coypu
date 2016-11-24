@@ -3,17 +3,17 @@ using OpenQA.Selenium;
 
 namespace Coypu.Drivers.Selenium
 {
-    internal class SeleniumWindow : Element
+    internal class SeleniumWindow : IElement
     {
-        private readonly IWebDriver webDriver;
-        private readonly string windowHandle;
-        private readonly SeleniumWindowManager seleniumWindowManager;
+        private readonly IWebDriver _webDriver;
+        private readonly string _windowHandle;
+        private readonly SeleniumWindowManager _seleniumWindowManager;
 
         public SeleniumWindow(IWebDriver webDriver, string windowHandle, SeleniumWindowManager seleniumWindowManager)
         {
-            this.webDriver = webDriver;
-            this.windowHandle = windowHandle;
-            this.seleniumWindowManager = seleniumWindowManager;
+            _webDriver = webDriver;
+            _windowHandle = windowHandle;
+            _seleniumWindowManager = seleniumWindowManager;
         }
 
         public string Id
@@ -21,30 +21,18 @@ namespace Coypu.Drivers.Selenium
             get { throw new NotSupportedException(); }
         }
 
-        public string Text
-        {
-            get { return ((ISearchContext) Native).FindElement(By.CssSelector("body")).Text; }
-        }
+        public string Text => ((ISearchContext) Native).FindElement(By.CssSelector("body")).Text;
 
-        public string InnerHTML
-        {
-            get { return ((ISearchContext) Native).FindElement(By.XPath("./*")).GetAttribute("innerHTML"); }
-        }
+        public string InnerHtml => ((ISearchContext) Native).FindElement(By.XPath("./*")).GetAttribute("innerHTML");
 
-        public string Title
-        {
-            get { return webDriver.Title; }
-        }
+        public string Title => _webDriver.Title;
 
         public bool Disabled
         {
             get { throw new NotSupportedException(); }
         }
 
-        public string OuterHTML
-        {
-            get { return ((ISearchContext) Native).FindElement(By.XPath("./*")).GetAttribute("outerHTML"); }
-        }
+        public string OuterHtml => ((ISearchContext) Native).FindElement(By.XPath("./*")).GetAttribute("outerHTML");
 
         public string Value
         {
@@ -70,14 +58,14 @@ namespace Coypu.Drivers.Selenium
         {
             get
             {
-                SwitchTo(windowHandle);
-                return webDriver;
+                SwitchTo(_windowHandle);
+                return _webDriver;
             }
         }
 
         private void SwitchTo(string windowName)
         {
-            seleniumWindowManager.SwitchToWindow(windowName);
+            _seleniumWindowManager.SwitchToWindow(windowName);
         }
 
         public string this[string attributeName]

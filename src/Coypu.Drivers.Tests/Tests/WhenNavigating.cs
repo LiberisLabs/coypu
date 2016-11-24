@@ -8,7 +8,7 @@ namespace Coypu.Drivers.Tests.Tests
     [TestFixture]
     internal class WhenNavigating
     {
-        private Driver _driver;
+        private IDriver _driver;
         private DriverScope _scope;
 
         [OneTimeSetUp]

@@ -5,16 +5,16 @@ namespace Coypu.Actions
     /// <summary>
     /// 
     /// </summary>
-    public abstract class BrowserAction : Query<object>
+    public abstract class BrowserAction : IQuery<object>
     {
         /// <summary>
         /// 
         /// </summary>
-        public Options Options { get; private set; }
+        public Options Options { get; }
         /// <summary>
         /// 
         /// </summary>
-        public DriverScope Scope { get; private set; }
+        public DriverScope Scope { get; }
 
         /// <summary>
         /// 

@@ -6,12 +6,12 @@ namespace Coypu.Drivers.Tests.Tests
     [TestFixture]
     internal class WhenSelectingOptions
     {
-        private Driver _driver;
+        private IDriver _driver;
 
         [OneTimeSetUp]
         public void Given() => _driver = TestDriver.Instance();
 
-        private static DriverScope GetSelectScope(Driver driver, string locator)
+        private static DriverScope GetSelectScope(IDriver driver, string locator)
         {
             return new BrowserWindow(Default.SessionConfiguration,
                                      new SelectFinder(driver, locator, DriverHelpers.WindowScope(driver), Default.Options), driver,

@@ -4,21 +4,18 @@ namespace Coypu.Queries
 {
     internal class HasContentMatchQuery : DriverScopeQuery<bool>
     {
-        private readonly Regex text;
+        private readonly Regex _text;
 
-        public override object ExpectedResult
-        {
-            get { return true; }
-        }
+        public override object ExpectedResult => true;
 
         protected internal HasContentMatchQuery(DriverScope scope, Regex text, Options options) : base(scope, options)
         {
-            this.text = text;
+            _text = text;
         }
 
         public override bool Run()
         {
-            return text.IsMatch(Scope.FindElement().Text);
+            return _text.IsMatch(Scope.FindElement().Text);
         }
     }
 }

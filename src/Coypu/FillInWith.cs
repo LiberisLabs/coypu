@@ -3,20 +3,22 @@ using Coypu.Timing;
 
 namespace Coypu
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class FillInWith
     {
-        private readonly Driver driver;
-        private readonly TimingStrategy timingStrategy;
-        private readonly Options options;
-        private readonly ElementScope element;
+        private readonly IDriver _driver;
+        private readonly ITimingStrategy _timingStrategy;
+        private readonly Options _options;
+        private readonly ElementScope _element;
 
-
-        internal FillInWith(ElementScope element, Driver driver, TimingStrategy timingStrategy, Options options)
+        internal FillInWith(ElementScope element, IDriver driver, ITimingStrategy timingStrategy, Options options)
         {
-            this.element = element;
-            this.driver = driver;
-            this.timingStrategy = timingStrategy;
-            this.options = options;
+            _element = element;
+            _driver = driver;
+            _timingStrategy = timingStrategy;
+            _options = options;
         }
 
         /// <summary>
@@ -26,7 +28,7 @@ namespace Coypu
         /// <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
         public void With(string value)
         {
-            timingStrategy.Synchronise(new FillIn(driver, element, value, options));
+            _timingStrategy.Synchronise(new FillIn(_driver, _element, value, _options));
         }
     }
 }

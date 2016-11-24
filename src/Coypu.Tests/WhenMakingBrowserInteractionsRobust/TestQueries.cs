@@ -28,7 +28,7 @@ namespace Coypu.Tests.WhenMakingBrowserInteractionsRobust
         }
     }
 
-    public class AlwaysSucceedsQuery<T> : Query<T>
+    public class AlwaysSucceedsQuery<T> : IQuery<T>
     {
         public Options Options { get; set; }
         public DriverScope Scope { get; private set; }
@@ -63,7 +63,7 @@ namespace Coypu.Tests.WhenMakingBrowserInteractionsRobust
         public object ExpectedResult => _expecting;
     }
 
-    public class ThrowsSecondTimeQuery<T> : Query<T>
+    public class ThrowsSecondTimeQuery<T> : IQuery<T>
     {
         public Options Options { get; set; }
         public DriverScope Scope { get; private set; }
@@ -90,7 +90,7 @@ namespace Coypu.Tests.WhenMakingBrowserInteractionsRobust
         public int Tries { get; set; }
     }
 
-    public class AlwaysThrowsQuery<TResult, TException> : Query<TResult> where TException : Exception
+    public class AlwaysThrowsQuery<TResult, TException> : IQuery<TResult> where TException : Exception
     {
         public Options Options { get; set; }
         public DriverScope Scope { get; private set; }
@@ -137,7 +137,7 @@ namespace Coypu.Tests.WhenMakingBrowserInteractionsRobust
         public long LastCall { get; set; }
     }
 
-    public class ThrowsThenSubsequentlySucceedsQuery<T> : Query<T>
+    public class ThrowsThenSubsequentlySucceedsQuery<T> : IQuery<T>
     {
         public Options Options { get; set; }
         public DriverScope Scope { get; private set; }

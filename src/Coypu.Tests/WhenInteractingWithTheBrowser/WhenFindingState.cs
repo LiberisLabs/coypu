@@ -12,7 +12,7 @@ namespace Coypu.Tests.WhenInteractingWithTheBrowser
     [TestFixture]
     public class WhenFindingState
     {
-        internal BrowserSession BuildSession(TimingStrategy timingStrategy)
+        internal BrowserSession BuildSession(ITimingStrategy timingStrategy)
         {
             _sessionConfiguration = new SessionConfiguration();
             return TestSessionBuilder.Build(_sessionConfiguration, new FakeDriver(), timingStrategy, new FakeWaiter(), null, null);

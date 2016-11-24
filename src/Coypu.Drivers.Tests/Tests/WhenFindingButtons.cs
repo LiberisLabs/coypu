@@ -5,7 +5,7 @@ namespace Coypu.Drivers.Tests.Tests
     [TestFixture]
     public class WhenFindingButtons
     {
-        private Driver _driver;
+        private IDriver _driver;
 
         [OneTimeSetUp]
         public void Given() => _driver = TestDriver.Instance();

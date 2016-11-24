@@ -6,7 +6,7 @@ namespace Coypu.Drivers.Tests.Tests
     [TestFixture]
     internal class WhenSettingFields
     {
-        private Driver _driver;
+        private IDriver _driver;
 
         [SetUp]
         public void Given() => _driver = TestDriver.Instance();
@@ -14,7 +14,7 @@ namespace Coypu.Drivers.Tests.Tests
         [TearDown]
         public void Kill() => _driver.Dispose();
 
-        private static DriverScope GetSelectScope(Driver driver, string locator)
+        private static DriverScope GetSelectScope(IDriver driver, string locator)
         {
             return new BrowserWindow(Default.SessionConfiguration,
                                      new SelectFinder(driver, locator, DriverHelpers.WindowScope(driver), Default.Options), driver,

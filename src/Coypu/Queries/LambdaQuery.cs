@@ -6,7 +6,7 @@ namespace Coypu.Queries
     /// 
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class LambdaQuery<T> : Query<T>
+    public class LambdaQuery<T> : IQuery<T>
     {
         private readonly Func<T> _query;
         /// <summary>

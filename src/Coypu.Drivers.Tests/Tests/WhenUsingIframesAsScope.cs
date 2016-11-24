@@ -8,7 +8,7 @@ namespace Coypu.Drivers.Tests.Tests
     {
         private static class Helpers
         {
-            public static void Finds_elements_among_multiple_scopes(Driver driver, ElementFinder elementFinder1, ElementFinder elementFinder2)
+            public static void Finds_elements_among_multiple_scopes(IDriver driver, ElementFinder elementFinder1, ElementFinder elementFinder2)
             {
                 IDisambiguationStrategy disambiguationStrategy = new ThrowsWhenMissingButNoDisambiguationStrategy();
                 var iframeOne = new BrowserWindow(Default.SessionConfiguration, elementFinder1, driver, null, null, null, disambiguationStrategy);
@@ -18,13 +18,13 @@ namespace Coypu.Drivers.Tests.Tests
                 Assert.That(DriverHelpers.Button(driver, "scoped button", iframeTwo, Default.Options).Id, Is.EqualTo("iframe2ButtonId"));
             }
 
-            public static Element FindField(Driver driver, string locator, DriverScope scope)
+            public static IElement FindField(IDriver driver, string locator, DriverScope scope)
             {
                 return DriverHelpers.Field(driver, locator, scope, Default.Options);
             }
         }
 
-        private Driver _driver;
+        private IDriver _driver;
         private DriverScope _scope;
 
         [SetUp]

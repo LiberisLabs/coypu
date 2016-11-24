@@ -6,7 +6,7 @@ namespace Coypu
     /// <summary>
     /// 
     /// </summary>
-    public class ActivatorDriverFactory : DriverFactory
+    public class ActivatorDriverFactory : IDriverFactory
     {
         /// <summary>
         /// 
@@ -14,11 +14,11 @@ namespace Coypu
         public static int OpenDrivers { get; set; }
 
         /// <inheritdoc />
-        public Driver NewWebDriver(Type driverType, Drivers.Browser browser)
+        public IDriver NewWebDriver(Type driverType, Drivers.Browser browser)
         {
             try
             {
-                var driver = (Driver) Activator.CreateInstance(driverType, browser);
+                var driver = (IDriver) Activator.CreateInstance(driverType, browser);
                 OpenDrivers++;
                 return driver;
             }

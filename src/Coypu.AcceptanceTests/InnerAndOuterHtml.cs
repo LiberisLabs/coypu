@@ -24,14 +24,14 @@ namespace Coypu.AcceptanceTests
         [Test]
         public void GrabsTheOuterHtmlFromAnElement()
         {
-            var outerHtml = Normalise(_browser.FindCss("table").OuterHTML);
+            var outerHtml = Normalise(_browser.FindCss("table").OuterHtml);
             Assert.That(outerHtml, Is.EqualTo("<table><tbody><tr><th>name</th><th>age</th></tr><tr><td>bob</td><td>12</td></tr><tr><td>jane</td><td>79</td></tr></tbody></table>"));
         }
 
         [Test]
         public void GrabsTheInnerHtmlFromAnElement()
         {
-            var innerHtml = Normalise(_browser.FindCss("table").InnerHTML);
+            var innerHtml = Normalise(_browser.FindCss("table").InnerHtml);
             Assert.That(innerHtml, Is.EqualTo("<tbody><tr><th>name</th><th>age</th></tr><tr><td>bob</td><td>12</td></tr><tr><td>jane</td><td>79</td></tr></tbody>"));
         }
 

@@ -8,11 +8,11 @@ namespace Coypu.Tests.TestBuilders
     internal class TestSessionBuilder
     {
         internal static BrowserSession Build(SessionConfiguration sessionConfiguration,
-                                             Driver driver,
-                                             TimingStrategy timingStrategy,
-                                             Waiter waiter,
-                                             RestrictedResourceDownloader restrictedResourceDownloader,
-                                             UrlBuilder urlBuilder,
+                                             IDriver driver,
+                                             ITimingStrategy timingStrategy,
+                                             IWaiter waiter,
+                                             IRestrictedResourceDownloader restrictedResourceDownloader,
+                                             IUrlBuilder urlBuilder,
                                              IDisambiguationStrategy disambiguationStrategy = null)
         {
             disambiguationStrategy = disambiguationStrategy ?? new FirstOrDefaultNoDisambiguationStrategy();

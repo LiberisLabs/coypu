@@ -2,18 +2,27 @@ using System;
 
 namespace Coypu.Queries
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class LambdaPredicateQuery : PredicateQuery
     {
-        private readonly Func<bool> query;
+        private readonly Func<bool> _query;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="options"></param>
         public LambdaPredicateQuery(Func<bool> query, Options options = null) : base(options)
         {
-            this.query = query;
+            _query = query;
         }
 
+        /// <inheritdoc />
         public override bool Predicate()
         {
-            return query();
+            return _query();
         }
     }
 }

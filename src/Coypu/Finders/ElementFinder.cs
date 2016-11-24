@@ -8,7 +8,7 @@ namespace Coypu.Finders
     /// </summary>
     public abstract class ElementFinder
     {
-        protected internal readonly Driver Driver;
+        protected internal readonly IDriver Driver;
         protected readonly DriverScope Scope;
 
         /// <summary>
@@ -18,7 +18,7 @@ namespace Coypu.Finders
         /// <param name="locator"></param>
         /// <param name="scope"></param>
         /// <param name="options"></param>
-        protected ElementFinder(Driver driver, string locator, DriverScope scope, Options options)
+        protected ElementFinder(IDriver driver, string locator, DriverScope scope, Options options)
         {
             Driver = driver;
             Locator = locator;
@@ -38,7 +38,7 @@ namespace Coypu.Finders
 
         internal string Locator { get; }
 
-        internal abstract IEnumerable<Element> Find(Options options);
+        internal abstract IEnumerable<IElement> Find(Options options);
 
         internal abstract string QueryDescription { get; }
 

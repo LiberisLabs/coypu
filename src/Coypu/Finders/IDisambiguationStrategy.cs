@@ -10,6 +10,6 @@ namespace Coypu.Finders
         /// </summary>
         /// <param name="elementFinder"></param>
         /// <returns></returns>
-        Element ResolveQuery(ElementFinder elementFinder);
+        IElement ResolveQuery(ElementFinder elementFinder);
     }
 }

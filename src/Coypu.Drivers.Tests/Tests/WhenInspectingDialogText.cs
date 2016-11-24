@@ -5,7 +5,7 @@ namespace Coypu.Drivers.Tests.Tests
     [TestFixture]
     internal class WhenInspectingDialogText
     {
-        private Driver _driver;
+        private IDriver _driver;
 
         [SetUp]
         public void Given() => _driver = TestDriver.Instance();

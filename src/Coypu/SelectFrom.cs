@@ -6,21 +6,21 @@ namespace Coypu
 {
     public class SelectFrom
     {
-        private readonly string option;
-        private readonly Driver driver;
-        private readonly TimingStrategy timingStrategy;
-        private readonly DriverScope scope;
-        private readonly Options options;
-        private readonly IDisambiguationStrategy disambiguationStrategy;
+        private readonly string _option;
+        private readonly IDriver _driver;
+        private readonly ITimingStrategy _timingStrategy;
+        private readonly DriverScope _scope;
+        private readonly Options _options;
+        private readonly IDisambiguationStrategy _disambiguationStrategy;
 
-        internal SelectFrom(string option, Driver driver, TimingStrategy timingStrategy, DriverScope scope, Options options, IDisambiguationStrategy disambiguationStrategy)
+        internal SelectFrom(string option, IDriver driver, ITimingStrategy timingStrategy, DriverScope scope, Options options, IDisambiguationStrategy disambiguationStrategy)
         {
-            this.option = option;
-            this.driver = driver;
-            this.timingStrategy = timingStrategy;
-            this.scope = scope;
-            this.options = options;
-            this.disambiguationStrategy = disambiguationStrategy;
+            _option = option;
+            _driver = driver;
+            _timingStrategy = timingStrategy;
+            _scope = scope;
+            _options = options;
+            _disambiguationStrategy = disambiguationStrategy;
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Coypu
         /// <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
         public void From(string locator)
         {
-            timingStrategy.Synchronise(new Select(driver, scope, locator, option, disambiguationStrategy, options));
+            _timingStrategy.Synchronise(new Select(_driver, _scope, locator, _option, _disambiguationStrategy, _options));
         }
     }
 }

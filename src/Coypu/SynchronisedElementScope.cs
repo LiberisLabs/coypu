@@ -21,7 +21,7 @@ namespace Coypu
         internal override bool Stale { get; set; }
 
         /// <inheritdoc />
-        public override Element Now()
+        public override IElement Now()
         {
             return timingStrategy.Synchronise(new ElementQuery(this, _options));
         }
@@ -57,7 +57,7 @@ namespace Coypu
             return Try(new ElementMissingQuery(this, Merge(options)));
         }
 
-        internal override bool Try(Query<bool> query)
+        internal override bool Try(IQuery<bool> query)
         {
             return Query(query);
         }

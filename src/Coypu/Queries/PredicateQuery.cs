@@ -3,7 +3,7 @@ namespace Coypu.Queries
     /// <summary>
     /// 
     /// </summary>
-    public abstract class PredicateQuery : Query<bool>
+    public abstract class PredicateQuery : IQuery<bool>
     {
         /// <summary>
         /// 

@@ -12,20 +12,20 @@ namespace Coypu
     /// <summary>
     /// 
     /// </summary>
-    public abstract class DriverScope : Scope
+    public abstract class DriverScope : IScope
     {
         protected readonly SessionConfiguration SessionConfiguration;
         internal readonly ElementFinder elementFinder;
 
-        protected Driver driver;
-        protected TimingStrategy timingStrategy;
-        protected readonly Waiter waiter;
-        internal UrlBuilder urlBuilder;
+        protected IDriver driver;
+        protected ITimingStrategy timingStrategy;
+        protected readonly IWaiter waiter;
+        internal IUrlBuilder urlBuilder;
         internal StateFinder stateFinder;
-        private Element element;
+        private IElement element;
         protected readonly IDisambiguationStrategy DisambiguationStrategy = new FinderOptionsDisambiguationStrategy();
 
-        internal DriverScope(SessionConfiguration sessionConfiguration, ElementFinder elementFinder, Driver driver, TimingStrategy timingStrategy, Waiter waiter, UrlBuilder urlBuilder,
+        internal DriverScope(SessionConfiguration sessionConfiguration, ElementFinder elementFinder, IDriver driver, ITimingStrategy timingStrategy, IWaiter waiter, IUrlBuilder urlBuilder,
                              IDisambiguationStrategy disambiguationStrategy)
         {
             this.elementFinder = elementFinder ?? new DocumentElementFinder(driver, sessionConfiguration);
@@ -82,11 +82,13 @@ namespace Coypu
 
         internal abstract bool Stale { get; set; }
 
+        /// <inheritdoc />
         public void ClickButton(string locator, Options options = null)
         {
             RetryUntilTimeout(WaitThenClickButton(locator, Merge(options)));
         }
 
+        /// <inheritdoc />
         public void ClickLink(string locator, Options options = null)
         {
             RetryUntilTimeout(WaitThenClickLink(locator, Merge(options)));
@@ -103,14 +105,14 @@ namespace Coypu
         }
 
         /// <inheritdoc />
-        public Scope ClickButton(string locator, PredicateQuery until, Options options = null)
+        public IScope ClickButton(string locator, PredicateQuery until, Options options = null)
         {
             TryUntil(WaitThenClickButton(locator, Merge(options)), until, Merge(options));
             return this;
         }
 
         /// <inheritdoc />
-        public Scope ClickLink(string locator, PredicateQuery until, Options options = null)
+        public IScope ClickLink(string locator, PredicateQuery until, Options options = null)
         {
             TryUntil(WaitThenClickLink(locator, Merge(options)), until, Merge(options));
             return this;
@@ -301,7 +303,7 @@ namespace Coypu
         }
 
         /// <inheritdoc />
-        public T Query<T>(Query<T> query)
+        public T Query<T>(IQuery<T> query)
         {
             return timingStrategy.Synchronise(query);
         }
@@ -358,12 +360,12 @@ namespace Coypu
         /// <returns></returns>
         /// <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
         /// <exception cref="T:Coypu.AmbiguousHtmlException">Thrown if the there is more than one matching element and the Match.Single option is set</exception>
-        public virtual Element Now()
+        public virtual IElement Now()
         {
             return FindElement();
         }
 
-        protected internal virtual Element FindElement()
+        protected internal virtual IElement FindElement()
         {
             if (element == null || Stale)
                 element = DisambiguationStrategy.ResolveQuery(ElementFinder);

@@ -5,7 +5,7 @@ namespace Coypu
     /// <summary>
     /// 
     /// </summary>
-    public interface DriverFactory
+    public interface IDriverFactory
     {
         /// <summary>
         /// 
@@ -13,6 +13,6 @@ namespace Coypu
         /// <param name="driverType"></param>
         /// <param name="browser"></param>
         /// <returns></returns>
-        Driver NewWebDriver(Type driverType, Drivers.Browser browser);
+        IDriver NewWebDriver(Type driverType, Drivers.Browser browser);
     }
 }

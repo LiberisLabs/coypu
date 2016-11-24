@@ -16,7 +16,7 @@ namespace Coypu.Tests.WhenApplyingMatchStrategy
         {
             var finderOptions = FinderOptions();
             var finder = new StubElementFinder(finderOptions);
-            var exactResults = new List<Element> {new StubElement(), new StubElement()};
+            var exactResults = new List<IElement> {new StubElement(), new StubElement()};
 
             StubExactResults(finder, finderOptions, exactResults);
 
@@ -31,7 +31,7 @@ namespace Coypu.Tests.WhenApplyingMatchStrategy
             var finderOptions = FinderOptions();
             var finder = new StubElementFinder(finderOptions, queryDescription: "something from StubElementFinder");
 
-            StubExactResults(finder, finderOptions, new List<Element>());
+            StubExactResults(finder, finderOptions, new List<IElement>());
 
             try
             {

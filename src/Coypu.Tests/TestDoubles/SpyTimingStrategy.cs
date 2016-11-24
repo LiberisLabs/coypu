@@ -7,7 +7,7 @@ using Coypu.Timing;
 
 namespace Coypu.Tests.TestDoubles
 {
-    public class SpyTimingStrategy : TimingStrategy
+    public class SpyTimingStrategy : ITimingStrategy
     {
         internal IList<TryUntilArgs> DeferredTryUntils = new List<TryUntilArgs>();
 
@@ -19,9 +19,9 @@ namespace Coypu.Tests.TestDoubles
         public static readonly object NO_EXPECTED_RESULT = new object();
         public bool ExecuteImmediately { get; set; }
 
-        public IEnumerable<Query<T>> QueriesRan<T>()
+        public IEnumerable<IQuery<T>> QueriesRan<T>()
         {
-            return queriesRan.OfType<Query<T>>();
+            return queriesRan.OfType<IQuery<T>>();
         }
 
         public IEnumerable<DriverAction> ActionsRan()
@@ -34,7 +34,7 @@ namespace Coypu.Tests.TestDoubles
             get { return !queriesRan.Any(); }
         }
 
-        public T Synchronise<T>(Query<T> query)
+        public T Synchronise<T>(IQuery<T> query)
         {
             if (ExecuteImmediately || (executeImmediatelyOnceThenReturn != null && !executedImmediatelyOnce))
             {
@@ -97,10 +97,10 @@ namespace Coypu.Tests.TestDoubles
             }
 
             public BrowserAction TryThisBrowserAction { get; private set; }
-            public Query<bool> Until { get; private set; }
+            public IQuery<bool> Until { get; private set; }
             public Options Options { get; private set; }
 
-            public TryUntilArgs(BrowserAction tryThis, Query<bool> until, Options options)
+            public TryUntilArgs(BrowserAction tryThis, IQuery<bool> until, Options options)
             {
                 TryThisBrowserAction = tryThis;
                 Until = until;

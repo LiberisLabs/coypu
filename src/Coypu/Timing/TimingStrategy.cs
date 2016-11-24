@@ -4,9 +4,9 @@ using Coypu.Queries;
 
 namespace Coypu.Timing
 {
-    public interface TimingStrategy
+    public interface ITimingStrategy
     {
-        T Synchronise<T>(Query<T> query);
+        T Synchronise<T>(IQuery<T> query);
         void TryUntil(BrowserAction tryThis, PredicateQuery until, Options options);
         bool ZeroTimeout { get; set; }
         void SetOverrideTimeout(TimeSpan timeout);

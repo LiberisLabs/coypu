@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace Coypu.Tests.TestDoubles
 {
-    public class StubDriver : Driver
+    public class StubDriver : IDriver
     {
         public StubDriver()
         {
@@ -21,15 +21,15 @@ namespace Coypu.Tests.TestDoubles
         {
         }
 
-        public void Click(Element element)
+        public void Click(IElement element)
         {
         }
 
-        public void Visit(string url, Scope scope)
+        public void Visit(string url, IScope scope)
         {
         }
 
-        public void Set(Element element, string value)
+        public void Set(IElement element, string value)
         {
         }
 
@@ -38,41 +38,41 @@ namespace Coypu.Tests.TestDoubles
             get { return "Native driver on stub driver"; }
         }
 
-        public bool HasContent(string text, Scope scope)
+        public bool HasContent(string text, IScope scope)
         {
             return false;
         }
 
-        public bool HasContentMatch(Regex pattern, Scope scope)
+        public bool HasContentMatch(Regex pattern, IScope scope)
         {
             return false;
         }
 
-        public bool HasDialog(string withText, Scope scope)
+        public bool HasDialog(string withText, IScope scope)
         {
             return false;
         }
 
-        public IEnumerable<Element> FindAllCss(string cssSelector, Scope scope, Options options, Regex textPattern = null)
+        public IEnumerable<IElement> FindAllCss(string cssSelector, IScope scope, Options options, Regex textPattern = null)
         {
-            return Enumerable.Empty<Element>();
+            return Enumerable.Empty<IElement>();
         }
 
 
-        public IEnumerable<Element> FindAllXPath(string xpath, Scope scope, Options options)
+        public IEnumerable<IElement> FindAllXPath(string xpath, IScope scope, Options options)
         {
-            return Enumerable.Empty<Element>();
+            return Enumerable.Empty<IElement>();
         }
 
-        public void Check(Element field)
-        {
-        }
-
-        public void Uncheck(Element field)
+        public void Check(IElement field)
         {
         }
 
-        public void Choose(Element field)
+        public void Uncheck(IElement field)
+        {
+        }
+
+        public void Choose(IElement field)
         {
         }
 
@@ -81,30 +81,30 @@ namespace Coypu.Tests.TestDoubles
             get { return false; }
         }
 
-        Uri Driver.Location(Scope scope)
+        Uri IDriver.Location(IScope scope)
         {
             return null;
         }
 
-        public string Title(Scope scope)
+        public string Title(IScope scope)
         {
             return null;
         }
 
-        public Element Window
+        public IElement Window
         {
             get { return null; }
         }
 
-        public void AcceptModalDialog(Scope scope)
+        public void AcceptModalDialog(IScope scope)
         {
         }
 
-        public void CancelModalDialog(Scope scope)
+        public void CancelModalDialog(IScope scope)
         {
         }
 
-        public void SetScope(Element findScope)
+        public void SetScope(IElement findScope)
         {
         }
 
@@ -112,17 +112,17 @@ namespace Coypu.Tests.TestDoubles
         {
         }
 
-        public object ExecuteScript(string javascript, Scope scope, params object[] args)
+        public object ExecuteScript(string javascript, IScope scope, params object[] args)
         {
             return null;
         }
 
-        public Element FindIFrame(string locator, Scope scope)
+        public IElement FindIFrame(string locator, IScope scope)
         {
             return null;
         }
 
-        public void Hover(Element element)
+        public void Hover(IElement element)
         {
         }
 
@@ -131,41 +131,41 @@ namespace Coypu.Tests.TestDoubles
             return new List<Cookie>();
         }
 
-        public IEnumerable<Element> FindWindows(string locator, Scope scope, Options options)
+        public IEnumerable<IElement> FindWindows(string locator, IScope scope, Options options)
         {
-            return Enumerable.Empty<Element>();
+            return Enumerable.Empty<IElement>();
         }
 
-        public IEnumerable<Element> FindFrames(string locator, Scope scope, Options options)
+        public IEnumerable<IElement> FindFrames(string locator, IScope scope, Options options)
         {
-            return Enumerable.Empty<Element>();
+            return Enumerable.Empty<IElement>();
         }
 
-        public void SendKeys(Element element, string keys)
-        {
-        }
-
-        public void MaximiseWindow(Scope scope)
+        public void SendKeys(IElement element, string keys)
         {
         }
 
-        public void Refresh(Scope scope)
+        public void MaximiseWindow(IScope scope)
         {
         }
 
-        public void ResizeTo(Size size, Scope Scope)
+        public void Refresh(IScope scope)
         {
         }
 
-        public void SaveScreenshot(string fileName, Scope scope)
+        public void ResizeTo(Size size, IScope Scope)
         {
         }
 
-        public void GoBack(Scope scope)
+        public void SaveScreenshot(string fileName, IScope scope)
         {
         }
 
-        public void GoForward(Scope scope)
+        public void GoBack(IScope scope)
+        {
+        }
+
+        public void GoForward(IScope scope)
         {
         }
 

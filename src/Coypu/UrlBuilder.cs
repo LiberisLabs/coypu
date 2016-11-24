@@ -1,6 +1,6 @@
 namespace Coypu
 {
-    public interface UrlBuilder
+    public interface IUrlBuilder
     {
         string GetFullyQualifiedUrl(string virtualPath, SessionConfiguration sessionConfiguration);
     }
