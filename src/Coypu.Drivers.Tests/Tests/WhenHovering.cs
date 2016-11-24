@@ -5,17 +5,19 @@ namespace Coypu.Drivers.Tests.Tests
     [TestFixture]
     public class WhenHovering
     {
+        private Driver _driver;
+
         [OneTimeSetUp]
-        public void Given() => DriverSpecs.VisitTestPage();
+        public void Given() => _driver = TestDriver.Instance();
 
         [Test]
         public void Mouses_over_the_underlying_element()
         {
-            var element = DriverHelpers.Id(DriverSpecs.Driver, "hoverOnMeTest");
+            var element = DriverHelpers.Id(_driver, "hoverOnMeTest");
             Assert.That(element.Text, Is.EqualTo("Hover on me"));
-            DriverSpecs.Driver.Hover(element);
+            _driver.Hover(element);
 
-            Assert.That(DriverHelpers.Id(DriverSpecs.Driver, "hoverOnMeTest").Text, Is.EqualTo("Hover on me - hovered"));
+            Assert.That(DriverHelpers.Id(_driver, "hoverOnMeTest").Text, Is.EqualTo("Hover on me - hovered"));
         }
     }
 }

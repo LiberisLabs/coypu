@@ -6,38 +6,48 @@ namespace Coypu.Drivers.Tests.Tests
     [TestFixture]
     internal class WhenRefreshingWindows
     {
+        private Driver _driver;
+        private DriverScope _scope;
+
         [OneTimeSetUp]
-        public void Given() => DriverSpecs.VisitTestPage();
+        public void Given()
+        {
+            _driver = TestDriver.Instance();
+            _scope = DriverHelpers.WindowScope(_driver);
+        }
+
+        [OneTimeTearDown]
+        public void TearDown() => _driver.Dispose();
 
         [Test]
         public void RefreshCausesPageToReload()
         {
-            RefreshCausesScopeToReload(DriverSpecs.Root);
+            RefreshCausesScopeToReload(_scope, _driver);
         }
 
         [Test]
         public void RefreshesCorrectWindowScope()
         {
-            DriverSpecs.Driver.Click(DriverHelpers.Link(DriverSpecs.Driver, "Open pop up window"));
-            var popUp = new BrowserWindow(Default.SessionConfiguration, new WindowFinder(DriverSpecs.Driver,"Pop Up Window", DriverSpecs.Root, Default.Options), DriverSpecs.Driver, null, null, null, new ThrowsWhenMissingButNoDisambiguationStrategy());
+            _driver.Click(DriverHelpers.Link(_driver, "Open pop up window"));
+            var popUp = new BrowserWindow(Default.SessionConfiguration, new WindowFinder(_driver,"Pop Up Window", _scope, Default.Options), _driver, null, null, null, new ThrowsWhenMissingButNoDisambiguationStrategy());
 
             try
             {
-                RefreshCausesScopeToReload(popUp);
+                RefreshCausesScopeToReload(popUp, _driver);
             }
             finally
             {
-                DriverSpecs.Driver.ExecuteScript("return self.close();", popUp);
+                _driver.ExecuteScript("return self.close();", popUp);
             }
         }
 
-        private static void RefreshCausesScopeToReload(Scope driverScope)
+        private static void RefreshCausesScopeToReload(Scope driverScope, Driver driver)
         {
-            var tickBeforeRefresh = (long)DriverSpecs.Driver.ExecuteScript("return window.SpecData.CurrentTick;", driverScope);
+            var tickBeforeRefresh = (long)driver.ExecuteScript("return window.SpecData.CurrentTick;", driverScope);
 
-            DriverSpecs.Driver.Refresh(driverScope);
+            driver.Refresh(driverScope);
 
-            var tickAfterRefresh = (long)DriverSpecs.Driver.ExecuteScript("return window.SpecData.CurrentTick;", driverScope);
+            var tickAfterRefresh = (long)driver.ExecuteScript("return window.SpecData.CurrentTick;", driverScope);
 
             Assert.That(tickAfterRefresh, Is.GreaterThan(tickBeforeRefresh));
         }

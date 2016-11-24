@@ -5,18 +5,20 @@ namespace Coypu.Drivers.Tests.Tests
     [TestFixture]
     public class WhenClicking
     {
+        private Driver _driver;
+
         [OneTimeSetUp]
-        public void Given() => DriverSpecs.VisitTestPage();
+        public void Given() => _driver = TestDriver.Instance();
 
         [Test]
         public void Clicks_the_underlying_element()
         {
-            var element = DriverHelpers.Button(DriverSpecs.Driver, "clickMeTest");
+            var element = DriverHelpers.Button(_driver, "clickMeTest");
             Assert.That(element.Value, Is.EqualTo("Click me"));
 
-            DriverSpecs.Driver.Click(element);
+            _driver.Click(element);
 
-            Assert.That(DriverHelpers.Button(DriverSpecs.Driver, "clickMeTest").Value, Is.EqualTo("Click me - clicked"));
+            Assert.That(DriverHelpers.Button(_driver, "clickMeTest").Value, Is.EqualTo("Click me - clicked"));
         }
     }
 }

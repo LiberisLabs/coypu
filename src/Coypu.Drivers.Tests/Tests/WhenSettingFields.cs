@@ -9,7 +9,7 @@ namespace Coypu.Drivers.Tests.Tests
         private Driver _driver;
 
         [SetUp]
-        public void Given() => _driver = DriverSpecs.Instance();
+        public void Given() => _driver = TestDriver.Instance();
 
         [TearDown]
         public void Kill() => _driver.Dispose();
@@ -17,7 +17,7 @@ namespace Coypu.Drivers.Tests.Tests
         private static DriverScope GetSelectScope(Driver driver, string locator)
         {
             return new BrowserWindow(Default.SessionConfiguration,
-                                     new SelectFinder(driver, locator, DriverSpecs.Root, Default.Options), driver,
+                                     new SelectFinder(driver, locator, DriverHelpers.WindowScope(driver), Default.Options), driver,
                                      null, null, null, new ThrowsWhenMissingButNoDisambiguationStrategy());
         }
 
@@ -106,7 +106,7 @@ namespace Coypu.Drivers.Tests.Tests
 
             _driver.Click(DriverHelpers.FindSingle(new OptionFinder(_driver, "select two option two", GetSelectScope(_driver, "containerLabeledSelectFieldId"), Default.Options)));
 
-            Assert.That(DriverHelpers.Field(_driver, "containerLabeledSelectFieldId", DriverSpecs.Root).Name, Is.EqualTo("containerLabeledSelectFieldName - changed"));
+            Assert.That(DriverHelpers.Field(_driver, "containerLabeledSelectFieldId", DriverHelpers.WindowScope(_driver)).Name, Is.EqualTo("containerLabeledSelectFieldName - changed"));
         }
     }
 }

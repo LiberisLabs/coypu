@@ -117,7 +117,7 @@
     <Compile Include="Tests\WhenSizingWindows.cs" />
     <Compile Include="Tests\WhenUsingIframesAsScope.cs" />
     <Compile Include="Tests\WhenFindingIframes.cs" />
-    <Compile Include="DriverSpecs.cs">
+    <Compile Include="TestDriver.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

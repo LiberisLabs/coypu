@@ -19,7 +19,7 @@ namespace Coypu.Drivers.Tests
         {
             TestSite.Dispose();
 
-            DriverSpecs.DisposeDriver();
+            TestDriver.DisposeDriver();
         }
     }
 }

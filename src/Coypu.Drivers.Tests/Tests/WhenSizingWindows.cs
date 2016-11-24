@@ -36,9 +36,14 @@ namespace Coypu.Drivers.Tests.Tests
         }
 
         private Driver _driver;
+        private DriverScope _scope;
 
         [SetUp]
-        public void Given() => _driver = DriverSpecs.Instance();
+        public void Given()
+        {
+            _driver = TestDriver.Instance();
+            _scope = DriverHelpers.WindowScope(_driver);
+        }
 
         [TearDown]
         public void Kill() => _driver.Dispose();
@@ -46,14 +51,14 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void MaximisesWindow()
         {
-            Helpers.AssertMaximisesWindow(_driver, DriverSpecs.Root);
+            Helpers.AssertMaximisesWindow(_driver, _scope);
         }
 
         [Test]
         public void MaximisesCorrectWindowScope()
         {
             _driver.Click(DriverHelpers.Link(_driver, "Open pop up window"));
-            var popUp = new BrowserWindow(Default.SessionConfiguration, new WindowFinder(_driver, "Pop Up Window", DriverSpecs.Root, Default.Options),
+            var popUp = new BrowserWindow(Default.SessionConfiguration, new WindowFinder(_driver, "Pop Up Window", _scope, Default.Options),
                                           _driver, null, null, null, new ThrowsWhenMissingButNoDisambiguationStrategy());
 
             try
@@ -69,14 +74,14 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void ResizesWindow()
         {
-            Helpers.AssertResizesWindow(_driver, DriverSpecs.Root);
+            Helpers.AssertResizesWindow(_driver, _scope);
         }
 
         [Test]
         public void ResizesCorrectWindowScope()
         {
             _driver.Click(DriverHelpers.Link(_driver, "Open pop up window"));
-            var popUp = new BrowserWindow(Default.SessionConfiguration, new WindowFinder(_driver, "Pop Up Window", DriverSpecs.Root, Default.Options),
+            var popUp = new BrowserWindow(Default.SessionConfiguration, new WindowFinder(_driver, "Pop Up Window", _scope, Default.Options),
                                           _driver, null, null, null, new ThrowsWhenMissingButNoDisambiguationStrategy());
 
             try

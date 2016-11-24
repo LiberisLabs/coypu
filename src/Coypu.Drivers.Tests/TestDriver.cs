@@ -4,20 +4,21 @@ using Coypu.Drivers.Selenium;
 
 namespace Coypu.Drivers.Tests
 {
-    internal class DriverSpecs
+    internal class TestDriver
     {
         private static Driver _driver;
 
-        public static void VisitTestPage(string testPage = @"html\InteractionTestsPage.htm")
+        public static Driver Instance(string testPage = @"html\InteractionTestsPage.htm")
         {
-            Driver.Visit(SomeRandomStaticHelpers.TestHtmlPathLocation(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, testPage)), Root);
+            var driver = EnsureDriver();
+            driver.Visit(SomeRandomStaticHelpers.TestHtmlPathLocation(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, testPage)), DriverHelpers.WindowScope(driver));
+            return driver;
         }
-
-        public static DriverScope Root => DriverHelpers.WindowScope(Driver);
 
         private static Driver EnsureDriver()
         {
             var driverType = typeof(SeleniumWebDriver);
+
             if (_driver != null && !_driver.Disposed)
             {
                 if (driverType == _driver.GetType())
@@ -29,15 +30,6 @@ namespace Coypu.Drivers.Tests
             _driver = (Driver) Activator.CreateInstance(driverType, Browser.Chrome);
 
             return _driver;
-        }
-
-        public static Driver Driver => EnsureDriver();
-
-        public static Driver Instance()
-        {
-            var driver = EnsureDriver();
-            VisitTestPage();
-            return driver;
         }
 
         public static void DisposeDriver()

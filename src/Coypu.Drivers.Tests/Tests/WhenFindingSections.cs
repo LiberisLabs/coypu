@@ -5,50 +5,52 @@ namespace Coypu.Drivers.Tests.Tests
     [TestFixture]
     internal class WhenFindingSections
     {
+        private Driver _driver;
+
         [OneTimeSetUp]
-        public void Given() => DriverSpecs.VisitTestPage();
+        public void Given() => _driver = TestDriver.Instance();
 
         [Test]
         public void Finds_by_h1_text()
         {
-            Assert.That(DriverHelpers.Section(DriverSpecs.Driver, "Section One h1").Id, Is.EqualTo("sectionOne"));
-            Assert.That(DriverHelpers.Section(DriverSpecs.Driver, "Section Two h1").Id, Is.EqualTo("sectionTwo"));
+            Assert.That(DriverHelpers.Section(_driver, "Section One h1").Id, Is.EqualTo("sectionOne"));
+            Assert.That(DriverHelpers.Section(_driver, "Section Two h1").Id, Is.EqualTo("sectionTwo"));
         }
 
         [Test]
         public void Finds_by_h2_text()
         {
-            Assert.That(DriverHelpers.Section(DriverSpecs.Driver, "Section One h2").Id, Is.EqualTo("sectionOne"));
-            Assert.That(DriverHelpers.Section(DriverSpecs.Driver, "Section Two h2").Id, Is.EqualTo("sectionTwo"));
+            Assert.That(DriverHelpers.Section(_driver, "Section One h2").Id, Is.EqualTo("sectionOne"));
+            Assert.That(DriverHelpers.Section(_driver, "Section Two h2").Id, Is.EqualTo("sectionTwo"));
         }
 
         [Test]
         public void Finds_by_h3_text()
         {
-            Assert.That(DriverHelpers.Section(DriverSpecs.Driver, "Section One h3").Id, Is.EqualTo("sectionOne"));
-            Assert.That(DriverHelpers.Section(DriverSpecs.Driver, "Section Two h3").Id, Is.EqualTo("sectionTwo"));
+            Assert.That(DriverHelpers.Section(_driver, "Section One h3").Id, Is.EqualTo("sectionOne"));
+            Assert.That(DriverHelpers.Section(_driver, "Section Two h3").Id, Is.EqualTo("sectionTwo"));
         }
 
         [Test]
         public void Finds_by_h6_text()
         {
-            Assert.That(DriverHelpers.Section(DriverSpecs.Driver, "Section One h6").Id, Is.EqualTo("sectionOne"));
-            Assert.That(DriverHelpers.Section(DriverSpecs.Driver, "Section Two h6").Id, Is.EqualTo("sectionTwo"));
+            Assert.That(DriverHelpers.Section(_driver, "Section One h6").Id, Is.EqualTo("sectionOne"));
+            Assert.That(DriverHelpers.Section(_driver, "Section Two h6").Id, Is.EqualTo("sectionTwo"));
         }
 
         [Test]
         public void Finds_section_by_id()
         {
-            Assert.That(DriverHelpers.Section(DriverSpecs.Driver, "sectionOne").Id, Is.EqualTo("sectionOne"));
-            Assert.That(DriverHelpers.Section(DriverSpecs.Driver, "sectionTwo").Id, Is.EqualTo("sectionTwo"));
+            Assert.That(DriverHelpers.Section(_driver, "sectionOne").Id, Is.EqualTo("sectionOne"));
+            Assert.That(DriverHelpers.Section(_driver, "sectionTwo").Id, Is.EqualTo("sectionTwo"));
         }
 
 
         [Test]
         public void Only_finds_div_and_section()
         {
-            Assert.Throws<MissingHtmlException>(() => DriverHelpers.Section(DriverSpecs.Driver, "scope1TextInputFieldId"));
-            Assert.Throws<MissingHtmlException>(() => DriverHelpers.Section(DriverSpecs.Driver, "fieldsetScope2"));
+            Assert.Throws<MissingHtmlException>(() => DriverHelpers.Section(_driver, "scope1TextInputFieldId"));
+            Assert.Throws<MissingHtmlException>(() => DriverHelpers.Section(_driver, "fieldsetScope2"));
         }
     }
 }

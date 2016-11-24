@@ -8,41 +8,46 @@ namespace Coypu.Drivers.Tests.Tests
     {
         private static class Helpers
         {
-            public static void OpenPopup(Driver driver)
+            public static void OpenPopup(Driver driver, DriverScope scope)
             {
-                driver.Click(FindPopUpLink(driver));
+                driver.Click(FindPopUpLink(driver, scope));
             }
 
-            public static void OpenPopup2(Driver driver)
+            public static void OpenPopup2(Driver driver, DriverScope scope)
             {
-                driver.Click(FindPopUp2Link(driver));
+                driver.Click(FindPopUp2Link(driver, scope));
             }
 
-            public static Element FindPopUpLink(Driver driver)
+            public static Element FindPopUpLink(Driver driver, DriverScope scope)
             {
-                return DriverHelpers.Link(driver, "Open pop up window", DriverSpecs.Root, Default.Options);
+                return DriverHelpers.Link(driver, "Open pop up window", scope, Default.Options);
             }
 
-            public static Element FindPopUp2Link(Driver driver)
+            public static Element FindPopUp2Link(Driver driver, DriverScope scope)
             {
-                return DriverHelpers.Link(driver, "Open pop up window 2", DriverSpecs.Root, Default.Options);
+                return DriverHelpers.Link(driver, "Open pop up window 2", scope, Default.Options);
             }
 
             public static Element FindPopUp(Driver driver)
             {
-                return FindWindow(driver, "Pop Up Window");
+                return FindWindow(driver, "Pop Up Window", DriverHelpers.WindowScope(driver));
             }
 
-            public static Element FindWindow(Driver driver, string locator)
+            public static Element FindWindow(Driver driver, string locator, DriverScope scope)
             {
-                return DriverHelpers.Window(driver, locator, DriverSpecs.Root, Default.Options);
+                return DriverHelpers.Window(driver, locator, scope, Default.Options);
             }
         }
 
         private Driver _driver;
+        private DriverScope _scope;
 
         [SetUp]
-        public void Given() => _driver = DriverSpecs.Instance();
+        public void Given()
+        {
+            _driver = TestDriver.Instance();
+            _scope = DriverHelpers.WindowScope(_driver);
+        }
 
         [TearDown]
         public void Kill() => _driver.Dispose();
@@ -50,66 +55,66 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void Finds_by_name()
         {
-            Helpers.OpenPopup(_driver);
-            var window = DriverHelpers.Window(_driver, "popUpWindowName", DriverSpecs.Root, Default.Options);
+            Helpers.OpenPopup(_driver, _scope);
+            var window = DriverHelpers.Window(_driver, "popUpWindowName", _scope, Default.Options);
 
             Assert.That(window.Text, Does.Contain("I am a pop up window"));
 
-            Helpers.FindPopUpLink(_driver);
+            Helpers.FindPopUpLink(_driver, _scope);
         }
 
         [Test]
         public void Finds_by_title()
         {
-            Helpers.OpenPopup(_driver);
+            Helpers.OpenPopup(_driver, _scope);
             Assert.That(Helpers.FindPopUp(_driver).Text, Does.Contain("I am a pop up window"));
 
-            Helpers.FindPopUpLink(_driver);
+            Helpers.FindPopUpLink(_driver, _scope);
         }
 
         [Test]
         public void Finds_by_substring_title()
         {
-            Helpers.OpenPopup2(_driver);
+            Helpers.OpenPopup2(_driver, _scope);
             Assert.That(Helpers.FindPopUp(_driver).Text, Does.Contain("I am a pop up window 2"));
-            Helpers.FindPopUp2Link(_driver);
+            Helpers.FindPopUp2Link(_driver, _scope);
         }
 
         [Test]
         public void Finds_by_exact_title_over_substring()
         {
-            Helpers.OpenPopup(_driver);
-            Helpers.OpenPopup2(_driver);
+            Helpers.OpenPopup(_driver, _scope);
+            Helpers.OpenPopup2(_driver, _scope);
             Assert.That(Helpers.FindPopUp(_driver).Text, Does.Contain("I am a pop up window"));
 
-            Helpers.FindPopUpLink(_driver);
+            Helpers.FindPopUpLink(_driver, _scope);
         }
 
         [Test]
         public void Finds_scoped_by_window()
         {
-            Helpers.OpenPopup(_driver);
+            Helpers.OpenPopup(_driver, _scope);
 
-            var popUp = new BrowserWindow(Default.SessionConfiguration, new WindowFinder(_driver, "Pop Up Window", DriverSpecs.Root, Default.Options),
+            var popUp = new BrowserWindow(Default.SessionConfiguration, new WindowFinder(_driver, "Pop Up Window", _scope, Default.Options),
                                           _driver, null, null, null, new ThrowsWhenMissingButNoDisambiguationStrategy());
 
-            DriverHelpers.Id(DriverSpecs.Driver, "popUpButtonId", popUp);
+            DriverHelpers.Id(_driver, "popUpButtonId", popUp);
 
-            Helpers.FindPopUpLink(_driver);
+            Helpers.FindPopUpLink(_driver, _scope);
         }
 
         [Test]
         public void Errors_on_no_such_window()
         {
-            Helpers.OpenPopup(_driver);
-            Assert.Throws<MissingWindowException>(() => Helpers.FindWindow(_driver, "Not A Window"));
+            Helpers.OpenPopup(_driver, _scope);
+            Assert.Throws<MissingWindowException>(() => Helpers.FindWindow(_driver, "Not A Window", _scope));
         }
 
         [Test]
         public void Errors_on_window_closed()
         {
-            Helpers.OpenPopup(_driver);
-            var popUp = new BrowserWindow(Default.SessionConfiguration, new WindowFinder(_driver, "Pop Up Window", DriverSpecs.Root, Default.Options),
+            Helpers.OpenPopup(_driver, _scope);
+            var popUp = new BrowserWindow(Default.SessionConfiguration, new WindowFinder(_driver, "Pop Up Window", _scope, Default.Options),
                                           _driver, null, null, null, new ThrowsWhenMissingButNoDisambiguationStrategy());
 
             _driver.ExecuteScript("self.close();", popUp);

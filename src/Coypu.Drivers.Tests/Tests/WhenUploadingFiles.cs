@@ -6,8 +6,10 @@ namespace Coypu.Drivers.Tests.Tests
     [TestFixture]
     internal class WhenUploadingFiles
     {
+        private Driver _driver;
+
         [OneTimeSetUp]
-        public void Given() => DriverSpecs.VisitTestPage();
+        public void Given() => _driver = TestDriver.Instance();
 
         [Test]
         public void Sets_the_path_to_be_uploaded()
@@ -21,10 +23,10 @@ namespace Coypu.Drivers.Tests.Tests
                 {
                 }
 
-                var textField = DriverHelpers.Field(DriverSpecs.Driver, "forLabeledFileFieldId");
-                DriverSpecs.Driver.Set(textField, fullPath);
+                var textField = DriverHelpers.Field(_driver, "forLabeledFileFieldId");
+                _driver.Set(textField, fullPath);
 
-                var findAgain = DriverHelpers.Field(DriverSpecs.Driver, "forLabeledFileFieldId");
+                var findAgain = DriverHelpers.Field(_driver, "forLabeledFileFieldId");
                 Assert.That(findAgain.Value, Does.EndWith(someLocalFile));
             }
             finally

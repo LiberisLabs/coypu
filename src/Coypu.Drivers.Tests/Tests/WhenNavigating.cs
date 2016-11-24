@@ -8,38 +8,45 @@ namespace Coypu.Drivers.Tests.Tests
     [TestFixture]
     internal class WhenNavigating
     {
+        private Driver _driver;
+        private DriverScope _scope;
+
         [OneTimeSetUp]
-        public void Given() => DriverSpecs.VisitTestPage();
+        public void Given()
+        {
+            _driver = TestDriver.Instance();
+            _scope = DriverHelpers.WindowScope(_driver);
+        }
 
         [Test]
         public void Gets_the_current_browser_location()
         {
-            DriverSpecs.Driver.Visit(SomeRandomStaticHelpers.TestSiteUrl("/"), DriverSpecs.Root);
-            Assert.That(new Uri(SomeRandomStaticHelpers.TestSiteUrl("/")), Is.EqualTo(DriverSpecs.Driver.Location(DriverSpecs.Root)));
+            _driver.Visit(SomeRandomStaticHelpers.TestSiteUrl("/"), _scope);
+            Assert.That(new Uri(SomeRandomStaticHelpers.TestSiteUrl("/")), Is.EqualTo(_driver.Location(_scope)));
 
-            DriverSpecs.Driver.Visit(SomeRandomStaticHelpers.TestSiteUrl("/auto_login"), DriverSpecs.Root);
-            Assert.That(new Uri(SomeRandomStaticHelpers.TestSiteUrl("/auto_login")), Is.EqualTo(DriverSpecs.Driver.Location(DriverSpecs.Root)));
+            _driver.Visit(SomeRandomStaticHelpers.TestSiteUrl("/auto_login"), _scope);
+            Assert.That(new Uri(SomeRandomStaticHelpers.TestSiteUrl("/auto_login")), Is.EqualTo(_driver.Location(_scope)));
         }
 
         [Test]
         public void Gets_location_for_correct_window_scope()
         {
-            DriverSpecs.Driver.Click(DriverHelpers.Link(DriverSpecs.Driver, "Open pop up window"));
-            var popUp = new BrowserWindow(Default.SessionConfiguration, new WindowFinder(DriverSpecs.Driver, "Pop Up Window", DriverSpecs.Root, Default.Options), DriverSpecs.Driver, null, null, null, new ThrowsWhenMissingButNoDisambiguationStrategy());
+            _driver.Click(DriverHelpers.Link(_driver, "Open pop up window"));
+            var popUp = new BrowserWindow(Default.SessionConfiguration, new WindowFinder(_driver, "Pop Up Window", _scope, Default.Options), _driver, null, null, null, new ThrowsWhenMissingButNoDisambiguationStrategy());
 
-            Assert.That(DriverSpecs.Driver.Location(popUp).AbsoluteUri, Does.Contain("/html/popup.htm"));
+            Assert.That(_driver.Location(popUp).AbsoluteUri, Does.Contain("/html/popup.htm"));
         }
 
         [Test]
         public void Not_just_when_set_by_visit()
         {
-            DriverSpecs.Driver.Visit(SomeRandomStaticHelpers.TestSiteUrl("/auto_login"), DriverSpecs.Root);
-            DriverSpecs.Driver.ExecuteScript("document.location.href = '" + SomeRandomStaticHelpers.TestSiteUrl("/resource/bdd") + "'", DriverSpecs.Root);
+            _driver.Visit(SomeRandomStaticHelpers.TestSiteUrl("/auto_login"), _scope);
+            _driver.ExecuteScript("document.location.href = '" + SomeRandomStaticHelpers.TestSiteUrl("/resource/bdd") + "'", _scope);
 
             // Seems like WebDriver is not waiting on JS, has exec been made asnyc?
             Thread.Sleep(500);
 
-            Assert.That(new Uri(SomeRandomStaticHelpers.TestSiteUrl("/resource/bdd")), Is.EqualTo(DriverSpecs.Driver.Location(DriverSpecs.Root)));
+            Assert.That(new Uri(SomeRandomStaticHelpers.TestSiteUrl("/resource/bdd")), Is.EqualTo(_driver.Location(_scope)));
         }
     }
 }

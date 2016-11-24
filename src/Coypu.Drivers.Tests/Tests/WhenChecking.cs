@@ -8,7 +8,7 @@ namespace Coypu.Drivers.Tests.Tests
         private Driver _driver;
 
         [SetUp]
-        public void Given() => _driver = DriverSpecs.Instance();
+        public void Given() => _driver = TestDriver.Instance();
 
         [TearDown]
         public void Kill() => _driver.Dispose();

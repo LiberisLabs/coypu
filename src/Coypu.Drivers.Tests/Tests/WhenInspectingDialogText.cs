@@ -8,7 +8,7 @@ namespace Coypu.Drivers.Tests.Tests
         private Driver _driver;
 
         [SetUp]
-        public void Given() => _driver = DriverSpecs.Instance();
+        public void Given() => _driver = TestDriver.Instance();
 
         [TearDown]
         public void Kill() => _driver.Dispose();
@@ -17,16 +17,16 @@ namespace Coypu.Drivers.Tests.Tests
         public void Finds_exact_text_in_alert()
         {
             _driver.Click(DriverHelpers.Link(_driver, "Trigger an alert"));
-            Assert.That(_driver.HasDialog("You have triggered an alert and this is the text.", DriverSpecs.Root), Is.True);
-            Assert.That(_driver.HasDialog("You have triggered a different alert and this is the different text.", DriverSpecs.Root), Is.False);
+            Assert.That(_driver.HasDialog("You have triggered an alert and this is the text.", DriverHelpers.WindowScope(_driver)), Is.True);
+            Assert.That(_driver.HasDialog("You have triggered a different alert and this is the different text.", DriverHelpers.WindowScope(_driver)), Is.False);
         }
 
         [Test]
         public void Finds_exact_text_in_confirm()
         {
             _driver.Click(DriverHelpers.Link(_driver, "Trigger a confirm"));
-            Assert.That(_driver.HasDialog("You have triggered a confirm and this is the text.", DriverSpecs.Root), Is.True);
-            Assert.That(_driver.HasDialog("You have triggered a different confirm and this is the different text.", DriverSpecs.Root), Is.False);
+            Assert.That(_driver.HasDialog("You have triggered a confirm and this is the text.", DriverHelpers.WindowScope(_driver)), Is.True);
+            Assert.That(_driver.HasDialog("You have triggered a different confirm and this is the different text.", DriverHelpers.WindowScope(_driver)), Is.False);
         }
     }
 }
