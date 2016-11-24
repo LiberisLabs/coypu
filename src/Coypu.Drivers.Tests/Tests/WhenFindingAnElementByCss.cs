@@ -7,33 +7,33 @@ namespace Coypu.Drivers.Tests.Tests
     internal class WhenFindingAnElementByCss
     {
         [OneTimeSetUp]
-        public void Given() => DriverSpecs.DoSetUp();
+        public void Given() => DriverSpecs.VisitTestPage();
 
         [Test]
         public void Finds_present_examples()
         {
             var shouldFind = "#inspectingContent p.css-test span";
-            Assert.That(DriverSpecs.Css(shouldFind).Text, Is.EqualTo("This"));
+            Assert.That(DriverHelpers.Css(DriverSpecs.Driver, shouldFind).Text, Is.EqualTo("This"));
 
             shouldFind = "ul#cssTest li:nth-child(3)";
-            Assert.That(DriverSpecs.Css(shouldFind).Text, Is.EqualTo("Me! Pick me!"));
+            Assert.That(DriverHelpers.Css(DriverSpecs.Driver, shouldFind).Text, Is.EqualTo("Me! Pick me!"));
         }
 
         [Test]
         public void Finds_present_examples_by_text()
         {
             var shouldFind = "#inspectingContent p.css-test span";
-            Assert.That(DriverSpecs.Css(shouldFind, new Regex("^This$")).Text, Is.EqualTo("This"));
+            Assert.That(DriverHelpers.Css(DriverSpecs.Driver, shouldFind, new Regex("^This$")).Text, Is.EqualTo("This"));
 
             shouldFind = "ul#cssTest li:nth-child(3)";
-            Assert.That(DriverSpecs.Css(shouldFind, new Regex("Pick me")).Text, Is.EqualTo("Me! Pick me!"));
+            Assert.That(DriverHelpers.Css(DriverSpecs.Driver, shouldFind, new Regex("Pick me")).Text, Is.EqualTo("Me! Pick me!"));
         }
 
         [Test]
         public void Does_not_find_missing_examples()
         {
             const string shouldNotFind = "#inspectingContent p.css-missing-test";
-            Assert.Throws<MissingHtmlException>(() => DriverSpecs.Css(shouldNotFind, DriverSpecs.Root), "Expected not to find something at: " + shouldNotFind);
+            Assert.Throws<MissingHtmlException>(() => DriverHelpers.Css(DriverSpecs.Driver, shouldNotFind), "Expected not to find something at: " + shouldNotFind);
         }
 
         [Test]
@@ -41,8 +41,8 @@ namespace Coypu.Drivers.Tests.Tests
         {
             const string shouldFind = "ul#cssTest li:nth-child(3)";
             var missingTextPattern = new Regex("Drop me");
-            Assert.Throws<MissingHtmlException>(() => DriverSpecs.Css(shouldFind, missingTextPattern),
-                                                string.Format("Expected not to find something at: {0} with text: ", shouldFind, missingTextPattern));
+            Assert.Throws<MissingHtmlException>(() => DriverHelpers.Css(DriverSpecs.Driver, shouldFind, missingTextPattern),
+                                                $"Expected not to find something at: {shouldFind} with text: {missingTextPattern}");
         }
 
 
@@ -50,7 +50,7 @@ namespace Coypu.Drivers.Tests.Tests
         public void Only_finds_visible_elements()
         {
             const string shouldNotFind = "#inspectingContent p.css-test img.invisible";
-            Assert.Throws<MissingHtmlException>(() => DriverSpecs.Css(shouldNotFind, DriverSpecs.Root), "Expected not to find something at: " + shouldNotFind);
+            Assert.Throws<MissingHtmlException>(() => DriverHelpers.Css(DriverSpecs.Driver, shouldNotFind), "Expected not to find something at: " + shouldNotFind);
         }
     }
 }

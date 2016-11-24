@@ -6,27 +6,27 @@ namespace Coypu.Drivers.Tests.Tests
     internal class WhenFindingIframes
     {
         [OneTimeSetUp]
-        public void Given() => DriverSpecs.DoSetUp();
+        public void Given() => DriverSpecs.VisitTestPage();
 
         [Test]
         public void Finds_by_header_text()
         {
-            Assert.That(DriverSpecs.Frame("I am iframe one").Id, Is.EqualTo("iframe1"));
-            Assert.That(DriverSpecs.Frame("I am iframe two").Id, Is.EqualTo("iframe2"));
+            Assert.That(DriverHelpers.Frame(DriverSpecs.Driver, "I am iframe one").Id, Is.EqualTo("iframe1"));
+            Assert.That(DriverHelpers.Frame(DriverSpecs.Driver, "I am iframe two").Id, Is.EqualTo("iframe2"));
         }
 
         [Test]
         public void Finds_by_id()
         {
-            Assert.That(DriverSpecs.Frame("iframe1").Id, Is.EqualTo("iframe1"));
-            Assert.That(DriverSpecs.Frame("iframe2").Id, Is.EqualTo("iframe2"));
+            Assert.That(DriverHelpers.Frame(DriverSpecs.Driver, "iframe1").Id, Is.EqualTo("iframe1"));
+            Assert.That(DriverHelpers.Frame(DriverSpecs.Driver, "iframe2").Id, Is.EqualTo("iframe2"));
         }
 
         [Test]
         public void Finds_by_title()
         {
-            Assert.That(DriverSpecs.Frame("iframe one title").Id, Is.EqualTo("iframe1"));
-            Assert.That(DriverSpecs.Frame("iframe two title").Id, Is.EqualTo("iframe2"));
+            Assert.That(DriverHelpers.Frame(DriverSpecs.Driver, "iframe one title").Id, Is.EqualTo("iframe1"));
+            Assert.That(DriverHelpers.Frame(DriverSpecs.Driver, "iframe two title").Id, Is.EqualTo("iframe2"));
         }
     }
 }

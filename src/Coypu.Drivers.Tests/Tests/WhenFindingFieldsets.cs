@@ -6,27 +6,27 @@ namespace Coypu.Drivers.Tests.Tests
     internal class WhenFindingFieldsets
     {
         [OneTimeSetUp]
-        public void Given() => DriverSpecs.DoSetUp();
+        public void Given() => DriverSpecs.VisitTestPage();
 
         [Test]
         public void Finds_by_legend_text()
         {
-            Assert.That(DriverSpecs.Fieldset("Scope 1").Id, Is.EqualTo("fieldsetScope1"));
-            Assert.That(DriverSpecs.Fieldset("Scope 2").Id, Is.EqualTo("fieldsetScope2"));
+            Assert.That(DriverHelpers.Fieldset(DriverSpecs.Driver, "Scope 1").Id, Is.EqualTo("fieldsetScope1"));
+            Assert.That(DriverHelpers.Fieldset(DriverSpecs.Driver, "Scope 2").Id, Is.EqualTo("fieldsetScope2"));
         }
 
         [Test]
         public void Finds_by_id()
         {
-            Assert.That(DriverSpecs.Fieldset("Scope 1").Native, Is.EqualTo(DriverSpecs.Fieldset("fieldsetScope1").Native));
-            Assert.That(DriverSpecs.Fieldset("Scope 2").Native, Is.EqualTo(DriverSpecs.Fieldset("fieldsetScope2").Native));
+            Assert.That(DriverHelpers.Fieldset(DriverSpecs.Driver, "Scope 1").Native, Is.EqualTo(DriverHelpers.Fieldset(DriverSpecs.Driver, "fieldsetScope1").Native));
+            Assert.That(DriverHelpers.Fieldset(DriverSpecs.Driver, "Scope 2").Native, Is.EqualTo(DriverHelpers.Fieldset(DriverSpecs.Driver, "fieldsetScope2").Native));
         }
 
         [Test]
         public void Finds_only_Fieldsets()
         {
-            Assert.Throws<MissingHtmlException>(() => DriverSpecs.Fieldset("scope1TextInputFieldId"));
-            Assert.Throws<MissingHtmlException>(() => DriverSpecs.Fieldset("sectionOne"));
+            Assert.Throws<MissingHtmlException>(() => DriverHelpers.Fieldset(DriverSpecs.Driver, "scope1TextInputFieldId"));
+            Assert.Throws<MissingHtmlException>(() => DriverHelpers.Fieldset(DriverSpecs.Driver, "sectionOne"));
         }
     }
 }

@@ -8,28 +8,28 @@ namespace Coypu.Drivers.Tests.Tests
     public class WhenForcedToFindInvisibleElements
     {
         [OneTimeSetUp]
-        public void Given() => DriverSpecs.DoSetUp();
+        public void Given() => DriverSpecs.VisitTestPage();
 
         [Test]
         public void Does_find_hidden_inputs()
         {
-            Assert.That("first hidden input", Is.EqualTo(DriverSpecs.Field("firstHiddenInputId", options : Options.Invisible).Value));
+            Assert.That("first hidden input", Is.EqualTo(DriverHelpers.Field(DriverSpecs.Driver, "firstHiddenInputId", options : Options.Invisible).Value));
 
-            Assert.Throws<MissingHtmlException>(() => DriverSpecs.Field("firstHiddenInputId"));
+            Assert.Throws<MissingHtmlException>(() => DriverHelpers.Field(DriverSpecs.Driver, "firstHiddenInputId"));
         }
 
         [Test]
         public void Does_find_invisible_elements()
         {
-            Assert.That("firstInvisibleInputName", Is.EqualTo(DriverSpecs.Button("firstInvisibleInputId", options: Options.Invisible).Name));
+            Assert.That("firstInvisibleInputName", Is.EqualTo(DriverHelpers.Button(DriverSpecs.Driver, "firstInvisibleInputId", options: Options.Invisible).Name));
 
-            Assert.Throws<MissingHtmlException>(() => DriverSpecs.Button("firstInvisibleInputId"));
+            Assert.Throws<MissingHtmlException>(() => DriverHelpers.Button(DriverSpecs.Driver, "firstInvisibleInputId"));
         }
 
         [Test, Explicit("Only works in WatiN")]
         public void It_can_find_invisible_elements_by_text()
         {
-            Assert.That(DriverSpecs.Css("#firstInvisibleSpanId",new Regex("I am an invisible span"), options: Options.Invisible).Name,
+            Assert.That(DriverHelpers.Css(DriverSpecs.Driver, "#firstInvisibleSpanId", new Regex("I am an invisible span"), null, Options.Invisible).Name,
                 Is.EqualTo("firstInvisibleSpanName"));
         }
 
@@ -37,7 +37,7 @@ namespace Coypu.Drivers.Tests.Tests
         public void Explains_it_cannot_find_invisible_elements_by_text()
         {
             Assert.Throws<NotSupportedException>(() =>
-                DriverSpecs.Css("#firstInvisibleSpanId", new Regex("I am an invisible span"), options: Options.Invisible));
+                DriverHelpers.Css(DriverSpecs.Driver, "#firstInvisibleSpanId", new Regex("I am an invisible span"), null, Options.Invisible));
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void Accepts_alerts()
         {
-            _driver.Click(DriverSpecs.Link("Trigger an alert"));
+            _driver.Click(DriverHelpers.Link(_driver, "Trigger an alert"));
             Assert.That(_driver.HasDialog("You have triggered an alert and this is the text.", DriverSpecs.Root), Is.True);
             _driver.AcceptModalDialog(DriverSpecs.Root);
             Assert.That(_driver.HasDialog("You have triggered an alert and this is the text.", DriverSpecs.Root), Is.False);
@@ -27,7 +27,7 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void Clears_dialog()
         {
-            _driver.Click(DriverSpecs.Link("Trigger a confirm"));
+            _driver.Click(DriverHelpers.Link(_driver, "Trigger a confirm"));
             Assert.That(_driver.HasDialog("You have triggered a confirm and this is the text.", DriverSpecs.Root), Is.True);
             _driver.AcceptModalDialog(DriverSpecs.Root);
             Assert.That(_driver.HasDialog("You have triggered a confirm and this is the text.", DriverSpecs.Root), Is.False);
@@ -43,16 +43,16 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void Returns_true()
         {
-            _driver.Click(DriverSpecs.Link("Trigger a confirm"));
+            _driver.Click(DriverHelpers.Link(_driver, "Trigger a confirm"));
             _driver.AcceptModalDialog(DriverSpecs.Root);
-            Assert.That(DriverSpecs.Link("Trigger a confirm - accepted", DriverSpecs.Root), Is.Not.Null);
+            Assert.That(DriverHelpers.Link(_driver, "Trigger a confirm - accepted", DriverSpecs.Root), Is.Not.Null);
         }
 
 
         [Test]
         public void Cancel_Clears_dialog()
         {
-            _driver.Click(DriverSpecs.Link("Trigger a confirm"));
+            _driver.Click(DriverHelpers.Link(_driver, "Trigger a confirm"));
             Assert.That(_driver.HasDialog("You have triggered a confirm and this is the text.", DriverSpecs.Root), Is.True);
             _driver.CancelModalDialog(DriverSpecs.Root);
             Assert.That(_driver.HasDialog("You have triggered a confirm and this is the text.", DriverSpecs.Root), Is.False);
@@ -61,18 +61,18 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void Cancel_Returns_false()
         {
-            _driver.Click(DriverSpecs.Link("Trigger a confirm"));
+            _driver.Click(DriverHelpers.Link(_driver, "Trigger a confirm"));
             _driver.CancelModalDialog(DriverSpecs.Root);
 
-            DriverSpecs.Link("Trigger a confirm - cancelled");
+            DriverHelpers.Link(_driver, "Trigger a confirm - cancelled");
         }
 
         // IE can't do this
         [Test]
         public void Finds_scope_first_for_alerts()
         {
-            _driver.Click(DriverSpecs.Link("Open pop up window"));
-            var popUp = new BrowserWindow(DriverSpecs.DefaultSessionConfiguration, new WindowFinder(_driver, "Pop Up Window", DriverSpecs.Root, DriverSpecs.DefaultOptions), _driver, null, null, null,
+            _driver.Click(DriverHelpers.Link(_driver, "Open pop up window"));
+            var popUp = new BrowserWindow(Default.SessionConfiguration, new WindowFinder(_driver, "Pop Up Window", DriverSpecs.Root, Default.Options), _driver, null, null, null,
                                           new ThrowsWhenMissingButNoDisambiguationStrategy());
             Assert.That("Pop Up Window", Is.EqualTo(_driver.Title(popUp)));
 
@@ -88,8 +88,8 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void Finds_scope_first_for_confirms()
         {
-            _driver.Click(DriverSpecs.Link("Open pop up window"));
-            var popUp = new BrowserWindow(DriverSpecs.DefaultSessionConfiguration, new WindowFinder(_driver, "Pop Up Window", DriverSpecs.Root, DriverSpecs.DefaultOptions), _driver, null, null, null,
+            _driver.Click(DriverHelpers.Link(_driver, "Open pop up window"));
+            var popUp = new BrowserWindow(Default.SessionConfiguration, new WindowFinder(_driver, "Pop Up Window", DriverSpecs.Root, Default.Options), _driver, null, null, null,
                                           new ThrowsWhenMissingButNoDisambiguationStrategy());
             Assert.That("Pop Up Window", Is.EqualTo(_driver.Title(popUp)));
 

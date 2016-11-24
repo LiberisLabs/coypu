@@ -6,7 +6,7 @@ namespace Coypu.Drivers.Tests.Tests
     internal class WhenInspectingTitle
     {
         [OneTimeSetUp]
-        public void Given() => DriverSpecs.DoSetUp();
+        public void Given() => DriverSpecs.VisitTestPage();
 
         [Test]
         public void Gets_the_current_page_title()

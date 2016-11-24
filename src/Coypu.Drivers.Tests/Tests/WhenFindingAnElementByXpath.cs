@@ -6,23 +6,23 @@ namespace Coypu.Drivers.Tests.Tests
     internal class WhenFindingAnElementByXpath
     {
         [OneTimeSetUp]
-        public void Given() => DriverSpecs.DoSetUp();
+        public void Given() => DriverSpecs.VisitTestPage();
 
         [Test]
         public void Finds_present_examples()
         {
             var shouldFind = "//*[@id = 'inspectingContent']//p[@class='css-test']/span";
-            Assert.That(DriverSpecs.XPath(shouldFind).Text, Is.EqualTo("This"));
+            Assert.That(DriverHelpers.XPath(DriverSpecs.Driver, shouldFind).Text, Is.EqualTo("This"));
 
             shouldFind = "//ul[@id='cssTest']/li[3]";
-            Assert.That(DriverSpecs.XPath(shouldFind).Text, Is.EqualTo("Me! Pick me!"));
+            Assert.That(DriverHelpers.XPath(DriverSpecs.Driver, shouldFind).Text, Is.EqualTo("Me! Pick me!"));
         }
 
         [Test]
         public void Does_not_find_missing_examples()
         {
             const string shouldNotFind = "//*[@id = 'inspectingContent']//p[@class='css-missing-test']";
-            Assert.Throws<MissingHtmlException>(() => DriverSpecs.XPath(shouldNotFind),
+            Assert.Throws<MissingHtmlException>(() => DriverHelpers.XPath(DriverSpecs.Driver, shouldNotFind),
                                                 "Expected not to find something at: " + shouldNotFind);
         }
 
@@ -30,7 +30,7 @@ namespace Coypu.Drivers.Tests.Tests
         public void Only_finds_visible_elements()
         {
             const string shouldNotFind = "//*[@id = 'inspectingContent']//p[@class='css-test']/img";
-            Assert.Throws<MissingHtmlException>(() => DriverSpecs.XPath(shouldNotFind),
+            Assert.Throws<MissingHtmlException>(() => DriverHelpers.XPath(DriverSpecs.Driver, shouldNotFind),
                                                 "Expected not to find something at: " + shouldNotFind);
         }
     }

@@ -8,7 +8,7 @@ namespace Coypu.Drivers.Tests.Tests
     internal class WhenSavingScreenshots
     {
         [OneTimeSetUp]
-        public void Given() => DriverSpecs.DoSetUp(@"html\test-card.jpg");
+        public void Given() => DriverSpecs.VisitTestPage(@"html\test-card.jpg");
 
         [Test]
         public void SavesAScreenshot()

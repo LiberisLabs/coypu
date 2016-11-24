@@ -20,12 +20,12 @@ namespace Coypu.Drivers.Tests.Tests
 
             public static Element FindPopUpLink(Driver driver)
             {
-                return DriverSpecs.Link(driver, "Open pop up window", DriverSpecs.Root, DriverSpecs.DefaultOptions);
+                return DriverHelpers.Link(driver, "Open pop up window", DriverSpecs.Root, Default.Options);
             }
 
             public static Element FindPopUp2Link(Driver driver)
             {
-                return DriverSpecs.Link(driver, "Open pop up window 2", DriverSpecs.Root, DriverSpecs.DefaultOptions);
+                return DriverHelpers.Link(driver, "Open pop up window 2", DriverSpecs.Root, Default.Options);
             }
 
             public static Element FindPopUp(Driver driver)
@@ -35,7 +35,7 @@ namespace Coypu.Drivers.Tests.Tests
 
             public static Element FindWindow(Driver driver, string locator)
             {
-                return DriverSpecs.Window(driver, locator, DriverSpecs.Root, DriverSpecs.DefaultOptions);
+                return DriverHelpers.Window(driver, locator, DriverSpecs.Root, Default.Options);
             }
         }
 
@@ -51,7 +51,7 @@ namespace Coypu.Drivers.Tests.Tests
         public void Finds_by_name()
         {
             Helpers.OpenPopup(_driver);
-            var window = DriverSpecs.Window("popUpWindowName", DriverSpecs.Root, DriverSpecs.DefaultOptions);
+            var window = DriverHelpers.Window(_driver, "popUpWindowName", DriverSpecs.Root, Default.Options);
 
             Assert.That(window.Text, Does.Contain("I am a pop up window"));
 
@@ -90,10 +90,10 @@ namespace Coypu.Drivers.Tests.Tests
         {
             Helpers.OpenPopup(_driver);
 
-            var popUp = new BrowserWindow(DriverSpecs.DefaultSessionConfiguration, new WindowFinder(_driver, "Pop Up Window", DriverSpecs.Root, DriverSpecs.DefaultOptions),
+            var popUp = new BrowserWindow(Default.SessionConfiguration, new WindowFinder(_driver, "Pop Up Window", DriverSpecs.Root, Default.Options),
                                           _driver, null, null, null, new ThrowsWhenMissingButNoDisambiguationStrategy());
 
-            DriverSpecs.Id("popUpButtonId", popUp);
+            DriverHelpers.Id(DriverSpecs.Driver, "popUpButtonId", popUp);
 
             Helpers.FindPopUpLink(_driver);
         }
@@ -109,7 +109,7 @@ namespace Coypu.Drivers.Tests.Tests
         public void Errors_on_window_closed()
         {
             Helpers.OpenPopup(_driver);
-            var popUp = new BrowserWindow(DriverSpecs.DefaultSessionConfiguration, new WindowFinder(_driver, "Pop Up Window", DriverSpecs.Root, DriverSpecs.DefaultOptions),
+            var popUp = new BrowserWindow(Default.SessionConfiguration, new WindowFinder(_driver, "Pop Up Window", DriverSpecs.Root, Default.Options),
                                           _driver, null, null, null, new ThrowsWhenMissingButNoDisambiguationStrategy());
 
             _driver.ExecuteScript("self.close();", popUp);

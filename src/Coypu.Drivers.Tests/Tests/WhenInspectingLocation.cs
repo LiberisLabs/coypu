@@ -31,8 +31,8 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void Go_back_and_forward_in_correct_window_scope()
         {
-            _driver.Click(DriverSpecs.Link("Open pop up window"));
-            var popUp = new BrowserWindow(DriverSpecs.DefaultSessionConfiguration, new WindowFinder(_driver, "Pop Up Window", DriverSpecs.Root, DriverSpecs.DefaultOptions), _driver, null, null,
+            _driver.Click(DriverHelpers.Link(_driver, "Open pop up window"));
+            var popUp = new BrowserWindow(Default.SessionConfiguration, new WindowFinder(_driver, "Pop Up Window", DriverSpecs.Root, Default.Options), _driver, null, null,
                                           null, new ThrowsWhenMissingButNoDisambiguationStrategy());
 
             _driver.Visit(SomeRandomStaticHelpers.TestSiteUrl("/auto_login"), DriverSpecs.Root);

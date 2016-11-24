@@ -52,8 +52,8 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void MaximisesCorrectWindowScope()
         {
-            _driver.Click(DriverSpecs.Link("Open pop up window"));
-            var popUp = new BrowserWindow(DriverSpecs.DefaultSessionConfiguration, new WindowFinder(_driver, "Pop Up Window", DriverSpecs.Root, DriverSpecs.DefaultOptions),
+            _driver.Click(DriverHelpers.Link(_driver, "Open pop up window"));
+            var popUp = new BrowserWindow(Default.SessionConfiguration, new WindowFinder(_driver, "Pop Up Window", DriverSpecs.Root, Default.Options),
                                           _driver, null, null, null, new ThrowsWhenMissingButNoDisambiguationStrategy());
 
             try
@@ -75,8 +75,8 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void ResizesCorrectWindowScope()
         {
-            _driver.Click(DriverSpecs.Link("Open pop up window"));
-            var popUp = new BrowserWindow(DriverSpecs.DefaultSessionConfiguration, new WindowFinder(_driver, "Pop Up Window", DriverSpecs.Root, DriverSpecs.DefaultOptions),
+            _driver.Click(DriverHelpers.Link(_driver, "Open pop up window"));
+            var popUp = new BrowserWindow(Default.SessionConfiguration, new WindowFinder(_driver, "Pop Up Window", DriverSpecs.Root, Default.Options),
                                           _driver, null, null, null, new ThrowsWhenMissingButNoDisambiguationStrategy());
 
             try

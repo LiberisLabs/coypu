@@ -7,19 +7,19 @@ namespace Coypu.Drivers.Tests.Tests
     internal class WhenInspectingHtml
     {
         [OneTimeSetUp]
-        public void Given() => DriverSpecs.DoSetUp(@"html\table.htm");
+        public void Given() => DriverSpecs.VisitTestPage(@"html\table.htm");
 
         [Test]
         public void FindsElementOuterHtml()
         {
-            var outerHtml = Normalise(DriverSpecs.Css("table").OuterHTML);
+            var outerHtml = Normalise(DriverHelpers.Css(DriverSpecs.Driver, "table").OuterHTML);
             Assert.That("<table><tbody><tr><th>name</th><th>age</th></tr><tr><td>bob</td><td>12</td></tr><tr><td>jane</td><td>79</td></tr></tbody></table>", Is.EqualTo(outerHtml));
         }
 
         [Test]
         public void FindsElementInnerHtml()
         {
-            var innerHtml = Normalise(DriverSpecs.Css("table").InnerHTML);
+            var innerHtml = Normalise(DriverHelpers.Css(DriverSpecs.Driver, "table").InnerHTML);
             Assert.That("<tbody><tr><th>name</th><th>age</th></tr><tr><td>bob</td><td>12</td></tr><tr><td>jane</td><td>79</td></tr></tbody>", Is.EqualTo(innerHtml));
         }
 

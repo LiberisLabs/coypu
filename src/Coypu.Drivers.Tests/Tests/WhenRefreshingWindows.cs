@@ -7,7 +7,7 @@ namespace Coypu.Drivers.Tests.Tests
     internal class WhenRefreshingWindows
     {
         [OneTimeSetUp]
-        public void Given() => DriverSpecs.DoSetUp();
+        public void Given() => DriverSpecs.VisitTestPage();
 
         [Test]
         public void RefreshCausesPageToReload()
@@ -18,8 +18,8 @@ namespace Coypu.Drivers.Tests.Tests
         [Test]
         public void RefreshesCorrectWindowScope()
         {
-            DriverSpecs.Driver.Click(DriverSpecs.Link("Open pop up window"));
-            var popUp = new BrowserWindow(DriverSpecs.DefaultSessionConfiguration, new WindowFinder(DriverSpecs.Driver,"Pop Up Window", DriverSpecs.Root, DriverSpecs.DefaultOptions), DriverSpecs.Driver, null, null, null, new ThrowsWhenMissingButNoDisambiguationStrategy());
+            DriverSpecs.Driver.Click(DriverHelpers.Link(DriverSpecs.Driver, "Open pop up window"));
+            var popUp = new BrowserWindow(Default.SessionConfiguration, new WindowFinder(DriverSpecs.Driver,"Pop Up Window", DriverSpecs.Root, Default.Options), DriverSpecs.Driver, null, null, null, new ThrowsWhenMissingButNoDisambiguationStrategy());
 
             try
             {

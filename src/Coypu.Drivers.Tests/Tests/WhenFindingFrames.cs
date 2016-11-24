@@ -6,27 +6,27 @@ namespace Coypu.Drivers.Tests.Tests
     internal class WhenFindingFrames
     {
         [OneTimeSetUp]
-        public void Given() => DriverSpecs.DoSetUp(@"html\frameset.htm");
+        public void Given() => DriverSpecs.VisitTestPage(@"html\frameset.htm");
 
         [Test]
         public void Finds_by_header_text()
         {
-            Assert.That(DriverSpecs.Frame("I am frame one").Name, Is.EqualTo("frame1"));
-            Assert.That(DriverSpecs.Frame("I am frame two").Name, Is.EqualTo("frame2"));
+            Assert.That(DriverHelpers.Frame(DriverSpecs.Driver, "I am frame one").Name, Is.EqualTo("frame1"));
+            Assert.That(DriverHelpers.Frame(DriverSpecs.Driver, "I am frame two").Name, Is.EqualTo("frame2"));
         }
 
         [Test]
         public void Finds_by_name()
         {
-            Assert.That(DriverSpecs.Frame("frame1").Name, Is.EqualTo("frame1"));
-            Assert.That(DriverSpecs.Frame("frame2").Name, Is.EqualTo("frame2"));
+            Assert.That(DriverHelpers.Frame(DriverSpecs.Driver, "frame1").Name, Is.EqualTo("frame1"));
+            Assert.That(DriverHelpers.Frame(DriverSpecs.Driver, "frame2").Name, Is.EqualTo("frame2"));
         }
 
         [Test]
         public void Finds_by_id()
         {
-            Assert.That(DriverSpecs.Frame("frame1id").Name, Is.EqualTo("frame1"));
-            Assert.That(DriverSpecs.Frame("frame2id").Name, Is.EqualTo("frame2"));
+            Assert.That(DriverHelpers.Frame(DriverSpecs.Driver, "frame1id").Name, Is.EqualTo("frame1"));
+            Assert.That(DriverHelpers.Frame(DriverSpecs.Driver, "frame2id").Name, Is.EqualTo("frame2"));
         }
     }
 }

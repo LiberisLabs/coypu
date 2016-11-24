@@ -90,7 +90,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Default.cs" />
+    <Compile Include="DriverHelpers.cs" />
+    <Compile Include="ImmediateSingleExecutionFakeTimingStrategy.cs" />
     <Compile Include="Initialize.cs" />
+    <Compile Include="SomeRandomStaticHelpers.cs" />
     <Compile Include="Tests\WhenFindingIds.cs" />
     <Compile Include="Sites\SinatraSite.cs" />
     <Compile Include="Tests\WhenInspectingLocation.cs" />
@@ -181,6 +185,7 @@
     <Compile Include="Tests\WhenUploadingFiles.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ThrowsWhenMissingButNoDisambiguationStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="html\table.htm">

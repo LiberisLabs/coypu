@@ -8,7 +8,7 @@ namespace Coypu.Drivers.Tests.Tests
     internal class WhenGettingCookies
     {
         [OneTimeSetUp]
-        public void Given() => DriverSpecs.DoSetUp();
+        public void Given() => DriverSpecs.VisitTestPage();
 
         [SetUp]
         public void SetUpCookies()

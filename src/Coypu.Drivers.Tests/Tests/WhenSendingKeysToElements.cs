@@ -6,12 +6,12 @@ namespace Coypu.Drivers.Tests.Tests
     internal class WhenSendingKeysToElements
     {
         [OneTimeSetUp]
-        public void Given() => DriverSpecs.DoSetUp();
+        public void Given() => DriverSpecs.VisitTestPage();
 
         [Test]
         public void Sets_value_of_text_input_field_with_id()
         {
-            var textField = DriverSpecs.Field("containerLabeledTextInputFieldName");
+            var textField = DriverHelpers.Field(DriverSpecs.Driver, "containerLabeledTextInputFieldName");
             Assert.That(textField.Value, Is.EqualTo("text input field two val"));
 
             DriverSpecs.Driver.SendKeys(textField, " - send keys without any click, clear first, etc");
